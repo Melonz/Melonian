@@ -1,0 +1,20 @@
+{
+  "name": "melonian",
+  "description": "[WIP] The Discord bot that's super-modular and programmed with love.",
+  "author": {
+	"name": "TheRandomMelon (and the help of GitHub)",
+	"email": "trm@melonz.nl"
+  },
+  "version": "0.0.1", 
+  "license": "MIT",
+  "devDependencies": {
+	"discord.js": "~11.1.0"
+  },
+  "repository": { 
+	"type": "git", 
+	"url": "https://github.com/TheRandomMelon/Melonian.git"
+  },
+  "scripts": {
+	"postinstall": "node setup.js"
+  }
+}

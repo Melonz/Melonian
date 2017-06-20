@@ -57,3 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
+# Sensitive-info removal
+config/main.json
+database/
