@@ -7,7 +7,7 @@ var conf = JSON.parse(conffile);
 var currentserverconf;
 var currentserverconfread;
 
-bot.on('ready', () => {
+bot.on('ready', () => { // When bot is ready to roll
 	console.log("Melonian's ready to rock n' roll! Serving " + bot.guilds.array.length + " guilds with a combined total of " + bot.users.array.length + " users.");
 });
 

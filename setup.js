@@ -1,7 +1,7 @@
-const fs = require("fs");
-const databaseDir = "./database";
+const fs = require("fs"); // require FS
+const databaseDir = "./database"; // Database directory
 
-if (!fs.existsSync(databaseDir)){
+if (!fs.existsSync(databaseDir)){ // If directory doesnt exist then make it
     fs.mkdirSync(databaseDir, (err) => {
 		if (err) {
 			console.error("Melonian setup | Failed to create database directory. | " + err);
@@ -10,11 +10,11 @@ if (!fs.existsSync(databaseDir)){
 	});
 	
 	console.log("Melonian setup | Successfully created database directory");
-} else {
+} else { // If it exists
 	console.log("Melonian setup | Database directory already exists, moving on...");
 }
 
-if(!fs.existsSync(databaseDir + "/sample.json")) {
+if(!fs.existsSync(databaseDir + "/sample.json")) { // if sample database entry doesnt exist
 	var guildobj = {
 	  "discordinfo": {
 		"name": "Sample Guild",
@@ -63,8 +63,9 @@ if(!fs.existsSync(databaseDir + "/sample.json")) {
 	});
 	
 	console.log("Melonian setup | Successfully made sample.json");
-} else {
+} else { // if sample database entry does exist
 	console.log("Melonian setup | Sample JSON file already exists, moving on...");
 }
 
+// setup successful ending
 console.log("Melonian setup | Successfully set up Melonian. Configure config/example_main.json, rename it to main.json, then give Melonian a go!");
