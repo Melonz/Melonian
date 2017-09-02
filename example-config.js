@@ -1,5 +1,5 @@
 /*
-   This file is an example config. Tweak it to your liking.
+   This file is an example config. Tweak it to your liking and rename to "config.js"
 */
 module.exports = {
     token: "token here", // Your bot's token (can be found at https://discordapp.com/developers/applications/me)
