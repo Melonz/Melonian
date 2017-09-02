@@ -1,65 +1,86 @@
-// Main definitions
-const Discord = require("discord.js");
-const bot = new Discord.Client();
-const fs = require("fs");
-var conffile = fs.readFileSync("config/main.json");
-var conf = JSON.parse(conffile);
-var currentserverconf;
-var currentserverconfread;
+const Eris = require("eris");
+const fs = require('fs');
+global.config = require("./config.js");
+global.commands = JSON.parse(fs.readFileSync('./commands.json', 'utf8'));
 
-bot.on('ready', () => { // When bot is ready to roll
-	console.log("Melonian's ready to rock n' roll! Serving " + bot.guilds.array.length + " guilds with a combined total of " + bot.users.array.length + " users.");
+/**
+ * The owner(s) in a list.
+ * @returns {string} The owners in a string list
+ */
+function owners() {
+    var varowners = "";
+    config.maintainers.forEach(function(i, idx, array){
+        if (array.length != 1) {
+            if (idx === array.length - 1) {
+                varowners += "and <@" + i + ">";
+            } else {
+                varowners += "<@" + i + ">, ";
+            }
+        } else {
+            varowners = "<@" + i + ">";
+        }
+    }, this);
+
+    return varowners;
+};
+
+var bot = new Eris.CommandClient(config.token, {}, {
+    description: config.desc,
+    owner: owners(),
+    prefix: config.prefix
 });
 
-bot.on('guildCreate', guild => {
-	var guildobj = {
-		  "discordinfo": {
-			"name": guild.name,
-			"id": guild.id,
-			"icon": guild.iconURL,
-			"datecreated": guild.createdTimestamp,
-			"owner": guild.ownerID,
-			"membercount": guild.memberCount,
-			"newmembersmonth": 0
-		  },
-		  "settingsbot": {
-			"prefix": "m!",
-			"messages": {
-			  "messagestotal": 0,
-			  "messagesmonth": 0,
-			  "messagesday": 0,
-			},
-			"type": "5",
-			"othertype": "Unspecified",
-			"logs": false,
-			"logwhat": 4, // 4 = nothing
-			"modrecord": {
-			  "amount": "0"
-			}
-		  }
-	};
+/**
+ * Ready event (when the bot's connected to Discord)
+ */
+bot.on("ready", () => {
+    console.log("Adding commands... (This may take a bit)");
 
-	fs.writeFile("database/" + guild.id + ".json", JSON.stringify(guildobj), (err) => {
-		if (err) {
-			console.error(err);
-			return;
-		};
-		
-		console.log("Successfully wrote guild config ayo i can code | Guild name: '" + guild.name + "'");
-	});
+    for (const command in commands) {
+        let theCommand = commands[command];
+
+        try {
+            /**
+             * Sets permissions object, depending on if the command is maintainer-only or not
+             */
+            let requireMaintainer;
+            
+            if (theCommand.maintainer === true) {
+                requireMaintainer = {
+                    userIDs: config.maintainers
+                }
+            } else {
+                requireMaintainer = {};
+            }
+
+            /*
+                Debugging
+                ----------------------
+                console.log("[theCommand]:" + theCommand);
+                console.log("[theCommand.label]:" + theCommand.label);
+                console.log("[theCommand.file]:" + theCommand.file);
+                console.log("[theCommand.aliases]:" + theCommand.aliases);
+                console.log("[theCommand.usage]:" + theCommand.usage);
+                console.log("[require('./commands/' + theCommand.file);]: " + typeof require("./commands/" + theCommand.file));
+            */
+
+            bot.registerCommand(command, require("./commands/" + theCommand.file), {
+                aliases: theCommand.aliases,
+                guildOnly: true,
+                description: theCommand.desc,
+                usage: theCommand.usage,
+                requirements: requireMaintainer
+            });
+        } catch (err) {
+            console.error("[Error] " + err);
+        }
+    }
+
+    console.log("\nAdded commands. Melonian is now ready to roll!");
 });
 
-bot.on('message', message => {
-	if (typeof message.channel.recipient != "object" && message.author.id != bot.user.id) {
-	  currentserverconfread = fs.readFileSync("database/" + message.guild.id + ".json");
-	  currentserverconf = JSON.parse(currentserverconfread);
-	  if (message.content === currentserverconf.settingsbot.prefix + 'ping') {
-		message.channel.send("Pong! \n\"I'll sure kick your butt in a game of ping-pong!\" - \"Weird Al\" Yankovic, 2006");
-	  }
-	  currentserverconf = null;
-	} else if (typeof message.channel.recipient === "object" && message.author.id != bot.user.id) {
-		message.channel.send("I don't support DMs yet... Stay tuned, " + message.author.username + "!");
-	}
+bot.on("message", msg => {
+	// Old
 });
 
-bot.login(conf.token);
+bot.connect(); // Won't start without it

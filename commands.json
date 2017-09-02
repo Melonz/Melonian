@@ -1,0 +1,9 @@
+{
+    "ping": {
+		"aliases": ["pong"],
+		"maintainer": false,
+        "desc": "Ping pong, y'know, the usual command",
+		"usage": "",
+        "file": "ping.js"
+	}
+}

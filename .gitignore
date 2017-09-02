@@ -58,5 +58,4 @@ typings/
 .env
 
 # Sensitive Melonian data
-config/main.json
-database/
+config.js

@@ -1,20 +1,18 @@
 {
   "name": "melonian",
-  "description": "[WIP] A lightweight Discord.js bot, made for every Discord guild. ",
+  "description": "[WIP] A lightweight Discord.js bot, made for every Discord guild.",
   "author": {
-	"name": "TheRandomMelon (and the help of GitHub)",
-	"email": "trm@melonz.nl"
+    "name": "TheRandomMelon",
+    "email": "trm@melonz.nl"
   },
-  "version": "0.0.1", 
-  "license": "MIT",
+  "version": "0.0.1",
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheRandomMelon/Melonian.git"
+  },
   "devDependencies": {
-	"discord.js": "~11.1.0"
-  },
-  "repository": { 
-	"type": "git", 
-	"url": "https://github.com/TheRandomMelon/Melonian.git"
-  },
-  "scripts": {
-	"postinstall": "node setup.js"
+    "eris": "^0.7.0",
+    "require-reload": "^0.2.2"
   }
 }
