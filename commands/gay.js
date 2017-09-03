@@ -6,7 +6,7 @@ module.exports = (msg, args) => {
 	} else if (msg.content === msg.prefix + "isNodePointGay") {
 		msg.channel.createMessage("Erm, he's 38% gai " + msg.author.mention);
 	} else if (msg.content === msg.prefix + "isSHGay") {
-		msg.channel.createMessage("Not really, he's 24% gai " + msg.author.mention);
+		msg.channel.createMessage("I don't know how this is possible, but he's -24% gai " + msg.author.mention);
 	} else {
 		var personToTest = args.join(" ");
 		
