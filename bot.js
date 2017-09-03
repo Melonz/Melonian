@@ -62,18 +62,7 @@ bot.on("ready", () => {
             } else {
                 requireMaintainer = {};
             }
-
-            /*
-                Debugging
-                ----------------------
-                console.log("[theCommand]:" + theCommand);
-                console.log("[theCommand.label]:" + theCommand.label);
-                console.log("[theCommand.file]:" + theCommand.file);
-                console.log("[theCommand.aliases]:" + theCommand.aliases);
-                console.log("[theCommand.usage]:" + theCommand.usage);
-                console.log("[require('./commands/' + theCommand.file);]: " + typeof require("./commands/" + theCommand.file));
-            */
-
+			
             bot.registerCommand(command, require("./commands/" + theCommand.file), {
                 aliases: theCommand.aliases,
                 guildOnly: true,

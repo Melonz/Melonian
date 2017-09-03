@@ -5,5 +5,12 @@
         "desc": "Ping pong, y'know, the usual command",
 		"usage": "",
         "file": "ping.js"
+	},
+	"gay": {
+		"aliases": ["isTRMGay", "isIPGGay", "isNodePointGay", "isSHGay"],
+		"maintainer": false,
+        "desc": "Find out if someone is a homosexual man or not (see aliases)",
+		"usage": "[personToTest]",
+        "file": "gay.js"
 	}
 }
