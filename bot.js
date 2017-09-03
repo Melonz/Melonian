@@ -30,6 +30,16 @@ var bot = new Eris.CommandClient(config.token, {}, {
     prefix: config.prefix
 });
 
+
+function switchPlayingGame() {
+	let randomQuote = Math.floor(Math.random() * config.playingQuotes.length);
+	console.log(`[Changed playing quote] Changed to "${config.playingQuotes[randomQuote]}"`);
+	bot.editStatus({
+		"name": config.playingQuotes[randomQuote],
+		"type": 0
+	});
+};
+
 /**
  * Ready event (when the bot's connected to Discord)
  */
@@ -76,11 +86,13 @@ bot.on("ready", () => {
         }
     }
 
+	switchPlayingGame();
+	
+	setInterval(function(){
+		switchPlayingGame();
+	}, 900000);
     console.log("\nAdded commands. Melonian is now ready to roll!");
 });
 
-bot.on("message", msg => {
-	// Old
-});
 
 bot.connect(); // Won't start without it
