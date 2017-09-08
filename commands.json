@@ -11,6 +11,6 @@
 		"maintainer": false,
         "desc": "Find out if someone is a homosexual man or not (see aliases)",
 		"usage": "[personToTest]",
-        "file": "gay.js"
+        "file": "memes/gay.js"
 	}
 }
