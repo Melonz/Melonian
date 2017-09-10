@@ -16,7 +16,7 @@
 	"eval": {
 		"aliases": ["ev", "interpret"],
 		"maintainer": true,
-        "desc": "Evaluate some NodeJS code",
+        "desc": "Evaluate some NodeJS code [maintainer-only]",
 		"usage": "[codeToTest]",
         "file": "eval.js"
 	}

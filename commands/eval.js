@@ -8,9 +8,11 @@ module.exports = (msg, args) => {
 				msgcontent = msgcontent.substring(5, msgcontent.length - 3);
 			}
 			const asyncCode = code => `(async () => {\nreturn ${code}\n})()`;
+			msgcontent = msgcontent.replace(new RegExp(`bot.token|config.token`, "g"), "nuh-uh sonny boy no token 4 u");
 			let result = eval(asyncCode(msgcontent));
 			if (typeof result !== "string") result = require("util").inspect(result, false, 2);
 			result = result.replace(new RegExp(`${bot.token}|${config.token}`, "g"), "nuh-uh sonny boy no token 4 u");
+			
 			msg.channel.createMessage({
 				embed: {
 					description: `\`\`\`js\n${result}\`\`\``,
