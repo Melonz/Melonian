@@ -27,7 +27,8 @@ function owners() {
 var bot = new Eris.CommandClient(config.token, {}, {
     description: config.desc,
     owner: owners(),
-    prefix: config.prefix
+    prefix: config.prefix,
+    permissionMessage: "You don't have permission to use this command."
 });
 
 
@@ -49,7 +50,6 @@ bot.on("ready", () => {
     for (const command in commands) {
         let theCommand = commands[command];
 
-        try {
             /**
              * Sets permissions object, depending on if the command is maintainer-only or not
              */
@@ -70,9 +70,6 @@ bot.on("ready", () => {
                 usage: theCommand.usage,
                 requirements: requireMaintainer
             });
-        } catch (err) {
-            console.error("[Error] " + err);
-        }
     }
 
 	switchPlayingGame();

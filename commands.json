@@ -12,5 +12,12 @@
         "desc": "Find out if someone is a homosexual man or not (see aliases)",
 		"usage": "[personToTest]",
         "file": "memes/gay.js"
+	},
+	"eval": {
+		"aliases": ["ev", "interpret"],
+		"maintainer": true,
+        "desc": "Evaluate some NodeJS code",
+		"usage": "[codeToTest]",
+        "file": "eval.js"
 	}
 }
