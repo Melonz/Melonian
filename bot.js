@@ -22,12 +22,13 @@ function owners() {
     }, this);
 
     return varowners;
-};
+}
 
 var bot = new Eris.CommandClient(config.token, {}, {
     description: config.desc,
     owner: owners(),
     prefix: config.prefix,
+	defaultHelpCommand: false,
     permissionMessage: "You don't have permission to use this command."
 });
 

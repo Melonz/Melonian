@@ -1,4 +1,11 @@
 {
+	"help": {
+		"aliases": ["?", "commands"],
+		"maintainer": false,
+		"desc": "This help command.",
+		"usage": "",
+		"file": "help.js"
+	},
     "ping": {
 		"aliases": ["pong"],
 		"maintainer": false,
@@ -18,6 +25,13 @@
 		"maintainer": true,
         "desc": "Evaluate some NodeJS code [maintainer-only]",
 		"usage": "[codeToTest]",
-        "file": "eval.js"
+        "file": "maintainer/eval.js"
+	},
+	"setUsername": {
+		"aliases": null,
+		"maintainer": true,
+        "desc": "Set username of bot [maintainer-only]",
+		"usage": "[usernameToUse]",
+        "file": "maintainer/setusername.js"
 	}
 }

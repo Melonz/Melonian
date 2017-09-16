@@ -13,6 +13,6 @@
   },
   "devDependencies": {
     "eris": "^0.7.0",
-    "require-reload": "^0.2.2"
+    "prompt": "^1.0.0"
   }
 }
