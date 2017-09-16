@@ -1,6 +1,6 @@
 {
   "name": "melonian",
-  "description": "[WIP] A lightweight Discord.js bot, made for every Discord guild.",
+  "description": "[WIP] A lightweight-ish Eris bot, made for every Discord guild.",
   "author": {
     "name": "TheRandomMelon",
     "email": "trm@melonz.nl"
@@ -12,7 +12,7 @@
     "url": "https://github.com/TheRandomMelon/Melonian.git"
   },
   "devDependencies": {
-    "eris": "^0.7.0",
+    "eris": "^0.7.2",
     "prompt": "^1.0.0"
   }
 }

@@ -3,7 +3,7 @@
 		"aliases": ["?", "commands"],
 		"maintainer": false,
 		"desc": "This help command.",
-		"usage": "",
+		"usage": "[command]?",
 		"file": "help.js"
 	},
     "ping": {
