@@ -59,6 +59,7 @@ typings/
 
 # Sensitive Melonian data
 config.js
+database/
 
 # Main instance only commands
 commands/memes/*

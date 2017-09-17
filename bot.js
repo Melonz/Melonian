@@ -1,8 +1,8 @@
 const Eris = require("eris");
 const fs = require('fs');
+var util = require('util');
 global.config = require("./config.js");
 global.commands = JSON.parse(fs.readFileSync('./commands.json', 'utf8'));
-
 /**
  * The owner(s) in a list.
  * @returns {string} The owners in a string list
@@ -24,12 +24,14 @@ function owners() {
     return varowners;
 }
 
-var bot = new Eris.CommandClient(config.token, {}, {
+let bot = new Eris.CommandClient(config.token, {}, {
     description: config.desc,
     owner: owners(),
     prefix: config.prefix,
 	defaultHelpCommand: false,
-    permissionMessage: "You don't have permission to use this command."
+    defaultCommandOptions: {
+        permissionMessage: "You don't have permission to use this command."
+    }
 });
 
 
@@ -56,9 +58,14 @@ bot.on("ready", () => {
              */
             let requireMaintainer;
             
-            if (theCommand.maintainer === true) {
+            if (theCommand.maintainer === true && theCommand.permissions != undefined) {
                 requireMaintainer = {
-                    userIDs: config.maintainers
+                    userIDs: config.maintainers,
+                    permissions: theCommand.permissions
+                }
+            } else if (theCommand.maintainer === false && theCommand.permissions != undefined) {
+                requireMaintainer = {
+                    permissions: theCommand.permissions
                 }
             } else {
                 requireMaintainer = {};
@@ -78,7 +85,26 @@ bot.on("ready", () => {
 	setInterval(function(){
 		switchPlayingGame();
 	}, 900000);
-    console.log("\nAdded commands. Melonian is now ready to roll!");
+    console.log("\nAdded commands. Checking config files...");
+
+    bot.guilds.forEach(function (guild) {
+        if (fs.existsSync("./database/" + guild.id + ".json")) {
+            console.log("[Config] Found config file for server '" + guild.name + "'");   
+        } else {
+            console.log("[Error] Couldn't find config for server '" + guild.name + "', creating one");
+            
+            var obj = {
+                name: guild.name,
+                id: guild.id,
+                options: {
+                    staff_role_id: "Unspecified",
+                    mod_commands: "false"
+                }
+            };
+
+            fs.writeFileSync("./database/" + guild.id + ".json", JSON.stringify(obj, null, 2), 'utf-8');
+        }
+    });
 });
 
 

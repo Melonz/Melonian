@@ -22,6 +22,14 @@ module.exports = (msg, args) => {
 			return false;
 		}
 	}
+
+	function doesRequirePerm(commandObj) {
+		if (commandObj.requirements.permissions != null || commandObj.requirements.permissions != undefined || commandObj.requirements.permissions != "") {
+			return "Yes, " + JSON.stringify(commandObj.requirements.permissions);
+		} else {
+			return false;
+		}
+	}
 	
 	for(label in bot.commands) {
 		if (bot.commands[label] && bot.commands[label].permissionCheck(msg)) {
@@ -86,6 +94,13 @@ module.exports = (msg, args) => {
 		var objToPush = {
 			name: "Maintainer-only?",
 			value: isCommandMaintainer(cur),
+			inline: false
+		};
+		resultComm.push(objToPush);
+
+		var objToPush = {
+			name: "Requires permissions?",
+			value: doesRequirePerm(cur),
 			inline: false
 		};
 		resultComm.push(objToPush);

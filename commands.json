@@ -33,5 +33,35 @@
         "desc": "Set username of bot [maintainer-only]",
 		"usage": "[usernameToUse]",
         "file": "maintainer/setusername.js"
+	},
+	"config": {
+		"aliases": ["configure", "settings"],
+		"maintainer": false,
+        "desc": "Configure Melonian's settings for your server [Manage Server perms needed]",
+		"usage": "[setting_id|value]?",
+        "file": "moderation/configcommand.js",
+		"permissions": {
+			"manageGuild": true
+		}
+	},
+	"getroleid": {
+		"aliases": null,
+		"maintainer": false,
+        "desc": "Get the role ID of a role",
+		"usage": "[role name]?",
+        "file": "moderation/getroleid.js",
+		"permissions": {
+			"manageRoles": true
+		}
+	},
+	"kick": {
+		"aliases": null,
+		"maintainer": false,
+        "desc": "Kick a member from your server.",
+		"usage": "?",
+        "file": "moderation/kick.js",
+		"permissions": {
+			"kickMembers": true
+		}
 	}
 }
