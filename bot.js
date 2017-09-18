@@ -3,6 +3,10 @@ const fs = require('fs');
 var util = require('util');
 global.config = require("./config.js");
 global.commands = JSON.parse(fs.readFileSync('./commands.json', 'utf8'));
+
+let package = require("package.json");
+global.version = package.version;
+
 /**
  * The owner(s) in a list.
  * @returns {string} The owners in a string list
