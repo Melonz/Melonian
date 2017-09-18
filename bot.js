@@ -1,11 +1,12 @@
 const Eris = require("eris");
 const fs = require('fs');
 var util = require('util');
-global.config = require("./config.js");
-global.commands = JSON.parse(fs.readFileSync('./commands.json', 'utf8'));
 
 let package = require("package.json");
 global.version = package.version;
+
+global.config = require("./config.js");
+global.commands = JSON.parse(fs.readFileSync('./commands.json', 'utf8'));
 
 /**
  * The owner(s) in a list.
