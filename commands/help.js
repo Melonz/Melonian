@@ -137,9 +137,9 @@ module.exports = (msg, args) => {
 		msg.channel.createMessage({
 			embed: {
 				color: 0xD02825,
-				title: bot.user.username + " | A lightweight-ish Eris bot by TheRandomMelon",
+				title: bot.user.username + " | A jack-of-all-trades Eris bot.",
 				url: "https://github.com/TheRandomMelon/Melonian",
-				description: "Instance owned by " + varowners + "\n\n__**Commands**__",
+				description: "Made with ❤ by " + varowners + "\n\n__**Commands**__",
 				fields: result,
 				thumbnail: {
 					url: "https://cdn.discordapp.com/avatars/" + bot.user.id + "/" + bot.user.avatar + ".png"
