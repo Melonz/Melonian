@@ -2,7 +2,7 @@ const Eris = require("eris");
 const fs = require('fs');
 var util = require('util');
 
-let package = require("package.json");
+let package = require("./package.json");
 global.version = package.version;
 
 global.config = require("./config.js");
