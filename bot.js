@@ -35,7 +35,7 @@ let bot = new Eris.CommandClient(config.token, {}, {
     prefix: config.prefix,
 	defaultHelpCommand: false,
     defaultCommandOptions: {
-        permissionMessage: "You don't have permission to use this command."
+        permissionMessage: "🤖 Computer says no! (You don't have permission to use this command.)"
     }
 });
 
@@ -63,10 +63,9 @@ bot.on("ready", () => {
              */
             let requireMaintainer;
             
-            if (theCommand.maintainer === true && theCommand.permissions != undefined) {
+            if (theCommand.maintainer === true) {
                 requireMaintainer = {
-                    userIDs: config.maintainers,
-                    permissions: theCommand.permissions
+                    userIDs: config.maintainers
                 }
             } else if (theCommand.maintainer === false && theCommand.permissions != undefined) {
                 requireMaintainer = {
