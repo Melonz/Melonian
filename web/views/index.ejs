@@ -33,26 +33,35 @@
   </head>
   <body>
     <% include ../partials/includes/navbar.ejs %>
-    <div class="box intro-box">
-      <h1 class="title">Melonian</h1>
-      <h2 class="subtitle" style="color: #eee !important;">
-        <span class="tag is-rounded is-warning">WIP</span> 
-        A jack-of-all-trades Eris bot.
-      </h2>
-      <% if (config.inviteLink.enabled) { %>
-        <a class="button is-large" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
-          <span class="icon">
-            <i class="fa fa-user-plus"></i>
-          </span>
-          <span>Invite now</span>
-        </a>
-      <% } %>
-    </div>
+    <section class="hero is-discord">
+      <div class="hero-body">
+        <div class="container">
+          <img class="is-pulled-left circle" style="margin-right: 25px;" src="https://cdn.discordapp.com/avatars/<%= bot.user.id %>/<%= bot.user.avatar %>.png" />
+          <h1 class="title">
+            <b><%= bot.user.username %></b>
+          </h1>
+          <h2 class="subtitle" style="color: #dedede !important;">
+            A jack-of-all-trades Eris bot.
+          </h2>
+          <% if (config.inviteLink.enabled) { %>
+            <a class="button is-large" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
+              <span class="icon">
+                <i class="fa fa-user-plus"></i>
+              </span>
+              <span>Invite now</span>
+            </a>
+          <% } %>
+        </div>
+      </div>
+    </section>
+
+    <br>
+
     <div class="container">
       <h1 class="title"><%= title %></h1>
       <p>Welcome to <%= title %></p>
       <p>Process has been running for <%= new Date(process.uptime() * 1000).toISOString().substr(11, 8); %> hour(s)</p>
-      <hr>
+      <br>
     </div>
     <% include ../partials/includes/footer.ejs %>
   </body>

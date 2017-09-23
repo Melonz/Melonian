@@ -3080,7 +3080,7 @@ a.dropdown-item {
   white-space: nowrap; }
   a.dropdown-item:hover {
     background-color: #282f2f;
-    color: #0a0a0a; }
+    color: #ccc; }
   a.dropdown-item.is-active {
     background-color: #1abc9c;
     color: #fff; }
@@ -6722,5 +6722,6 @@ body > .nav {
     .is-discord {
       background-color: #7289DA;
     }
+
 
 /*# sourceMappingURL=bulma.css.map */

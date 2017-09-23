@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-brand">
             <a href="/" class="nav-item">
-                <img class="circle" src="/img/logo.png" style="margin-right: 7px;" alt="<%= bot.user.username %>">
+                <img class="circle" src="https://cdn.discordapp.com/avatars/<%= bot.user.id %>/<%= bot.user.avatar %>.png" style="margin-right: 7px;" alt="<%= bot.user.username %>">
                 <b><%= bot.user.username %></b>
             </a>
             <div class="navbar-burger burger" data-target="nav-items">
@@ -14,15 +14,35 @@
         <div class="navbar-menu" id="nav-items">
             <div class="navbar-start">
                 <a href="/" class="navbar-item">Home</a>
-                <a href="/servertest" class="navbar-item">Server info test</a>
             </div>
             <div class="navbar-end">
-                <a class="navbar-item">
-                    <span class="icon">
-                      <i class="fa fa-user"></i>
-                    </span>
-                    Sign in (coming soon)
-                </a>
+                <div class="navbar-item">
+                    <div class="field is-grouped">
+                        <div class="dropdown is-right is-hoverable">
+                            <div class="dropdown-trigger">
+                                <button class="button is-primary" aria-haspopup="true" aria-controls="usrdropdown">
+                                    <span class="icon">
+                                        <img class="fa circle" src="/img/logo.png" aria-hidden="true">
+                                    </span>
+                                    <span>Sign in (coming soon)</span>
+                                    <!-- Dropdown arrow
+                                                    <span class="icon is-small">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                    </span>
+                                    -->
+                                </button>
+                            </div>
+                            <!-- Dropdown
+                                        <div class="dropdown-menu is-pulled-left" id="usrdropdown" role="menu">
+                                            <div class="dropdown-content">
+                                                <a href="/account" class="dropdown-item">
+                                                    My account
+                                                </a>
+                                            </div>
+                                        </div>
+                            -->
+                        </div>
+				</div>
             </div>
         </div>
     </div>
