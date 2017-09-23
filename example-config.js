@@ -14,5 +14,13 @@ module.exports = {
 		"to cycle",
 		"through some games",
 		"use this array."
-	] // The bot will cycle through these "games" every 90 seconds. (90000 ms)
+	], // The bot will cycle through these "games" every 90 seconds. (90000 ms)
+	
+	/* Website */
+	port: 8080, // The port for the server to listen on. If you want to use port 80, you can't have any other webserver running.
+	inviteLink: {
+		enabled: true, // Enables/disables the button on the homepage
+		client_id: "[client id for discord bot]", // Client ID
+		permissions: "19456" // What permissions does your bot need? 
+	}
 };

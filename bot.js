@@ -1,6 +1,7 @@
 const Eris = require("eris");
 const fs = require('fs');
 var util = require('util');
+const web = require('./web/app.js');
 
 let package = require("./package.json");
 global.version = package.version;
@@ -109,7 +110,8 @@ bot.on("ready", () => {
             fs.writeFileSync("./database/" + guild.id + ".json", JSON.stringify(obj, null, 2), 'utf-8');
         }
     });
-});
 
+    web(bot, config);
+});
 
 bot.connect(); // Won't start without it

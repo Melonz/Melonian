@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+
+            });
+          });
+        }
+      });
+    </script>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/css/bulma.css' />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body>
+    <% include ../partials/includes/navbar.ejs %>
+    <br>
+    <div class="container">
+      <h1 class="title"><%= title %></h1>
+      <h2 class="subtitle">Welcome to <%= title %></h2>
+      <hr>
+      <p>Now, here's some information about a random server:</p>
+      <br>
+      <% let guildObj = bot.guilds.random(); %>
+      <h1 class="title">
+        <img class="circle" width="48" style="vertical-align: middle;" src="<%= guildObj.iconURL %>" /> 
+        <%= guildObj.name %>
+      </h1>
+      <hr style="height: 1px;">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child notification is-info">
+            <div class="content">
+                <p class="title">Owner</p>
+                <p class="subtitle" style="color: #eee !important;">
+                    <% var ownerObj = bot.users.find(n => n.id === guildObj.ownerID); %>
+                    <% var thingtoprint = ownerObj.username + "#" + ownerObj.discriminator; %>
+                    <%= thingtoprint %>
+                </p>
+            </div>
+        </article>
+        <article class="tile is-child notification is-success">
+            <div class="content">
+                <p class="title">Member count</p>
+                <p class="subtitle" style="color: #eee !important;">
+                    <%= guildObj.memberCount %>
+                </p>
+            </div>
+        </article>
+      </div>
+
+
+      <hr>
+      <small>Loaded website on <%= new Date(Date.now()) %></small>
+    </div>
+  </body>
+</html>
