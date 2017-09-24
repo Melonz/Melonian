@@ -10,6 +10,9 @@ var http = require('http');
 
 var app = express();
 
+var passport = require('passport-discord');
+var Strategy = passport.Strategy;
+
 module.exports = function(bot, config) {
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
