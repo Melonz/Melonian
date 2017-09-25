@@ -9,19 +9,15 @@
 
         // Check if there are any navbar burgers
         if ($navbarBurgers.length > 0) {
-
           // Add a click event on each of them
           $navbarBurgers.forEach(function ($el) {
             $el.addEventListener('click', function () {
-
               // Get the target from the "data-target" attribute
               var target = $el.dataset.target;
               var $target = document.getElementById(target);
-
               // Toggle the class on both the "navbar-burger" and the "navbar-menu"
               $el.classList.toggle('is-active');
               $target.classList.toggle('is-active');
-
             });
           });
         }
@@ -41,7 +37,7 @@
             <b><%= bot.user.username %></b>
           </h1>
           <h2 class="subtitle" style="color: #dedede !important;">
-            A jack-of-all-trades Eris bot.
+            A jack-of-all-trades Discord bot.
           </h2>
           <% if (config.inviteLink.enabled) { %>
             <a class="button is-large" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
@@ -54,14 +50,47 @@
         </div>
       </div>
     </section>
-
     <br>
-
     <div class="container">
-      <h1 class="title"><%= title %></h1>
-      <p>Welcome to <%= title %></p>
-      <p>Process has been running for <%= new Date(process.uptime() * 1000).toISOString().substr(11, 8); %> hour(s)</p>
-      <br>
+      <h1 class="title">Welcome!</h1>
+      <p><%= bot.user.username %> is a jack-of-all-trades Discord bot, made to <b>suit your needs.</b></p>
+      <p>The website's currently in development, so if any bugs arise, <a href="https://github.com/Melonz/Melonian/issues/new">make an issue on GitHub.</a></p>
+      <hr>
+      <h1 class="title" id="maintainers">Maintainers</h1>
+      <h2 class="subtitle">The people who develop this bot.</h2>
+      <% config.maintainers.forEach(function (maintainer) { let maintainUsr = bot.users.find(u => u.id === maintainer.id); %>
+          <div class="box">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img class="circle" src="<%= maintainUsr.avatarURL %>" alt="maintainer">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong><%= maintainer.name %></strong>
+                    <br>
+                    <%= maintainer.desc %>
+                  </p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <a href="<%= maintainer.website %>" class="level-item">
+                      <span class="icon is-small">
+                        <i class="fa fa-globe"></i>
+                      </span>
+                      <span>
+                        Website
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </div>
+        <% }); %>
+        <br>
     </div>
     <% include ../partials/includes/footer.ejs %>
   </body>

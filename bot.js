@@ -8,6 +8,14 @@ global.version = package.version;
 
 global.config = require("./config.js");
 global.commands = JSON.parse(fs.readFileSync('./commands.json', 'utf8'));
+global.maintainerArray = () => {
+	var varowners = [];
+    config.maintainers.forEach(function(i, idx, array){
+        varowners.push(i.id);
+    }, this);
+
+    return varowners;
+};
 
 /**
  * The owner(s) in a list.
@@ -18,12 +26,12 @@ function owners() {
     config.maintainers.forEach(function(i, idx, array){
         if (array.length != 1) {
             if (idx === array.length - 1) {
-                varowners += "and <@" + i + ">";
+                varowners += "and <@" + i.id + ">";
             } else {
-                varowners += "<@" + i + ">, ";
+                varowners += "<@" + i.id + ">, ";
             }
         } else {
-            varowners = "<@" + i + ">";
+            varowners = "<@" + i.id + ">";
         }
     }, this);
 
@@ -39,7 +47,6 @@ let bot = new Eris.CommandClient(config.token, {}, {
         permissionMessage: "🤖 Computer says no! (You don't have permission to use this command.)"
     }
 });
-
 
 function switchPlayingGame() {
 	let randomQuote = Math.floor(Math.random() * config.playingQuotes.length);
@@ -66,7 +73,7 @@ bot.on("ready", () => {
             
             if (theCommand.maintainer === true) {
                 requireMaintainer = {
-                    userIDs: config.maintainers
+                    userIDs: maintainerArray
                 }
             } else if (theCommand.maintainer === false && theCommand.permissions != undefined) {
                 requireMaintainer = {

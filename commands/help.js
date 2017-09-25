@@ -3,17 +3,17 @@ module.exports = (msg, args) => {
 	let result = [];
 	
 	let varowners = "";
-	config.maintainers.forEach(function(i, idx, array){
-		if (array.length != 1) {
-			if (idx === array.length - 1) {
-				varowners += "and <@" + i + ">";
-			} else {
-				varowners += "<@" + i + ">, ";
-			}
-		} else {
-			varowners = "<@" + i + ">";
-		}
-	}, this);
+    config.maintainers.forEach(function(i, idx, array){
+        if (array.length != 1) {
+            if (idx === array.length - 1) {
+                varowners += "and <@" + i.id + ">";
+            } else {
+                varowners += "<@" + i.id + ">, ";
+            }
+        } else {
+            varowners = "<@" + i.id + ">";
+        }
+    }, this);
 	
 	function isCommandMaintainer(commandObj) {
 		if (commandObj.requirements.userIDs === config.maintainers) {
