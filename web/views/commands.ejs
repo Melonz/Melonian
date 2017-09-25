@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %> | <%= bot.user.username %></title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    </script>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/css/bulma.css' />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body>
+    <% include ../partials/includes/navbar.ejs %>
+    <section class="hero is-discord">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            <b>Commands</b>
+          </h1>
+          <h2 class="subtitle" style="color: #dedede !important;">
+            All of the commands <%= bot.user.username %> features.
+          </h2>
+        </div>
+      </div>
+    </section>
+    <br>
+    <div class="container">
+        <% for(label in bot.commands) { %>
+            <% if (bot.commands[label] && bot.commands[label].requirements.userIDs != maintainerArray) { %>
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong><%= label %></strong>
+                                    <br>
+                                    <%= bot.commands[label].description %>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            <% } %>
+        <% } %>
+        <br>
+    </div>
+    <% include ../partials/includes/footer.ejs %>
+  </body>
+</html>

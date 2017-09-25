@@ -32,6 +32,10 @@ module.exports = function(bot, config) {
     res.render('index.ejs', { title: 'Home', os: os, bot: bot, config: config });
   });
 
+  app.get('/commands', (req, res, next) => { 
+    res.render('commands.ejs', { title: 'Commands', bot: bot, config: config });
+  });
+
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
     var err = new Error('Not Found');
