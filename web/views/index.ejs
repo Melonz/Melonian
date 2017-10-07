@@ -52,9 +52,90 @@
     </section>
     <br>
     <div class="container">
-      <h1 class="title">Welcome!</h1>
+      <h1 class="title">What is Melonian?</h1>
       <p><%= bot.user.username %> is a jack-of-all-trades Discord bot, made to <b>suit your needs.</b></p>
-      <p>The website's currently in development, so if any bugs arise, <a href="https://github.com/Melonz/Melonian/issues/new">make an issue on GitHub.</a></p>
+      <p>We're currently in the early stages of Melonian, but it can do a few cool tricks!</p>
+      <hr>
+      <h1 class="title">What can it do?</h1>
+      <br>
+      </div>
+      <section class="hero is-dark">
+        <div class="hero-body">
+          <div class="container">
+            <div class="tile is-ancestor is-dark">
+              <div class="tile is-vertical is-dark is-8" style="justify-content: center;">
+                <h1 class="title">A few fun things</h1>
+                <h2 class="subtitle">
+                  Not having a good day? Lighten up a bit and have some fun with RNG. That's what <code><%= config.prefix %>gay</code> is for.
+                  <br>
+                  More fun stuff is baking. I can smell it!</h2>
+                  <a href="https://github.com/Melonz/Melonian/blob/master/commands/memes/gay.js" class="button is-black">
+                    <span class="icon">
+                      <i class="fa fa-github"></i>
+                    </span>
+                    <span>
+                    View the code for <b>fun commands</b> on GitHub
+                    </span>
+                  </a>
+              </div>
+              <div class="tile is-parent is-dark" style="justify-content: center;">
+                <div class="tile is-child is-dark">
+                  <img id="mgay" style="border: 2px solid #282f2f; border-radius: 5px;" alt="gay command" src="/img/heroes/mgay.gif" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <div class="tile is-ancestor">
+              <div class="tile is-vertical is-8" style="justify-content: center;">
+                <h1 class="title">Bring out the big guns.</h1>
+                <h2 class="subtitle" style="line-height: 1.5;">
+                  Let's get serious with some serious commands. Melonian has a per-server config that all members with the Manage Server permission can manage. Simply type <code><%= config.prefix %>config</code>.
+                  <br>
+                  There's also <code><%= config.prefix %>kick</code>, to kick out the bad guys. Trust me, it hurts.
+                  <br>
+                  And finally, <code><%= config.prefix %>getroleid</code>, so that you can actually fill out the config :thinking:
+                  <br></h2>
+                  <a href="https://github.com/Melonz/Melonian/tree/master/commands/moderation" class="button is-black">
+                    <span class="icon">
+                      <i class="fa fa-github"></i>
+                    </span>
+                    <span>
+                    View the code for <b>moderation commands</b> on GitHub
+                    </span>
+                  </a>
+              </div>
+              <div class="tile is-parent" style="justify-content: center;">
+                <div class="tile is-child">
+                  <img id="mconfig" style="border: 2px solid #282f2f; border-radius: 5px;" alt="config command" src="/img/heroes/mconfig.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <div class="container">
+      <br>
+      <h1 class="title">Who's using Melonian?</h1>
+      <p>Here's the breakdown:</p>
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Servers</p>
+            <p class="title"><%= bot.guilds.filter(g => typeof g.id === "string").length %></p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Users</p>
+            <p class="title"><%= bot.users.filter(g => typeof g.id === "string").length %></p>
+          </div>
+        </div>
+      </nav>
       <hr>
       <h1 class="title" id="maintainers">Maintainers</h1>
       <h2 class="subtitle">The people who develop this bot.</h2>
@@ -91,7 +172,23 @@
           </div>
         <% }); %>
         <br>
-    </div>
+      </div>
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">Convinced yet?</h1>
+            <h2 class="subtitle">If so, let's get started.</h2>
+            <% if (config.inviteLink.enabled) { %>
+              <a class="button is-large is-discord" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
+                <span class="icon">
+                  <i class="fa fa-user-plus"></i>
+                </span>
+                <span>Invite now</span>
+              </a>
+            <% } %>
+          </div>
+        </div>
+      </section>
     <% include ../partials/includes/footer.ejs %>
   </body>
 </html>
