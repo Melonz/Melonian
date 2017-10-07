@@ -57,6 +57,25 @@ function switchPlayingGame() {
 	});
 };
 
+bot.on("guildCreate", (guild) => {
+        if (fs.existsSync("./database/" + guild.id + ".json")) {
+            console.log("[Config] Server became available: Found config file for server '" + guild.name + "'");   
+        } else {
+            console.log("[Error] Server became available: Couldn't find config for server '" + guild.name + "', creating one");
+            
+            var obj = {
+                name: guild.name,
+                id: guild.id,
+                options: {
+                    staff_role_id: "Unspecified",
+                    mod_commands: "false"
+                }
+            };
+
+            fs.writeFileSync("./database/" + guild.id + ".json", JSON.stringify(obj, null, 2), 'utf-8');
+        }
+});
+
 /**
  * Ready event (when the bot's connected to Discord)
  */
