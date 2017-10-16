@@ -75,7 +75,7 @@
 		"aliases": null,
 		"maintainer": false,
         "desc": "Show a user's true form!",
-		"usage": "[]",
+		"usage": "[@user_mention/user_id]?",
         "file": "moderation/profile.js"
 	}
 }
