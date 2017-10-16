@@ -69,9 +69,13 @@
 		"maintainer": true,
         "desc": "Make Melonian say something.",
 		"usage": "[]",
-        "file": "maintainer/say.js",
-		"permissions": {
-			"kickMembers": true
-		}
+        "file": "maintainer/say.js"
+	},
+	"profile": {
+		"aliases": null,
+		"maintainer": false,
+        "desc": "Show a user's true form!",
+		"usage": "[]",
+        "file": "moderation/profile.js"
 	}
 }
