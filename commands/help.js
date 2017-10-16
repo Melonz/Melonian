@@ -36,7 +36,7 @@ module.exports = (msg, args) => {
 			var objToPush = {
 				name: msg.prefix + label,
 				value: bot.commands[label].description,
-				inline: false
+				inline: true
 			};	
 
 			result.push(objToPush);
