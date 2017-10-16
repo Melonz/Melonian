@@ -13,7 +13,6 @@ module.exports = (msg, args) => {
 		if (args === null || args.length === 0) {
 			msg.channel.createMessage("I need a user to test...");
 		} else {
-			console.log('"' + personToTest + '"');
 			if (personToTest === "<@155432796247162881>" || personToTest === "TheRandomMelon" || personToTest.toUpperCase() === "TRM") {
 				msg.channel.createMessage("Barely, he's 45% gai " + msg.author.mention);
 			} else if (personToTest === "<@146019453291855872>" || personToTest === "InvoxiPlayGames" || personToTest.toUpperCase() === "IPG") {
@@ -23,7 +22,7 @@ module.exports = (msg, args) => {
 			} else if (personToTest === "<@155430797694861312>" || personToTest === "SonicHack" || personToTest.toUpperCase() === "SONIC") {
 				msg.channel.createMessage("I don't know how this is possible, but he's -24% gai " + msg.author.mention);
 			} else {
-				msg.channel.createMessage("I don't know " + personToTest + "... I'll guess that they're " + Math.floor((Math.random() * 101) + 1) + "% gai");
+				msg.channel.createMessage("I don't know who \"" + personToTest + "\" is... I'll guess that they're " + Math.floor((Math.random() * 101) + 1) + "% gai");
 			}
 		}
 	}
