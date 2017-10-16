@@ -64,3 +64,4 @@ database/
 # Main instance only commands
 commands/memes/*
 !commands/memes/gay.js
+!commands/memes/idk.js
