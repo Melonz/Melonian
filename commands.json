@@ -63,5 +63,15 @@
 		"permissions": {
 			"kickMembers": true
 		}
+	},
+	"say": {
+		"aliases": null,
+		"maintainer": true,
+        "desc": "Make Melonian say something.",
+		"usage": "[]",
+        "file": "maintainer/say.js",
+		"permissions": {
+			"kickMembers": true
+		}
 	}
 }

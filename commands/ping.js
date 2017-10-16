@@ -8,10 +8,7 @@ module.exports = (msg, args) => {
         value.edit({
             embed: {
                 color: 0x3669FA,
-                description: `Pong! Latency: ${value.timestamp - msg.timestamp}ms`,
-                footer: {
-                    text: `It took ${value.timestamp - msg.timestamp}ms to ping.`,
-                },
+                description: `Pong! It took ${value.timestamp - msg.timestamp}ms to edit this message.`
             },
         });
     }, reason => {

@@ -112,10 +112,12 @@ bot.on("ready", () => {
     }
 
 	switchPlayingGame();
-	
-	setInterval(function(){
-		switchPlayingGame();
-	}, 900000);
+    
+    if (config.playingQuotes.length > 1) {
+        setInterval(function(){
+            switchPlayingGame();
+        }, 900000);
+    }
     console.log("\nAdded commands. Checking config files...");
 
     bot.guilds.forEach(function (guild) {
