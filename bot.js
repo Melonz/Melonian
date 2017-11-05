@@ -138,7 +138,7 @@ bot.on("ready", () => {
             fs.writeFileSync("./database/" + guild.id + ".json", JSON.stringify(obj, null, 2), 'utf-8');
         }
     });
-
+	
     web(bot, config);
 });
 

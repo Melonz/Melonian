@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %> | <%= bot.user.username %></title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    </script>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/css/bulma.css' />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body>
+    <%- include ../partials/includes/navbar.ejs %>
+    <section class="hero is-discord is-medium">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            <b>Login error</b>
+          </h1>
+		  <h2 class="subtitle">We can't seem to log you in right now. Try again in a little bit.</h2>
+        </div>
+      </div>
+    </section>
+    <% include ../partials/includes/footer.ejs %>
+  </body>
+</html>

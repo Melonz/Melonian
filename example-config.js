@@ -26,6 +26,7 @@ module.exports = {
 	inviteLink: {
 		enabled: true, // Enables/disables the button on the homepage
 		client_id: "[client id for discord bot]", // Client ID
+		client_secret: "[client secret found in your app]", // OAuth2 secret for login
 		permissions: "19456" // What permissions does your bot need? 
 	}
 };

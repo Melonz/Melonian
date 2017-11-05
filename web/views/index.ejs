@@ -28,7 +28,12 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
   <body>
-    <% include ../partials/includes/navbar.ejs %>
+	<% if (successlogout) { %>
+		<div class="notification is-primary" style="border-radius: 0px; margin: 0px;">
+			Successfully logged out.
+		</div>
+	<% } %>
+	<%- include ../partials/includes/navbar.ejs %>
     <section class="hero is-discord">
       <div class="hero-body">
         <div class="container">
