@@ -5,7 +5,15 @@
 Melonian is in an **early development stage**. It has very few commands, and needs some bug-fixing, but it works.
 
 # Can I self-host Melonian?
-You sure can! Heck, I'll even write a tutorial soon.
+You sure can! Here's a simple guide on how:
+
+- Clone the repository, whether that'd be with GitHub Desktop, GitKraken, Git or any other things like that. Just make it Git based.
+- Copy + paste `example-config.js` and rename it to `config.js`.
+- Edit config.js for your needs.
+- Make sure you have Node.js 6+, then run `npm install` in the Melonian folder.
+- Run the bot with `node bot.js`.
+
+If you have any questions, don't be afraid to ask!
 
 # Can I help?
 If you can contribute, don't hesitate to fork the repository and make a PR.
