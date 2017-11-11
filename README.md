@@ -1,4 +1,4 @@
-# Melonian ![Travis CI build](https://travis-ci.org/TheRandomMelon/Melonian.svg?branch=master)
+# Melonian ![Travis CI build](https://travis-ci.org/Melonz/Melonian.svg?branch=master)
 [Work-in-progress] A lightweight-ish Eris bot, made for every Discord guild.
 
 # What state is Melonian in?
