@@ -18,26 +18,6 @@ If you have any questions, don't be afraid to ask!
 # Can I help?
 If you can contribute, don't hesitate to fork the repository and make a PR.
 
-A couple of standards I expect, however:
+One thing we expect:
 
-- It follows the same coding style as mine
-- All Promises used MUST have a ``.then`` and a ``.catch`` attached to them.
-
-For example,
-
-```js
-msg.channel.createMessage("Hi");
-```
-``createMessage`` returns a Promise, so you have to do:
-
-```js
-msg.channel.createMessage("Hi").then (
-	function hi() {
-		console.log("it done");
-	}
-).catch (
-	(reason) => {
-		console.log(reason);
-	}
-);
-```
+- It follows the same coding style as ours
