@@ -84,5 +84,12 @@
         "desc": "The alternative to the old m!gay. You're welcome <@146019453291855872>",
 		"usage": "[thingToContemplate]",
         "file": "memes/idk.js"
+	},
+	"warn": {
+		"aliases": ["strike"],
+		"maintainer": false,
+		"desc": "Warn a user for being very naughty (configure using m!config first tho)",
+		"usage": "[@mention_user_to_warn | reason]",
+		"file": "moderation/warn.js"
 	}
 }

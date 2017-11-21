@@ -131,7 +131,8 @@ bot.on("ready", () => {
                 id: guild.id,
                 options: {
                     staff_role_id: "Unspecified",
-                    mod_commands: "false"
+                    mod_commands: "false",
+                    warnChannel: "Unspecified"
                 }
             };
 

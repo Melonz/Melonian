@@ -63,6 +63,13 @@ module.exports = (msg, args) => {
         };
         resultComm.push(objToPush);
 
+        objToPush = {
+            name: "warnChannel",
+            value: configObj.options.warnChannel,
+            inline: true
+        };
+        resultComm.push(objToPush);
+
         msg.channel.createMessage({
             embed: {
                 color: 0xD02825,
