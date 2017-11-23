@@ -7,10 +7,10 @@
 module.exports = {
     token: "token here", // Your bot's token (can be found at https://discordapp.com/developers/applications/me)
     maintainers: [{
-        id: "user_id",
-        name: "username",
-        desc: "describe the user",
-        website: "https://www.example.com"
+        id: "user_id", // User ID
+        name: "username", // Username (WITHOUT DISCRIMINATOR)
+        desc: "describe the user", // A short desc of what they do
+        website: "https://www.example.com"  // a website thing
     }], // "Maintainers" (has all permissions), // "Maintainers" (has all permissions) - Array of user IDs
     prefix: "m!", // The prefix for all commands. (e.g m!help)
     desc: "[WIP] A lightweight-ish Eris bot, made for every Discord guild.", // Description that will be in the help command
