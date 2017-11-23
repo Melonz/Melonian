@@ -91,5 +91,12 @@
 		"desc": "Warn a user for being very naughty (configure using m!config first tho)",
 		"usage": "[@mention_user_to_warn | reason]",
 		"file": "moderation/warn.js"
+	},
+	"hypnohub": {
+		"aliases": ["hypno"],
+		"maintainer": false,
+		"desc": "HypnoHub searches (https://hypnohub.net)",
+		"usage": "[tags]",
+		"file": "nsfw/hypnohub.js"
 	}
 }
