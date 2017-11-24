@@ -63,14 +63,15 @@ module.exports = function(bot, config) {
 			return done(null, profile);
 		});
 	}));
-	
+
+	app.use(passport.initialize());
+  app.use(passport.session());
+  
 	app.use(session({
 		secret: config.inviteLink.client_secret,
 		resave: false,
 		saveUninitialized: false
 	}));
-	app.use(passport.initialize());
-	app.use(passport.session());
 	
 	app.get('/login/', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
 	app.get('/login/callback', passport.authenticate('discord', { failureRedirect: '/login/fail' }), function(req, res) { res.redirect('/dashboard') 
