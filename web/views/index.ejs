@@ -105,7 +105,7 @@
                   <br>
                   There's also <code><%= config.prefix %>kick</code>, to kick out the bad guys. Trust me, it hurts. Duke Nukem-style.
                   <br>
-                  And finally, <code><%= config.prefix %>getroleid</code>, so that you can actually fill out the config :thinking:
+                  And finally, <code><%= config.prefix %>getroleid</code>, so that you can actually fill out the config 🤔
                   <br></h2>
                   <a href="https://github.com/Melonz/Melonian/tree/master/commands/moderation" class="button is-black">
                     <span class="icon">
@@ -159,7 +159,7 @@
                   <p>
                     <strong><%= maintainer.name %></strong>
                     <br>
-                    <%= maintainer.desc %>
+                    <%= String.raw`${maintainer.desc}` %>
                   </p>
                 </div>
                 <nav class="level is-mobile">
