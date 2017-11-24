@@ -69,7 +69,7 @@ module.exports = function(bot, config) {
 		resave: false,
 		saveUninitialized: false
   }));
-
+  
 	app.use(passport.initialize());
   app.use(passport.session());
 	
