@@ -28,12 +28,6 @@ module.exports = function(bot, config) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'partials')));
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-		res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
 
   app.get('/', (req, res, next) => { 
     let os = require("os");
@@ -79,6 +73,14 @@ module.exports = function(bot, config) {
   
 	app.use(passport.initialize());
   app.use(passport.session());
+
+  
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Credentials", true);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 	
 	app.get('/login/', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
 	app.get('/login/callback', passport.authenticate('discord', { failureRedirect: '/login/fail' }), function(req, res) { res.redirect('/dashboard') 
