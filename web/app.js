@@ -28,6 +28,8 @@ module.exports = function(bot, config) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'partials')));
+  
+  res.setHeader('Set-Cookie', header)
 
   app.get('/', (req, res, next) => { 
     let os = require("os");
@@ -51,7 +53,7 @@ module.exports = function(bot, config) {
 	});
 	passport.deserializeUser(function(obj, done) {
 	  done(null, obj);
-	});
+  });
   
 	passport.use(new Strategy({
 		clientID: config.inviteLink.client_id,
