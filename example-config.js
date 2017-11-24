@@ -10,7 +10,8 @@ module.exports = {
         id: "user_id", // User ID
         name: "username", // Username (WITHOUT DISCRIMINATOR)
         desc: "describe the user", // A short desc of what they do
-        website: "https://www.example.com"  // a website thing
+        website: "https://www.example.com",  // a website thing
+		canEval: true // Allow user to use m!eval
     }], // "Maintainers" (has all permissions), // "Maintainers" (has all permissions) - Array of user IDs
     prefix: "m!", // The prefix for all commands. (e.g m!help)
     desc: "[WIP] A lightweight-ish Eris bot, made for every Discord guild.", // Description that will be in the help command
