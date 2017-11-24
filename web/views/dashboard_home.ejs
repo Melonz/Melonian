@@ -30,12 +30,9 @@
   <body>
     <% include ../partials/includes/navbar.ejs %>
     <div class="container">
-		<h1 class="title">The dashboard is coming soon.</h1>
-		<h2 class="subtitle">For now, here's some info we have gathered up:</h2><br>
-		
-		<p>Avatar</p>
-		<img class="circle" src="https://cdn.discordapp.com/avatars/<%= authUser.id %>/<%= authUser.avatar %>.png?size=128">
-	</div>
+      <h1 class="title">Hey, <%= authUser.username %>!</h1>
+      <h2 class="subtitle">The dashboard is coming soon. Hang tight!</h2>
+    </div>
     <% include ../partials/includes/footer.ejs %>
   </body>
 </html>
