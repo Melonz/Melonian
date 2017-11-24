@@ -6,11 +6,21 @@ module.exports = (msg, args) => {
         if (args) {
             const booru = require('booru')
 
+            if (args.join(" ").includes("loli") || args.join(" ").includes("shota")) {
+                msg.channel.createMessage("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli` or `shota`.");
+                return;
+            }
+
             booru.search('hypnohub.net', args, {limit: 1, random: true})
             .then(booru.commonfy)
             .then(images => {
               //Log the direct link to each image 
               for (let image of images) {
+                if (image.tags.includes("loli") || image.tags.includes("shota")) {
+                    msg.channel.createMessage("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli` or `shota`.");
+                    return;
+                }
+
                 let imgRating = "";
                 if (image.rating === "s") {
                     imgRating = "Safe";
@@ -21,15 +31,14 @@ module.exports = (msg, args) => {
                 } else {
                     imgRating = "Unknown";
                 }
-                msg.channel.createMessage(`<https://hypnohub.net/post/show/${image.id}>\n\n**Rating**: ${imgRating}\n**Score**: ${image.common.score}\n**Tags**: ${image.common.tags.join(" ")}\n\n ${image.common.file_url}`);
+
+                msg.channel.createMessage(`**__<https://hypnohub.net/post/show/${image.id}>__**\n\n**🔞 Rating**: ${imgRating}\n**🏆 Score**: ${image.common.score}\n**📛 Tags**: ` + "``" + image.common.tags.join(" ") + "``" + `\n\n${image.common.file_url}`);
               }
             })
             .catch(err => {
               if (err.name === 'booruError') {
-                //It's a custom error thrown by the package 
                 console.log(err.message)
               } else {
-                //This means I messed up. Whoops. 
                 console.log(err)
               }
             })
