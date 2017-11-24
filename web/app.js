@@ -42,14 +42,11 @@ module.exports = function(bot, config) {
   });
 
   app.get('/commands', (req, res, next) => {
-    res.setHeader('Set-Cookie', header)
 
     res.render('commands.ejs', { title: 'Commands', bot: bot, config: config, authUser: req.user });
   });
   
   app.get('/login/fail', (req, res, next) => { 
-    
-    res.setHeader('Set-Cookie', header)
     res.render('login_error.ejs', { title: 'Error logging in', bot: bot, config: config, authUser: req.user });
   });
   
@@ -89,7 +86,6 @@ module.exports = function(bot, config) {
 	
 	app.get("/dashboard", checkAuth, function(req, res) {
     //console.log(req.user)
-    res.setHeader('Set-Cookie', header)
 		res.render('dashboard_home.ejs', { title: 'Dashboard', bot: bot, config: config, authUser: req.user });
 	});
 	
