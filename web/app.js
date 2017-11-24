@@ -65,7 +65,7 @@ module.exports = function(bot, config) {
 	}));
   
 	app.use(session({
-		secret: config.inviteLink.client_secret,
+		secret: 'Uv4uaDHTbg1WrKwzK4or',
 		resave: false,
 		saveUninitialized: false
   }));
