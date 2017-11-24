@@ -28,20 +28,24 @@ module.exports = function(bot, config) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'partials')));
-  
-  res.setHeader('Set-Cookie', header)
 
   app.get('/', (req, res, next) => { 
     let os = require("os");
+  
+    res.setHeader('Set-Cookie', header)
 
     res.render('index.ejs', { title: 'Home', os: os, bot: bot, config: config, authUser: req.user, successlogout: req.query.successlogout });
   });
 
-  app.get('/commands', (req, res, next) => { 
+  app.get('/commands', (req, res, next) => {
+    res.setHeader('Set-Cookie', header)
+
     res.render('commands.ejs', { title: 'Commands', bot: bot, config: config, authUser: req.user });
   });
   
   app.get('/login/fail', (req, res, next) => { 
+    
+    res.setHeader('Set-Cookie', header)
     res.render('login_error.ejs', { title: 'Error logging in', bot: bot, config: config, authUser: req.user });
   });
   
@@ -80,7 +84,8 @@ module.exports = function(bot, config) {
 	});
 	
 	app.get("/dashboard", checkAuth, function(req, res) {
-		//console.log(req.user)
+    //console.log(req.user)
+    res.setHeader('Set-Cookie', header)
 		res.render('dashboard_home.ejs', { title: 'Dashboard', bot: bot, config: config, authUser: req.user });
 	});
 	
