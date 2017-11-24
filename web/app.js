@@ -28,21 +28,6 @@ module.exports = function(bot, config) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'partials')));
-
-  app.get('/', (req, res, next) => { 
-    let os = require("os");
-
-    res.render('index.ejs', { title: 'Home', os: os, bot: bot, config: config, authUser: req.user, successlogout: req.query.successlogout });
-  });
-
-  app.get('/commands', (req, res, next) => {
-
-    res.render('commands.ejs', { title: 'Commands', bot: bot, config: config, authUser: req.user });
-  });
-  
-  app.get('/login/fail', (req, res, next) => { 
-    res.render('login_error.ejs', { title: 'Error logging in', bot: bot, config: config, authUser: req.user });
-  });
   
    
    // Log-in system (passport-discord)
@@ -73,7 +58,6 @@ module.exports = function(bot, config) {
   
 	app.use(passport.initialize());
   app.use(passport.session());
-
   
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -85,7 +69,22 @@ module.exports = function(bot, config) {
 	app.get('/login/', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
 	app.get('/login/callback', passport.authenticate('discord', { failureRedirect: '/login/fail' }), function(req, res) { res.redirect('/dashboard') 
 	});
-	
+
+  app.get('/', (req, res, next) => { 
+    let os = require("os");
+
+    res.render('index.ejs', { title: 'Home', os: os, bot: bot, config: config, authUser: req.user, successlogout: req.query.successlogout });
+  });
+
+  app.get('/commands', (req, res, next) => {
+
+    res.render('commands.ejs', { title: 'Commands', bot: bot, config: config, authUser: req.user });
+  });
+  
+  app.get('/login/fail', (req, res, next) => { 
+    res.render('login_error.ejs', { title: 'Error logging in', bot: bot, config: config, authUser: req.user });
+  });
+
 	app.get("/dashboard", checkAuth, function(req, res) {
     //console.log(req.user)
 		res.render('dashboard_home.ejs', { title: 'Dashboard', bot: bot, config: config, authUser: req.user });
