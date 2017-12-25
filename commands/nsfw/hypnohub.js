@@ -31,10 +31,10 @@ module.exports = (msg, args) => {
               }
             })
             .catch(err => {
-              if (err.name === 'booruError') {
-                console.log(err.message)
+              if (err.name === 'booruError' && err.message === "You didn't give any images") {
+                msg.channel.createMessage("No results were found.");
               } else {
-                console.log(err)
+                console.log(err);
               }
             })
         } else {
