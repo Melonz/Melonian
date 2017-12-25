@@ -6,11 +6,6 @@ module.exports = (msg, args) => {
         if (args) {
             const booru = require('booru')
 
-            if (args.join(" ").includes("loli") || args.join(" ").includes("shota")) {
-                msg.channel.createMessage("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli` or `shota`.");
-                return;
-            }
-
             booru.search('hypnohub.net', args, {limit: 1, random: true})
             .then(booru.commonfy)
             .then(images => {
