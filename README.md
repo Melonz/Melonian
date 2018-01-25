@@ -18,18 +18,18 @@ A couple of standards I expect, however:
 For example,
 
 ```js
-msg.channel.createMessage("Hi");
+msg.channel.send("Hi");
 ```
-``createMessage`` returns a Promise, so you have to do:
+``send`` returns a Promise, so you have to do:
 
 ```js
-msg.channel.createMessage("Hi").then (
+msg.channel.send("Hi").then (
 	function hi() {
 		console.log("it done");
 	}
 ).catch (
 	(reason) => {
-		console.log(reason);
+		console.log(`Oh oh, an error: ${reason}`);
 	}
 );
 ```
