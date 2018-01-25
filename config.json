@@ -1,6 +1,6 @@
 {
   "token": "bot token here",
-  "maintainer": "insert maintainer id here",
+  "maintainers": ["insert maintainer1 id here", "other maintainer"],
   "version": "0.1.3",
   "branch": "djs-rewrite"
 }
