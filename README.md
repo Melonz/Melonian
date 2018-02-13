@@ -1,5 +1,5 @@
 # Melonian ![Travis CI build](https://travis-ci.org/TheRandomMelon/Melonian.svg?branch=master)
-[Work-in-progress] A lightweight-ish Eris bot, made for every Discord guild.
+[Work-in-progress] A lightweight-ish Discord.js bot, made for every Discord guild.
 
 # What state is Melonian in?
 Melonian is in an **early development stage**. It has very few commands, and needs some bug-fixing, but it works.
@@ -33,3 +33,5 @@ msg.channel.send("Hi").then (
 	}
 );
 ```
+Note: This is a beta version and is very unstable and doesn't have much, for the actual thing: Check the master branch
+=======
