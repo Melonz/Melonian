@@ -27,7 +27,7 @@ module.exports = (msg, args) => {
                     imgRating = "Unknown";
                 }
 
-                msg.channel.createMessage(`**__<https://rule34.xxx/post/show/${image.id}>__**\n\n**ðŸ”ž Rating**: ${imgRating}\n**ðŸ† Score**: ${image.common.score}\n**ðŸ“› Tags**: ` + "``" + image.common.tags.join(" ") + "``" + `\n\n${image.common.file_url}`);
+                msg.channel.createMessage(`**__<https://rule34.xxx/post/show/${image.id}>__**\n\n**🔞 Rating**: ${imgRating}\n**🏆 Score**: ${image.common.score}\n**📛 Tags**: ` + "``" + image.common.tags.join(" ") + "``" + `\n\n${image.common.file_url}`);
               }
             })
             .catch(err => {
