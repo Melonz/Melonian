@@ -95,8 +95,15 @@
 	"hypnohub": {
 		"aliases": ["hypno"],
 		"maintainer": false,
-		"desc": "HypnoHub searches (https://hypnohub.net)",
+		"desc": "HypnoHub searches (https://hypnohub.net) (NSFW channels only)",
 		"usage": "[tags]",
 		"file": "nsfw/hypnohub.js"
+	},
+	"r34": {
+		"aliases": ["rule34", "rule34.xxx"],
+		"maintainer": false,
+		"desc": "Rule34.xxx searches (NSFW channels only)",
+		"usage": "[tags]",
+		"file": "nsfw/r34.js"
 	}
 }
