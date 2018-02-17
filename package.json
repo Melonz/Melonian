@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Melonz/Melonian#readme",
   "dependencies": {
-    "discord.js": "github:hydrabolt/discord.js"
+    "discord.js": "github:hydrabolt/discord.js",
+    "require-reload": "^0.2.2"
   }
 }

@@ -7,6 +7,9 @@ module.exports = {
 		es6: true,
 		node: true,
 	},
+	globals: {
+		Servers: true,
+	},
 	rules: {
 		"no-compare-neg-zero": "error",
 		"no-extra-parens": ["warn", "all", { "nestedBinaryExpressions": false }],
