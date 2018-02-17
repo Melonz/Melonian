@@ -49,4 +49,8 @@ client.on("message", async msg => {
 	return cmdFile(client, msg, suffix);
 });
 
+client.on("guildCreate", async guild => {
+	require("./Events/guildCreate.js");
+});
+
 client.login(config.token); // Login the bot to Discord using the token in `./config.json`
