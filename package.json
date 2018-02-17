@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Melonz/Melonian#readme",
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
+    "mongoose": "^5.0.6",
     "require-reload": "^0.2.2"
   }
 }

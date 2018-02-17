@@ -27,7 +27,7 @@ client.on("message", async msg => {
 	try {
 		serverDocument = await Servers.findOne({ _id: msg.guild.id });
 		if (!serverDocument) throw new Error();
-		prefix = serverDocument.prefix;
+		prefix = serverDocument.config.prefix;
 	} catch (err) {
 		require("./Events/guildCreate")(client, msg.guild);
 		prefix = "/";
@@ -36,14 +36,15 @@ client.on("message", async msg => {
 	if (!msg.content.startsWith(prefix)) return;
 	if (msg.author.bot) return;
 
-	const cmd = msg.content.split(" ")[0].trim().toLowerCase().replace(prefix);
+	const cmd = msg.content.split(" ")[0].trim().toLowerCase().slice(prefix.length);
 	const suffix = msg.content.split(" ").splice(1).join(" ")
 		.trim();
 
 	let cmdFile;
 	try {
-		reload(`./Commands/${cmd}.js`);
+		cmdFile = reload(`./Commands/${cmd}.js`);
 	} catch (err) {
+		console.log(err);
 		return null;
 	}
 	return cmdFile(client, msg, suffix);

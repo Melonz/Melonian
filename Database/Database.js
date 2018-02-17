@@ -6,7 +6,6 @@ const addToGlobal = (name, val) => {
 };
 exports.initialize = url => new Promise((resolve, reject) => {
 	mongoose.connect(url, {
-		useMongoClient: true,
 		promiseLibrary: global.Promise,
 	});
 	const [
