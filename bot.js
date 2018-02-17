@@ -1,13 +1,16 @@
 // The main file where all the nuts are
-const Discord = require("discord.js");
-const bot = new Discord.Client();
+const { Client } = require("discord.js");
+const client = new Client();
 
 const config = require("./config.json");
 
-bot.on("ready", function() {
-  console.log(`Ready!`)
-  client.user.setActivity(`with ${bot.users.size} users!`) // Set the bot's game to how many users are in the servers that the bot is invited in
-})
+client.on("ready", () => {
+	console.log(`Ready!`);
+	client.user.setActivity(`with ${client.users.size} users!`); // Set the bot's game to how many users are in the servers that the bot is invited in
+});
 
+client.on("message", async msg => {
+	if (!msg.content.startsWith(config.prefix)) return;
+});
 
-bot.login(config.token) // Login the bot to Discord using the token in `./config.json`
+client.login(config.token); // Login the bot to Discord using the token in `./config.json`

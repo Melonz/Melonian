@@ -1,0 +1,25 @@
+{
+  "name": "melonian",
+  "version": "1.0.0",
+  "description": "[Work-in-progress] A lightweight-ish Discord.js bot, made for every Discord guild.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Melonz/Melonian.git"
+  },
+  "keywords": [
+    "Melonian"
+  ],
+  "author": "TheRandomMelon, SunburntRock89",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Melonz/Melonian/issues"
+  },
+  "homepage": "https://github.com/Melonz/Melonian#readme",
+  "dependencies": {
+    "discord.js": "github:hydrabolt/discord.js"
+  }
+}
