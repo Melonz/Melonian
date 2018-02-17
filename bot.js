@@ -29,7 +29,7 @@ client.on("message", async msg => {
 		if (!serverDocument) throw new Error();
 		prefix = serverDocument.prefix;
 	} catch (err) {
-		require("./Events/guildCreate")(msg.guild);
+		require("./Events/guildCreate")(client, msg.guild);
 		prefix = "/";
 	}
 
