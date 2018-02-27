@@ -6,7 +6,7 @@ module.exports = async(client, msg, suffix) => {
 			title: "Pong!",
 			description: `Last Heartbeat: ${Math.floor(client.ping)}\nEditing Message ${m.editedTimestamp - m.createdTimestamp}`,
 			footer: {
-				text: client.user.username,
+				text: `${client.user.username} v${config.version} powered by Melonian`,
 			},
 		},
 	});
