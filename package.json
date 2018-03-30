@@ -4,7 +4,7 @@
   "description": "[Work-in-progress] A lightweight-ish Discord.js bot, made for every Discord guild.",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo 'No test' && exit 0"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
     "mongoose": "^5.0.6",
-    "require-reload": "^0.2.2"
+    "require-reload": "^0.2.2",
+    "eslint": "^4.19.0"
   }
 }

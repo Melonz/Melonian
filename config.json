@@ -1,6 +1,6 @@
 {
-  "token": "no",
-  "maintainers": ["insert maintainer 1 id here", "other maintainer"],
+  "token": "MzYyMzk0MjYxNTAyNjg5Mjgx.DY_7pA.ZzIZ5CmN6z13rjERr_7Fl6re2Fg",
+  "maintainers": ["155432796247162881", "137589790538334208"],
   "version": "0.1.3",
   "branch": "djs-rewrite",
   "mongoURL": "mongodb://localhost:27017/melonian"
