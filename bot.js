@@ -44,18 +44,20 @@ client.on("message", async msg => {
 	try {
 		cmdFile = reload(`./Commands/${cmd}.js`);
 	} catch (err) {
-		console.log(err);
+		// The following error is probably just "file not found"
+		// console.log(err);
 		return null;
 	}
 	return cmdFile(client, msg, suffix, config).catch(err => {
-		msg.channel.send({ embed: {
-			title: `Oh uh...`,
-			description: `We've hit an error. Here's what went wrong:\n\`\`\`${err}\`\`\``,
-			footer: {
-				text: `Contact a maintainer for support`,
+		msg.channel.send({
+			embed: {
+				color: 0xff0000,
+				title: `Oh uh...`,
+				description: `We've hit an error. Here's what went wrong:\n\`\`\`${err}\`\`\``,
+				footer: {
+					text: `Contact a maintainer for support`,
+				},
 			},
-			color: 0xff0000,
-		},
 		});
 	});
 });
