@@ -3,25 +3,24 @@
   "version": "1.0.0",
   "description": "[Work-in-progress] A lightweight-ish Discord.js bot, made for every Discord guild.",
   "main": "bot.js",
-  "scripts": {
-    "test": "echo 'No test' && exit 0"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Melonz/Melonian.git"
+    "url": "git+https://gitlab.com/Melonz/Melonian.git"
   },
   "keywords": [
     "Melonian"
   ],
-  "author": "TheRandomMelon, SunburntRock89",
+  "author": "Melonz Software",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/Melonz/Melonian/issues"
+    "url": "https://gitlab.com/Melonz/Melonian/issues"
   },
-  "homepage": "https://github.com/Melonz/Melonian#readme",
+  "homepage": "https://gitlab.com/Melonz/Melonian#readme",
   "dependencies": {
-    "discord.js": "github:hydrabolt/discord.js",
-    "mongoose": "^5.0.6",
-    "require-reload": "^0.2.2"
+    "discord.js": "github:hydrabolt/discord.js#master",
+    "klasa": "github:dirigeants/klasa#master",
+    "pg": "^7.4.3",
+    "require-reload": "^0.2.2",
+    "booru": "^0.4.0"
   }
 }
