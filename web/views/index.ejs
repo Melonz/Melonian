@@ -143,8 +143,8 @@
         </div>
 		<div class="level-item has-text-centered">
           <div>
-            <p class="heading">Channels</p>
-            <p class="title"><%= bot.channels.size %></p>
+            <p class="heading">Text channels</p>
+            <p class="title"><%= bot.channels.filter(c => c.type === "text").size %></p>
           </div>
         </div>
 		<div class="level-item has-text-centered">
@@ -160,7 +160,6 @@
           </div>
         </div>
       </nav>
-	  <p class="has-text-grey-light">Channels include Direct Messages (DMs) and categories.</p>
 	  </div>
 	  <br>
       <section class="hero">
