@@ -24,7 +24,7 @@
 								<% if (authUser) { %>
                                 <button onclick="window.location.href = '/login/';" class="button is-primary" aria-haspopup="true" aria-controls="usrdropdown">
                                     <span class="icon">
-                                        <img class="fa circle" src="<%= authUser.avatarURL() %>" aria-hidden="true"></i>
+                                        <img class="fa circle" src="https://cdn.discordapp.com/avatars/<%= authUser.id %>/<%= authUser.avatar %>.png?size=512" aria-hidden="true"></i>
                                     </span>
                                     <span><%= authUser.username %></span>
                                     <span class="icon is-small">
