@@ -1,5 +1,5 @@
 {
-  "token": "MzYyMzk0MjYxNTAyNjg5Mjgx.DhRQ1g.9aL0owPPMaLk9GW9L60GwVXeRxA",
+  "token": "MzYyMzk0MjYxNTAyNjg5Mjgx.DiFD3A.2FmSj6MFGJsDz9QZIDsuzaFeuJs",
   "maintainers": ["155432796247162881", "137589790538334208"],
   "version": "0.3.1",
   "prefix": "n!",
@@ -9,5 +9,13 @@
     "username": "postgres",
     "password": "postgres",
     "location": "localhost"
-  }
+  },
+  
+  "port": 8080,
+	"inviteLink": {
+		"enabled": true,
+		"client_id": "362394261502689281",
+		"client_secret": "dhTqyIoYVe2nj7f5mqu1BO0xkW6foRyd",
+		"permissions": "19456"
+	}
 }

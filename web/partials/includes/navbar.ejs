@@ -1,0 +1,57 @@
+<nav class="navbar has-shadow is-discord" style="border-radius: 0px;">
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="/" class="nav-item">
+                <img class="circle" src="<%= bot.user.avatarURL() %>" style="margin-right: 7px;" alt="<%= bot.user.username %>">
+                <b><%= bot.user.username %></b>
+            </a>
+            <div class="navbar-burger burger" data-target="nav-items">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="nav-items">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/commands" class="navbar-item">Commands</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="field is-grouped">
+                        <div class="dropdown is-right is-hoverable">
+                            <div class="dropdown-trigger">
+								<% if (authUser) { %>
+                                <button onclick="window.location.href = '/login/';" class="button is-primary" aria-haspopup="true" aria-controls="usrdropdown">
+                                    <span class="icon">
+                                        <img class="fa circle" src="<%= authUser.avatarURL() %>" aria-hidden="true"></i>
+                                    </span>
+                                    <span><%= authUser.username %></span>
+                                    <span class="icon is-small">
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+								<% } else { %>
+								<button onclick="window.location.href = '/login/';" class="button is-primary" aria-haspopup="true" aria-controls="usrdropdown">
+                                    <span class="icon">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <span>Sign in</span>
+                                </button>
+								<% } %>
+                            </div>
+							<% if (authUser) { %>
+                                        <div class="dropdown-menu is-pulled-left" id="usrdropdown" role="menu">
+                                            <div class="dropdown-content">
+                                                <a href="/logout" class="dropdown-item">
+                                                    Log out
+                                                </a>
+                                            </div>
+                                        </div>
+							<% } %>
+                        </div>
+				</div>
+            </div>
+        </div>
+    </div>
+</nav>

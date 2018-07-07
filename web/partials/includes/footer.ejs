@@ -1,0 +1,19 @@
+<footer class="footer" style="padding: 1rem; padding-top: 2rem;">
+  <div class="container has-text-centered">
+      <p>
+        <% if (bot.user.id != "236987731232686081") { %>
+            <strong><%= bot.user.username %></strong>, based on Melonian, which was developed by <b>TheRandomMelon</b> and <a href="https://gitlab.com/Melonz/Melonian/graphs/master">a few other contributors.</a> A <a href="//melonz.nl">Melonz</a> project.
+        <% } else { %>
+            <strong>Melonian</strong>, developed by <b>TheRandomMelon</b> and <a href="https://gitlab.com/Melonz/Melonian/graphs/master">a few other contributors.</a> A <a href="//melonz.nl">Melonz</a> project.
+        <% } %>
+      </p>
+      <br>
+      <ul class="nav nocolor" style="justify-content: center;">
+        <li class="nav-item">
+            <a href="https://gitlab.com/Melonz/Melonian" class="nav-link pl-0">
+                <i class="fa fa-gitlab fa-lg" aria-hidden="true"></i>
+            </a>
+        </li>
+	  </ul>
+  </div>
+</footer>

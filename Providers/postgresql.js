@@ -21,7 +21,7 @@ module.exports = class extends SQLProvider {
 
 	async init() {
 		const connection = mergeDefault({
-			host: "localhost",
+			host: Configuration.database.location,
 			port: 5432,
 			db: Configuration.database.name,
 			options: {

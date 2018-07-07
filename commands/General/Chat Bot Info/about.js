@@ -7,7 +7,7 @@ module.exports = class extends Command {
 			runIn: ["text", "dm"],
 			requiredPermissions: [],
 			requiredSettings: [],
-			aliases: [],
+			aliases: ["info"],
 			autoAliases: true,
 			bucket: 1,
 			cooldown: 0,
