@@ -1,0 +1,22 @@
+{
+	"token": "[Rename this file to config.json and put your token here]",
+	"maintainers": ["user 1", "user 2"],
+	"version": "0.3.1",
+	"prefix": "m!",
+	"branch": "master",
+	"database": {
+	  "name": "postgres",
+	  "username": "postgres",
+	  "password": "postgres",
+	  "location": "localhost"
+	},
+	
+	"port": 8080,
+	  "inviteLink": {
+		  "enabled": true,
+		  "client_id": "client_id",
+		  "client_secret": "client_secret",
+		  "permissions": "19456"
+	  }
+  }
+  
