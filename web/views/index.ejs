@@ -34,10 +34,10 @@
 		</div>
 	<% } %>
 	<%- include ../partials/includes/navbar.ejs %>
-    <section class="hero is-discord">
+    <section class="hero is-melonian">
       <div class="hero-body">
         <div class="container">
-          <img class="is-pulled-left circle" style="margin-right: 25px;" src="<%= bot.user.avatarURL() %>" />
+          <img class="is-pulled-left circle" style="margin-right: 25px; box-shadow: 0px 0px 5px #222;" src="<%= bot.user.avatarURL() %>" />
           <h1 class="title">
             <b><%= bot.user.username %></b>
           </h1>
@@ -45,7 +45,7 @@
             A jack-of-all-trades Discord bot.
           </h2>
           <% if (config.inviteLink.enabled) { %>
-            <a class="button is-large" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
+            <a class="button is-dark is-large" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
               <span class="icon">
                 <i class="fa fa-user-plus"></i>
               </span>
@@ -57,68 +57,66 @@
     </section>
     <br>
     <div class="container">
-      <h1 class="title">What is Melonian?</h1>
-      <p><%= bot.user.username %> is a jack-of-all-trades Discord bot, made to <b>suit your needs.</b></p>
-      <p>We're currently in the early stages of Melonian, but it can do a few cool tricks!</p>
-      <hr>
-      <h1 class="title">What can it do?</h1>
-      <br>
-      </div>
-      <section class="hero is-dark">
+      	<div class="notification is-info">
+        	Melonian has been updated to a beta Discord.js rewrite. Some things here may be incomplete, buggy, or not work at all.
+      	</div>
+	  	<h1 class="title">What is Melonian?</h1>
+    	<h2 class="subtitle">Melonian is a jack-of-all-trades Discord bot made in discord.js. It provides many commands, including:</h2>
+	</div>
+	<br>
+    <section class="hero is-dark">
         <div class="hero-body">
           <div class="container">
             <div class="tile is-ancestor is-dark">
               <div class="tile is-vertical is-dark is-8" style="justify-content: center;">
-                <h1 class="title">A few fun things</h1>
-                <h2 class="subtitle">
-                  Not having a good day? Lighten up a bit and have some fun with RNG. That's what <code><%= config.prefix %>gay</code> is for.
+                <h1 class="title">Some fun stuff</h1>
+                <h2 class="subtitle" style="line-height: 1.6;">
+                  Need to brighten up your mood? Try some Melonian commands!
                   <br>
-                  There's also <code><%= config.prefix %>idk</code>, so you can make the bot question its life or something.
-                  <a href="https://github.com/Melonz/Melonian/blob/master/commands/memes/" class="button is-black">
+                  As shown, there is <code><%= config.prefix %>gay</code>, to check how "gai" someone is, <code><%= config.prefix %>8ball</code>, to test if your question is true, and <code><%= config.prefix %>idk</code>, to make Melonian question something.
+				  <br><br>
+                  <a href="https://gitlab.com/Melonz/Melonian/tree/master/commands/General/Fun" style="width: 100%;" class="button is-gitlab">
                     <span class="icon">
-                      <i class="fa fa-github"></i>
+                      <i class="fa fa-gitlab"></i>
                     </span>
                     <span>
-                    View the code for <b>fun commands</b> on GitHub
+                    View the code for <b>fun commands</b> on GitLab
                     </span>
                   </a>
               </div>
               <div class="tile is-parent is-dark" style="justify-content: center;">
                 <div class="tile is-child is-dark">
-                  <img id="mgay" style="border: 2px solid #282f2f; border-radius: 5px;" alt="gay command" src="/img/heroes/mgay.gif" />
+                  <img id="mgay" style="border: 2px solid #282f2f; border-radius: 5px;" alt="gay command" src="/img/heroes/funcommands.gif" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <section class="hero">
+    </section>
+    <section class="hero">
         <div class="hero-body">
           <div class="container">
             <div class="tile is-ancestor">
               <div class="tile is-vertical is-8" style="justify-content: center;">
-                <h1 class="title">Bring out the big guns.</h1>
-                <h2 class="subtitle" style="line-height: 1.5;">
-                  Let's get serious with some serious commands. Melonian has a per-server config that all members with the Manage Server permission can manage. Simply type <code><%= config.prefix %>config</code>.
+                <h1 class="title">Make some (virtual) money</h1>
+                <h2 class="subtitle" style="line-height: 1.6; color: rgba(236, 240, 241, 0.9);">
+                  Melonian has an economy system. It uses virtual South Korean Won (₩).
                   <br>
-                  Someone acting up? Want to give a nice gentle warning? Well, <code><%= config.prefix %>warn</code>'s got your back.
+                  Use <code><%= config.prefix %>bal</code> to check your current balance, use <code><%= config.prefix %>daily</code> to claim your daily ₩ reward, or use <code><%= config.prefix %>give</code> to give some of your money to another user.
                   <br>
-                  There's also <code><%= config.prefix %>kick</code>, to kick out the bad guys. Trust me, it hurts. Duke Nukem-style.
-                  <br>
-                  And finally, <code><%= config.prefix %>getroleid</code>, so that you can actually fill out the config 🤔
-                  <br></h2>
-                  <a href="https://github.com/Melonz/Melonian/tree/master/commands/moderation" class="button is-black">
+				</h2>
+                  <a href="https://gitlab.com/Melonz/Melonian/tree/master/commands/Economy" class="button is-gitlab">
                     <span class="icon">
-                      <i class="fa fa-github"></i>
+                      <i class="fa fa-gitlab"></i>
                     </span>
                     <span>
-                    View the code for <b>moderation commands</b> on GitHub
+                    View the code for <b>economy commands</b> on GitLab
                     </span>
                   </a>
               </div>
               <div class="tile is-parent" style="justify-content: center;">
                 <div class="tile is-child">
-                  <img id="mconfig" style="border: 2px solid #282f2f; border-radius: 5px;" alt="config command" src="/img/heroes/mconfig.png" />
+                  <img id="mconfig" style="border: 2px solid #282f2f; border-radius: 5px;" alt="config command" src="/img/heroes/economy.png" />
                 </div>
               </div>
             </div>
@@ -127,8 +125,8 @@
       </section>
     <div class="container">
       <br>
-      <h1 class="title">Who's using Melonian?</h1>
-      <p>Here's the breakdown:</p>
+      <h1 class="title">Who's using Melonian? (and other data)</h1>
+      <p>Here's the breakdown:</p><br>
       <nav class="level">
         <div class="level-item has-text-centered">
           <div>
@@ -142,7 +140,26 @@
             <p class="title"><%= bot.users.size %></p>
           </div>
         </div>
+		<div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Channels</p>
+            <p class="title"><%= bot.channels.size %></p>
+          </div>
+        </div>
+		<div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Latest ping</p>
+            <p class="title"><%= Math.round(bot.ping) %>ms</p>
+          </div>
+        </div>
+		<div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Current status</p>
+            <p class="title"><%= bot.user.presence.status.charAt(0).toUpperCase() + bot.user.presence.status.slice(1); %></p>
+          </div>
+        </div>
       </nav>
+	  <p class="has-text-grey-light">Channels include Direct Messages (DMs) and categories.</p>
 	  </div>
 	  <br>
       <section class="hero">

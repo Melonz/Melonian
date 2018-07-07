@@ -1,7 +1,7 @@
-<nav class="navbar has-shadow is-discord" style="border-radius: 0px;">
+<nav class="navbar has-shadow is-melonian" style="border-radius: 0px;">
     <div class="container">
         <div class="navbar-brand">
-            <a href="/" class="nav-item">
+            <a href="/" class="navbar-item">
                 <img class="circle" src="<%= bot.user.avatarURL() %>" style="margin-right: 7px;" alt="<%= bot.user.username %>">
                 <b><%= bot.user.username %></b>
             </a>
@@ -22,7 +22,7 @@
                         <div class="dropdown is-right is-hoverable">
                             <div class="dropdown-trigger">
 								<% if (authUser) { %>
-                                <button onclick="window.location.href = '/login/';" class="button is-primary" aria-haspopup="true" aria-controls="usrdropdown">
+                                <button onclick="window.location.href = '/dashboard/';" class="button is-dark" aria-haspopup="true" aria-controls="usrdropdown">
                                     <span class="icon">
                                         <img class="fa circle" src="https://cdn.discordapp.com/avatars/<%= authUser.id %>/<%= authUser.avatar %>.png?size=512" aria-hidden="true"></i>
                                     </span>
@@ -32,7 +32,7 @@
                                     </span>
                                 </button>
 								<% } else { %>
-								<button onclick="window.location.href = '/login/';" class="button is-primary" aria-haspopup="true" aria-controls="usrdropdown">
+								<button onclick="window.location.href = '/login/';" class="button is-dark" aria-haspopup="true" aria-controls="usrdropdown">
                                     <span class="icon">
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                     </span>
