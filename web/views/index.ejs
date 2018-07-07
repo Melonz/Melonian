@@ -25,7 +25,7 @@
     </script>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel='stylesheet' href='/css/bulma.css' />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-87DrmpqHRiY8hPLIr7ByqhPIywuSsjuQAfMXAE0sMUpY3BM7nXjf+mLIUSvhDArs" crossorigin="anonymous">
 	<%- include ../partials/includes/header.ejs %>
   </head>
   <body>
@@ -48,11 +48,17 @@
           <% if (config.inviteLink.enabled) { %>
             <a class="button is-dark is-large" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
               <span class="icon">
-                <i class="fa fa-user-plus"></i>
+                <i class="fas fa-user-plus"></i>
               </span>
               <span>Invite now</span>
             </a>
           <% } %>
+			<a class="button is-dark is-large" href="https://discord.gg/FFbtj9K">
+              <span class="icon">
+                <i class="fab fa-discord"></i>
+              </span>
+              <span>Join support server</span>
+            </a>
         </div>
       </div>
     </section>
@@ -78,7 +84,7 @@
 				  <br><br>
                   <a href="https://gitlab.com/Melonz/Melonian/tree/master/commands/General/Fun" style="width: 100%;" class="button is-gitlab">
                     <span class="icon">
-                      <i class="fa fa-gitlab"></i>
+                      <i class="fab fa-gitlab"></i>
                     </span>
                     <span>
                     View the code for <b>fun commands</b> on GitLab
@@ -108,7 +114,7 @@
 				</h2>
                   <a href="https://gitlab.com/Melonz/Melonian/tree/master/commands/Economy" class="button is-gitlab">
                     <span class="icon">
-                      <i class="fa fa-gitlab"></i>
+                      <i class="fab fa-gitlab"></i>
                     </span>
                     <span>
                     View the code for <b>economy commands</b> on GitLab
@@ -170,7 +176,7 @@
             <% if (config.inviteLink.enabled) { %>
               <a class="button is-large is-discord" href="https://discordapp.com/oauth2/authorize?&client_id=<%= config.inviteLink.client_id %>&scope=bot&permissions=<%= config.inviteLink.permissions %>">
                 <span class="icon">
-                  <i class="fa fa-user-plus"></i>
+                  <i class="fas fa-user-plus"></i>
                 </span>
                 <span>Invite now</span>
               </a>
