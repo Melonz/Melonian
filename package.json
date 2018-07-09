@@ -1,6 +1,6 @@
 {
   "name": "melonian",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "[Work-in-progress] A lightweight-ish Discord.js bot, made for every Discord guild.",
   "main": "bot.js",
   "repository": {
