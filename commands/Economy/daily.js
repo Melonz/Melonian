@@ -29,7 +29,6 @@ module.exports = class extends Command {
 	async run(message, [usertogive]) {
 		const configuration = require("../../config.json");
 		const timeUntilCollection = message.author.configs.nextDailyCollection - Date.now();
-		console.log(`[timeUntilCollection] [for ${message.author.tag}]: ${timeUntilCollection}`);
 		if (usertogive === null || usertogive === undefined) {
 			if (timeUntilCollection > 0) {
 				await message.channel.send({
@@ -134,6 +133,10 @@ module.exports = class extends Command {
 					},
 				});
 			}
+		}
+
+		if (message.author.configs.won < 0) {
+			message.author.configs.update("won", 0);
 		}
 	}
 };

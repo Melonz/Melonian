@@ -63,6 +63,10 @@ module.exports = class extends Command {
 				},
 			});
 		}
+
+		if (message.author.configs.won < 0) {
+			message.author.configs.update("won", 0);
+		}
 	}
 
 	async init() {

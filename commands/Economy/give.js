@@ -27,6 +27,10 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [moneytogive, user]) {
+		if (message.author.configs.won < 0) {
+			message.author.configs.update("won", 0);
+		}
+
 		const configuration = require("../../config.json");
 		if (moneytogive <= message.author.configs.won) {
 			await message.author.configs.update("won", message.author.configs.won - moneytogive);
