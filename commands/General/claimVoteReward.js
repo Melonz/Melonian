@@ -45,6 +45,7 @@ module.exports = class extends Command {
 				},
 			});
 		} else if (timeUntilCollection <= 0) {
+			await message.author.configs.update("nextVoteCollection", Date.now() + 86400000);
 			dbl.hasVoted(message.author.id).then(voted => {
 				if (voted) {
 					message.author.configs.update("won", message.author.configs.won + 100);
