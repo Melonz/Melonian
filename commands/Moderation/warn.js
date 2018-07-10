@@ -53,7 +53,7 @@ module.exports = class extends Command {
 
 		const configuration = require("../../config.json");
 		if (message.channel.guild.configs.roles.mod === null && message.channel.guild.configs.roles.admin === null) {
-			await message.channel.send(`None of your roles are set up. Please type ${configuration.prefix} to configure them.`);
+			await message.channel.send(`None of your roles are set up. Please type ${configuration.prefix}config to configure them.`);
 		} else if (message.channel.guild.configs.roles.admin != null && message.member.roles.find(m => m.id === message.channel.guild.configs.roles.admin).name != undefined) {
 			doThing();
 		} else if (message.channel.guild.configs.roles.mod != null && message.member.roles.find(m => m.id === message.channel.guild.configs.roles.mod).name != undefined) {

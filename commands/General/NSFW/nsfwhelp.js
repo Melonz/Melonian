@@ -27,6 +27,10 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [...params]) {
+		if (message.channel.nsfw) {
+			await message.channel.send("You're in a NSFW channel! Run `m!help` here for NSFW commands");
+			return;
+		}
 		await message.channel.send("You'll need to use the help command in an NSFW channel to see the NSFW commands.");
 	}
 };
