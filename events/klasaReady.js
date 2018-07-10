@@ -43,6 +43,14 @@ module.exports = class extends Event {
 			});
 		}
 
+		if (!this.client.gateways.users.schema.has("nextVoteCollection")) {
+			await this.client.gateways.users.schema.add("nextVoteCollection", {
+				type: "string",
+				default: `${Date.now()}`,
+				configurable: false,
+			});
+		}
+
 		if (!this.client.gateways.users.schema.has("dailyStreak")) {
 			await this.client.gateways.users.schema.add("dailyStreak", {
 				type: "integer",
