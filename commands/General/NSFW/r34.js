@@ -34,7 +34,10 @@ module.exports = class extends Command {
 			return;
 		}
 		
-		booru.search("rule34.xxx", Tags.split(" ") + " -lolita -shota", { limit: 1, random: true })
+		let tagarray = Tags.split(" ");
+		tagarray.push("-lolita", "-shota");
+		
+		booru.search("rule34.xxx", tagarray, { limit: 1, random: true })
 			.then(booru.commonfy)
 			.then(images => {
 				for (let image of images) {

@@ -34,7 +34,10 @@ module.exports = class extends Command {
 			return;
 		}
 
-		booru.search("hypnohub.net", Tags.split(" ") + " -loli -shota", { limit: 1, random: true })
+		let tagarray = Tags.split(" ");
+		tagarray.push("-loli", "-shota");
+		
+		booru.search("hypnohub.net", tagarray, { limit: 1, random: true })
 			.then(booru.commonfy)
 			.then(images => {
 				for (let image of images) {

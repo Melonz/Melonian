@@ -33,8 +33,11 @@ module.exports = class extends Command {
 			message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli`, `young` or `shota`.");
 			return;
 		}
+		
+		let tagarray = Tags.split(" ");
+		tagarray.push("-loli", "-lolicon", "-shota", "-shotacon", "-young");
 
-		booru.search("e621.net", Tags.split(" ") + " -loli -lolicon -shota -shotacon -young", { limit: 1, random: true })
+		booru.search("e621.net", tagarray, { limit: 1, random: true })
 			.then(booru.commonfy)
 			.then(images => {
 				for (let image of images) {
