@@ -19,7 +19,7 @@ module.exports = class extends Command {
 			description: "Warn a user for being naughty (Moderator and above only)",
 			extendedHelp: "Warn a user for being naughty (Moderator and above only)",
 			usage: "<memberToWarn:member> [reason:str]",
-			usageDelim: " ",
+			usageDelim: " | ",
 			quotedStringSupport: false,
 			subcommands: false,
 		});
