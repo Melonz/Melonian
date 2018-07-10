@@ -33,7 +33,7 @@ module.exports = class extends Command {
 			.then(booru.commonfy)
 			.then(images => {
 				for (let image of images) {
-					if (image.tags.includes("loli") || image.tags.includes("shota")) {
+					if (image.tags.includes("lolita") || image.tags.includes("shota")) {
 						message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli` or `shota`.");
 						return;
 					}
