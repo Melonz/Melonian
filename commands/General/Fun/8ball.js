@@ -68,7 +68,7 @@ module.exports = class extends Command {
 						},
 					},
 				});
-				break;	
+				break;
 			case 3:
 				await message.channel.send({
 					embed: {
