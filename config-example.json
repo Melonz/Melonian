@@ -2,7 +2,7 @@
 	"token": "[Rename this file to config.json and put your token here]",
 	"dbltoken": "[Delete the dbltoken line thing if you dont have a bot on DBL]",
 	"maintainers": ["user 1", "user 2"],
-	"version": "0.5.2",
+	"version": "0.6.0",
 	"prefix": "m!",
 	"branch": "master",
 	"database": {

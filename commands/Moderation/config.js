@@ -19,17 +19,17 @@ module.exports = class extends Command {
 			permissionLevel: 6,
 			description: "Configure Melonian's settings for your guild (requires Manage Server perms)",
 			extendedHelp: "Configure Melonian's settings for your guild (requires Manage Server perms)",
-			usage: "[key:str] [value:role]",
+			usage: "[key:str] [valueRole:role] [valueStr:str]",
 			usageDelim: " ",
 			quotedStringSupport: false,
 			subcommands: false,
 		});
 	}
 
-	async run(message, [key, value]) {
+	async run(message, [key, valueRole, valueStr]) {
 		const configuration = require("../../config.json");
 
-		if (key === null || key === undefined || value === null || value === undefined) {
+		if (key === undefined && valueRole === undefined && valueStr === undefined) {
 			await message.channel.send({
 				embed: {
 					color: 0xD02825,
@@ -46,6 +46,10 @@ module.exports = class extends Command {
 						name: "admin_role",
 						value: `${message.channel.guild.configs.roles.admin}`,
 						inline: true,
+					}, {
+						name: "prefix",
+						value: `${message.channel.guild.configs.prefix}`,
+						inline: true,
 					}],
 					footer: {
 						text: `To change one of these values, type ${configuration.prefix}config <nameOfSetting> <newValue>. ${this.client.user.username} v${configuration.version} powered by Melonian`,
@@ -53,14 +57,17 @@ module.exports = class extends Command {
 				},
 			});
 		} else {
-			if (key != "mod_role" && key != "admin_role") {
+			if (key != "mod_role" && key != "admin_role" && key != "prefix") {
 				await message.channel.send(":x: You did not define a valid setting name to use.");
 			} else if (key === "mod_role") {
-				await message.channel.guild.configs.update("roles.mod", value);
+				await message.channel.guild.configs.update("roles.mod", valueRole);
 				await message.channel.send(":ballot_box_with_check: Made that role the moderator role successfully.");
 			} else if (key === "admin_role") {
-				await message.channel.guild.configs.update("roles.admin", value);
+				await message.channel.guild.configs.update("roles.admin", valueRole);
 				await message.channel.send(":ballot_box_with_check: Made that role the admin role successfully.");
+			} else if (key === "prefix") {
+				await message.channel.guild.configs.update("prefix", valueStr);
+				await message.channel.send(`:ballot_box_with_check: The prefix in this server is now ${message.channel.guild.configs.prefix}.`);
 			}
 		}
 	}
