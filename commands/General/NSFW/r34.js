@@ -29,14 +29,15 @@ module.exports = class extends Command {
 	async run(message, [Tags]) {
 		const booru = require("booru");
 
-		booru.search("rule34.xxx", Tags.split(" "), { limit: 1, random: true })
+		if (Tags.includes("lolita") || Tags.includes("shota")) {
+			message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `lolita` or `shota`.");
+			return;
+		}
+		
+		booru.search("rule34.xxx", Tags.split(" ") + " -lolita -shota", { limit: 1, random: true })
 			.then(booru.commonfy)
 			.then(images => {
 				for (let image of images) {
-					if (image.tags.includes("lolita") || image.tags.includes("shota")) {
-						message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli` or `shota`.");
-						return;
-					}
 
 					let imgRating = "";
 					if (image.rating === "s") {

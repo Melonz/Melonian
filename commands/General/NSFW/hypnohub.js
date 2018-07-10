@@ -28,16 +28,16 @@ module.exports = class extends Command {
 
 	async run(message, [Tags]) {
 		const booru = require("booru");
+		
+		if (Tags.includes("loli") || Tags.includes("shota")) {
+			message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli` or `shota`.");
+			return;
+		}
 
-		booru.search("hypnohub.net", Tags.split(" "), { limit: 1, random: true })
+		booru.search("hypnohub.net", Tags.split(" ") + " -loli -shota", { limit: 1, random: true })
 			.then(booru.commonfy)
 			.then(images => {
 				for (let image of images) {
-					if (image.tags.includes("loli") || image.tags.includes("shota")) {
-						message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `loli` or `shota`.");
-						return;
-					}
-
 					let imgRating = "";
 					if (image.rating === "s") {
 						imgRating = "Safe";
@@ -49,7 +49,7 @@ module.exports = class extends Command {
 						imgRating = "Unknown";
 					}
 
-					message.channel.send(`**__<https://rule34.xxx/post/show/${image.id}>__**\n\n**🔞 Rating**: ${imgRating}\n**🏆 Score**: ${image.common.score}\n**📛 Tags**: \`\`${image.common.tags.join(" ")}\`\`\n\n${image.common.file_url}`);
+					message.channel.send(`**__<https://hypnohub.net/post/show/${image.id}>__**\n\n**🔞 Rating**: ${imgRating}\n**🏆 Score**: ${image.common.score}\n**📛 Tags**: \`\`${image.common.tags.join(" ")}\`\`\n\n${image.common.file_url}`);
 				}
 			})
 			.catch(err => {
