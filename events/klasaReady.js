@@ -58,6 +58,14 @@ module.exports = class extends Event {
 				configurable: false,
 			});
 		}
+		
+		if (!this.client.gateways.guilds.schema.has("certified")) {
+			await this.client.gateways.users.schema.add("certified", {
+				type: "boolean",
+				default: false,
+				configurable: false,
+			});
+		}
 
 		web(this.client, configuration);
 
