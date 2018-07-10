@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+let dbl;
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -44,7 +45,7 @@ module.exports = class extends Command {
 		if (configuration.dbltoken === undefined || configuration.dbltoken === "null") {
 			console.log("No Discord Bot List token, skipping");
 		} else {
-			const dbl = new DBL(configuration.dbltoken, this.client);
+			dbl = new DBL(configuration.dbltoken, this.client);
 			setInterval(() => {
 				dbl.postStats(this.client.guilds.size);
 			}, 1800000);
