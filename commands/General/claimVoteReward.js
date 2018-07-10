@@ -22,7 +22,7 @@ module.exports = class extends Command {
 			usage: "",
 			usageDelim: undefined,
 			quotedStringSupport: false,
-			subcommands: false
+			subcommands: false,
 		});
 	}
 
@@ -39,11 +39,15 @@ module.exports = class extends Command {
 
 	async init() {
 		const configuration = require("../../config.json");
+		const DBL = require("dblapi.js");
+
 		if (configuration.dbltoken === undefined || configuration.dbltoken === "null") {
 			console.log("No Discord Bot List token, skipping");
 		} else {
 			const dbl = new DBL(configuration.dbltoken, this.client);
+			setInterval(() => {
+				dbl.postStats(this.client.guilds.size);
+			}, 1800000);
 		}
 	}
-
 };

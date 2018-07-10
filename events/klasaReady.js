@@ -10,17 +10,7 @@ module.exports = class extends Event {
 
 	async run() {
 		const web = require("../web/app.js");
-		const DBL = require("dblapi.js");
 		const configuration = require("../config.json");
-
-		if (configuration.dbltoken === undefined || configuration.dbltoken === "null") {
-			console.log("No Discord Bot List token, skipping");
-		} else {
-			const dbl = new DBL(configuration.dbltoken, this.client);
-			setInterval(() => {
-				dbl.postStats(this.client.guilds.size);
-			}, 1800000);
-		}
 
 		if (!this.client.gateways.guilds.schema.has("roles")) {
 			await this.client.gateways.guilds.schema.add("roles", {
