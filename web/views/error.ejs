@@ -29,14 +29,14 @@
       });
     </script>
     <link rel='stylesheet' href='/css/bulma.css' />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-87DrmpqHRiY8hPLIr7ByqhPIywuSsjuQAfMXAE0sMUpY3BM7nXjf+mLIUSvhDArs" crossorigin="anonymous">
 	<%- include ../partials/includes/header.ejs %>
   </head>
   <body>
     <%- include ../partials/includes/navbar.ejs %>
     <br>
     <div class="container">
-      <h1 class="title"><%= error.status %> <%= message %></h1>
+      <h1 class="title">There was an issue!</h1>
       <% if (!req.connection.remoteAddress === "::1" || !req.connection.remoteAddress === "127.0.0.1") { %>
         <h2 class="subtitle">Error info:</h2>
         <pre style="border-radius: 10px;"><code><%= error.stack %></code></pre>
@@ -59,7 +59,7 @@
             </span>
         </button>
       <% } else { %>
-        <h2 class="subtitle">There was a problem.</h2>
+        <h2 class="subtitle"><%= error.status %> <%= message %></h2>
         <p>You lost your way, eh? Here's some handy buttons:</p>
         <hr style="height: 1px;">
         <button class="button is-discord" onclick="document.location.href = '/'">
@@ -68,14 +68,6 @@
             </span>
             <span>
                 Go home
-            </span>
-        </button>
-        <button class="button tooltip is-tooltip-multiline is-tooltip-bottom" data-tooltip="The server has encountered an error. If you continue to experience said error, report it to us.">
-            <span class="icon">
-                <i class="fas fa-question-circle"></i>
-            </span>
-            <span>
-                What is this?
             </span>
         </button>
       <% } %>

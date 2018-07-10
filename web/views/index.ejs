@@ -64,9 +64,6 @@
     </section>
     <br>
     <div class="container">
-      	<div class="notification is-info">
-        	Melonian has been updated to a beta Discord.js rewrite. Some things here may be incomplete, buggy, or not work at all.
-      	</div>
 	  	<h1 class="title">What is Melonian?</h1>
     	<h2 class="subtitle">Melonian is a jack-of-all-trades Discord bot made in discord.js. It provides many commands, including:</h2>
 	</div>
@@ -125,6 +122,39 @@
               <div class="tile is-parent" style="justify-content: center;">
                 <div class="tile is-child">
                   <img id="mconfig" style="border: 2px solid #282f2f; border-radius: 5px;" alt="config command" src="/img/heroes/economy.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="hero is-dark">
+        <div class="hero-body is-dark">
+          <div class="container">
+            <div class="tile is-dark is-ancestor">
+              <div class="tile is-dark is-vertical is-8" style="justify-content: center;">
+                <h1 class="title">Moderate your server better</h1>
+                <h2 class="subtitle" style="line-height: 1.6; color: rgba(236, 240, 241, 0.9);">
+                  Melonian has the basic moderation commands you'd expect from a bot like this.
+                  <br>
+                  <b>You must configure <code>mod_role</code> in <code><%= config.prefix %>config</code> first before you can use these.</b>
+                  <br>
+                  Use <code><%= config.prefix %>warn</code> to warn a member who's being slightly naughty. <code><%= config.prefix %>warnings @user</code> will get you a user's warning list, and <code><%= config.prefix %>removeWarning warning_id</code> will remove a warning.
+                  <br>
+                  There is also the usual <code><%= config.prefix %>kick</code> and <code><%= config.prefix %>ban</code> commands.
+				          </h2>
+                  <a href="https://gitlab.com/Melonz/Melonian/tree/master/commands/Moderation" class="button is-gitlab">
+                    <span class="icon">
+                      <i class="fab fa-gitlab"></i>
+                    </span>
+                    <span>
+                    View the code for <b>moderation commands</b> on GitLab
+                    </span>
+                  </a>
+              </div>
+              <div class="tile is-parent" style="justify-content: center;">
+                <div class="tile is-child">
+                  <img id="mconfig" style="border: 2px solid #282f2f; border-radius: 5px;" alt="config command" src="/img/heroes/modcommands.gif" />
                 </div>
               </div>
             </div>
