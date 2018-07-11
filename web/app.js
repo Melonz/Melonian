@@ -79,6 +79,10 @@ module.exports = function billy(bot, config) {
 	app.get("/commands", (req, res, next) => {
 		res.render("commands.ejs", { title: "Commands", bot: bot, config: config, authUser: req.user });
 	});
+	
+	app.get("/servers", (req, res, next) => {
+		res.render("server-list.ejs", { title: "Servers", bot: bot, config: config, authUser: req.user });
+	});
 
 	app.get("/login/fail", (req, res, next) => {
 		res.render("login_error.ejs", { title: "Error logging in", bot: bot, config: config, authUser: req.user });
@@ -95,7 +99,7 @@ module.exports = function billy(bot, config) {
 	});
 	
 	app.post("/dashboard/applySettings", checkAuth, (req, res) => {
-		res.render("dashboard_make_changes.ejs", { title: "Applying settings... | Dashboard", bot: bot, config: config, authUser: req.user, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic });
+		res.render("dashboard_make_changes.ejs", { title: "Applying settings... | Dashboard", bot: bot, config: config, authUser: req.user, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic });
 	});
 	
 	app.get("/owner-dashboard", checkAuth, (req, res) => {
@@ -131,7 +135,7 @@ module.exports = function billy(bot, config) {
 			res.status(403);
 			res.render("error", { title: "Error!", bot: bot, req: req, authUser: req.user });
 		}
-		res.render("owner_dashboard_make_changes.ejs", { title: "Applying settings... | Owner Dashboard", bot: bot, config: config, authUser: req.user, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic, makeCertified: req.body.makeCertified });
+		res.render("owner_dashboard_make_changes.ejs", { title: "Applying settings... | Owner Dashboard", bot: bot, config: config, authUser: req.user, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic, makeCertified: req.body.makeCertified });
 	});
 	
 	app.post("/owner-dashboard/post", checkAuth, (req, res) => {

@@ -41,7 +41,7 @@
 			<section class="hero is-melonian">
 			  <div class="hero-body">
 				<div class="container">
-					<a href="/dashboard" style="color: #dedede !important;">← Back to owner dashboard</a>
+					<a href="/owner-dashboard" style="color: #dedede !important;">← Back to owner dashboard</a>
 					<img class="is-pulled-left circle" style="margin-right: 25px; box-shadow: 0px 0px 5px #222;" width="105" src="https://cdn.discordapp.com/icons/<%= bot.guilds.find(m => m.id === s).id %>/<%= bot.guilds.find(m => m.id === s).icon %>.png?size=128" />
 					<h1 class="title" style="margin-bottom: 2.25rem;">Configuring server "<%= bot.guilds.find(m => m.id === s).name %>"</h1>
 					<h2 class="subtitle" style="color: #dedede !important;">
@@ -108,6 +108,16 @@
 					<b>Prefix</b>
 					<input class="input" type="text" name="botPrefix" style="margin-top: 5px;" minlength="1" placeholder="Prefix" value="<%= bot.guilds.find(m => m.id === s).configs.prefix %>">
 					<br><br>
+					<b>Server invite</b>
+					<% if (bot.guilds.find(m => m.id === s).me.hasPermission("MANAGE_GUILD")) { %>
+					<p class="help has-text-grey-light">Invite must be valid, never expire, and for this server. May use <code>https://discord.gg/invite</code> or <code>invite</code>.</p><br>
+					<input class="input" type="text" name="serverInv" style="margin-top: 5px;" minlength="1" placeholder="Server invite" value="<%= bot.guilds.find(m => m.id === s).configs.serverInv %>">
+					<% } else { %>
+					<br><br>
+					<div class="notification is-danger">
+						Melonian needs the Manage Server permission to check your invites.
+					</div>
+					<% } %>
 					<label class="checkbox">
 						<% if (bot.guilds.find(m => m.id === s).configs.public) { %>
 							<input type="checkbox" name="makePublic" checked>
@@ -117,6 +127,10 @@
 						Make this server public
 						<p class="help has-text-grey-light">This will add "<%= bot.guilds.find(m => m.id === s).name %>" to the public Melonian server list.</p>
 					</label>
+					<br><br>
+					<b>Server description</b>
+					<p class="help has-text-grey-light">This will only appear on the website if you check the "Make this server public" box. The maximum amount of characters is 150.</p><br>
+					<textarea name="serverDesc" class="textarea" maxlength="150"><%= bot.guilds.find(m => m.id === s).configs.serverDesc %></textarea>
 					<br><br>
 					<h1 class="title is-4" style="margin-top: 25px;">Bot owner settings</h1>
 					<h2 class="subtitle">Other Melonian settings only you can configure.</h2>

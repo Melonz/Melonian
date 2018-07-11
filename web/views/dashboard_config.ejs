@@ -118,6 +118,20 @@
 						<p class="help has-text-grey-light">This will add "<%= bot.guilds.find(m => m.id === s).name %>" to the public Melonian server list.</p>
 					</label>
 					<br><br>
+					<b>Server invite</b>
+					<% if (bot.guilds.find(m => m.id === s).me.hasPermission("MANAGE_GUILD")) { %>
+					<p class="help has-text-grey-light">Invite must be valid, never expire, and for this server. May use <code>https://discord.gg/invite</code> or <code>invite</code>.</p><br>
+					<input class="input" type="text" name="serverInv" style="margin-top: 5px;" minlength="1" placeholder="Server invite" value="<%= bot.guilds.find(m => m.id === s).configs.serverInv %>">
+					<% } else { %>
+					<br><br>
+					<div class="notification is-danger">
+						Melonian needs the Manage Server permission to check your invites.
+					</div>
+					<% } %>
+					<b>Server description</b>
+					<p class="help has-text-grey-light">This will only appear on the website if you check the "Make this server public" box.</p>
+					<textarea name="serverDesc" class="textarea" maxlength="150"><%= bot.guilds.find(m => m.id === s).configs.serverDesc %></textarea>
+					<br><br>
 					<input type="submit" class="button is-melonian" value="Save changes">
 				</form>
 			</div>

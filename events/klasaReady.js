@@ -74,6 +74,22 @@ module.exports = class extends Event {
 				configurable: false,
 			});
 		}
+		
+		if (!this.client.gateways.guilds.schema.has("serverDesc")) {
+			await this.client.gateways.guilds.schema.add("serverDesc", {
+				type: "string",
+				default: "",
+				configurable: false,
+			});
+		}
+		
+		if (!this.client.gateways.guilds.schema.has("serverInv")) {
+			await this.client.gateways.guilds.schema.add("serverInv", {
+				type: "string",
+				default: null,
+				configurable: false,
+			});
+		}
 
 		web(this.client, configuration);
 

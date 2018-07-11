@@ -67,7 +67,19 @@
                 <i class="fas fa-home"></i>
             </span>
             <span>
-                Go home
+				<% if (authUser) { %>
+					<%= authUser.username %>, come home!
+				<% } else { %>
+					Go home
+				<% } %>
+            </span>
+        </button>
+		<button class="button is-melonian" onclick="document.location.href = '/dashboard'">
+            <span class="icon">
+                <i class="fas fa-tachometer-alt"></i>
+            </span>
+            <span>
+				Go to the dashboard
             </span>
         </button>
       <% } %>

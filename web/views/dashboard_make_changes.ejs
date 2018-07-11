@@ -8,13 +8,37 @@
 	<% } %>
 			
 	<% if (bot.guilds.find(m => m.id === s).configs.prefix != botPrefix && botPrefix != "" && botPrefix != null && !botPrefix.includes(" ")) { %>
-		<% bot.guilds.find(m => m.id === s).configs.update("prefix", botPrefix) %>
+		<% bot.guilds.find(m => m.id === s).configs.update("prefix", botPrefix.trim()) %>
 	<% } %>
 			
 	<% if (makePublic && makePublic === "on") { %>
 		<% bot.guilds.find(m => m.id === s).configs.update("public", true) %>
 	<% } else if (!makePublic && makePublic != "on") { %>
 		<% bot.guilds.find(m => m.id === s).configs.update("public", false) %>
+	<% } %>
+	
+	<% if (serverDesc && serverDesc.length <= 150) { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("serverDesc", serverDesc.trim()) %>
+	<% } else if (serverDesc && serverDesc.length > 150) { %>
+		<h1>Warning: Your server description is over 150 characters. Didn't apply it</h1>
+	<% } %>
+	
+	<% if (serverInv && serverInv.trim().length >= 1) { %>
+		<% if (bot.guilds.find(m => m.id === s).me.hasPermission("MANAGE_GUILD")) { %>
+			<% let newInv = serverInv.replace("https://discord.gg/", ""); %>
+			<% bot.guilds.find(m => m.id === s).fetchInvites().then(function(invites) { %>
+				<% for (var i in invites.filter(m => m.temporary === false).array()) { %>
+					<% if (invites.filter(m => m.temporary === false).array()[i].code === newInv.trim()) { %>
+						<% bot.guilds.find(m => m.id === s).configs.update("serverInv", invites.filter(m => m.temporary === false).array()[i].code) %>
+						<% break; %>
+					<% } else { %>
+						<% continue; %>
+					<% } %>
+				<% } %>
+			<% }); %>
+		<% } else { %>
+			<h1>Warning: Melonian does not have the Manage Server permission, so the invite won't be set.</h1>
+		<% } %>
 	<% } %>
 	
 	<h1>All done!</h1>
