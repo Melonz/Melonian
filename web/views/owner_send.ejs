@@ -1,0 +1,15 @@
+<% if (s && bot.guilds.find(m => m.id === s) && selectText && textMessage) { %>
+	<% if (bot.guilds.find(m => m.id === s).channels.find(m => m.name === selectText.substring(1)) && textMessage != null && textMessage != "" && textMessage != " ") { %>
+		
+		<% bot.guilds.find(m => m.id === s).channels.find(m => m.name === selectText.substring(1)).send(textMessage); %>
+		
+		<h1>All done!</h1>
+		<h2>If you're not redirected soon, click <a href="/owner-dashboard/configure/?s=<%= s %>&sent=1">here</a>.</h2>
+		
+		<script>window.location.replace("/owner-dashboard/configure/?s=<%= s %>&sent=1");</script>
+	<% } else { %>
+		<h1>hhhhggdfgf</h1>
+	<% } %>
+<% } else { %>
+	<h1>hhhgfh</h1>
+<% } %>

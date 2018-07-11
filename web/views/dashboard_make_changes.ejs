@@ -1,0 +1,26 @@
+<% if (s && bot.guilds.find(m => m.id === s) && bot.guilds.find(m => m.id === s).members.find(m => m.id === authUser.id).hasPermission("MANAGE_GUILD") && selectMod && selectAdmin && botPrefix) { %>
+	<% if (bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("roles.mod", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) %>
+	<% } %>
+			
+	<% if (bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectAdmin)) { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("roles.admin", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectAdmin)) %>
+	<% } %>
+			
+	<% if (bot.guilds.find(m => m.id === s).configs.prefix != botPrefix && botPrefix != "" && botPrefix != null && !botPrefix.includes(" ")) { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("prefix", botPrefix) %>
+	<% } %>
+			
+	<% if (makePublic && makePublic === "on") { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("public", true) %>
+	<% } else if (!makePublic && makePublic != "on") { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("public", false) %>
+	<% } %>
+	
+	<h1>All done!</h1>
+	<h2>If you're not redirected soon, click <a href="/dashboard/configure/?s=<%= s %>&applied=1">here</a>.</h2>
+	
+	<script>window.location.replace("/dashboard/configure/?s=<%= s %>&applied=1");</script>
+<% } else { %>
+	<h1>hhhh</h1>
+<% } %>

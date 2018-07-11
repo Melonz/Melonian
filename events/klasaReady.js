@@ -66,16 +66,17 @@ module.exports = class extends Event {
 				configurable: false,
 			});
 		}
+		
+		if (!this.client.gateways.guilds.schema.has("public")) {
+			await this.client.gateways.guilds.schema.add("public", {
+				type: "boolean",
+				default: false,
+				configurable: false,
+			});
+		}
 
 		web(this.client, configuration);
 
 		await this.client.user.setActivity(`with ${this.client.users.size} people on ${this.client.guilds.size} servers! Learn more at melonian.xyz.`, { type: "PLAYING" });
-	}
-
-	async init() {
-		/*
-         * You can optionally define this method which will be run when the bot starts
-         * (after login, so discord data is available via this.client)
-         */
 	}
 };

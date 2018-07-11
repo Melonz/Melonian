@@ -50,6 +50,10 @@ module.exports = class extends Command {
 						name: "prefix",
 						value: `${message.channel.guild.configs.prefix}`,
 						inline: true,
+					}, {
+						name: "public",
+						value: `since i'm lazy you'll have to configure this on the website (melonian.xyz)`,
+						inline: true,
 					}],
 					footer: {
 						text: `To change one of these values, type ${configuration.prefix}config <nameOfSetting> <newValue>. ${this.client.user.username} v${configuration.version} powered by Melonian`,

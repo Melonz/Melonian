@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %> | <%= bot.user.username %></title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    </script>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/css/bulma.css' />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-87DrmpqHRiY8hPLIr7ByqhPIywuSsjuQAfMXAE0sMUpY3BM7nXjf+mLIUSvhDArs" crossorigin="anonymous">
+	<%- include ../partials/includes/header.ejs %>
+  </head>
+  <body>
+    <% include ../partials/includes/navbar.ejs %>
+		<% if (!s || !bot.guilds.find(m => m.id === s) || !bot.guilds.find(m => m.id === s).members.find(m => m.id === authUser.id).hasPermission("MANAGE_GUILD")) { %>
+			<div class="container" style="margin: 15px auto;">
+				<h1 class="title">Error loading server config</h1>
+				<h2 class="subtitle">You either didn't specify a server ID, Melonian is not a member of this guild, or you do not have Manage Server permission in the guild.</h2>
+				<hr />
+				<a class="button is-melonian" href="/dashboard">Back to dashboard</a>
+			</div>
+		<% } else { %>
+			<section class="hero is-melonian">
+			  <div class="hero-body">
+				<div class="container">
+					<a href="/dashboard" style="color: #dedede !important;">← Back to dashboard</a>
+					<img class="is-pulled-left circle" style="margin-right: 25px; box-shadow: 0px 0px 5px #222;" width="105" src="https://cdn.discordapp.com/icons/<%= bot.guilds.find(m => m.id === s).id %>/<%= bot.guilds.find(m => m.id === s).icon %>.png?size=128" />
+					<h1 class="title" style="margin-bottom: 2.25rem;">Configuring server "<%= bot.guilds.find(m => m.id === s).name %>"</h1>
+					<h2 class="subtitle" style="color: #dedede !important;">
+						<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+							<span class="tag is-small is-discord" style="vertical-align: middle; font-weight: normal; margin-right: 5px;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
+						<% } %>
+						
+						<% if (bot.guilds.find(m => m.id === s).ownerID === authUser.id) { %>
+							<span class="tag is-small is-success" style="vertical-align: middle; font-weight: normal; margin-right: 5px;"><i class="fas fa-user-shield" style="margin-right: 5px;"></i> Owner</span>
+						<% } %>
+					</h2>
+				</div>
+			  </div>
+			</section>
+			<div class="container" style="margin: 15px auto;">
+				<% if (applied && applied === "1") { %>
+					<div class="notification is-success">
+						Applied settings successfully.
+					</div>
+				<% } %>
+				<h1 class="title is-4">Roles</h1>
+				<h2 class="subtitle">Select which roles are the moderator and admin roles.</h2>
+				<hr />
+				<form name="frmConfig" action="/dashboard/applySettings" method="POST">
+					<input type="hidden" name="s" value="<%= s %>">
+					<b>Moderator role</b>
+					<div class="field" style="margin-top: 5px;">
+					  <div class="control">
+						<div class="select">
+						  <select name="selectMod">
+							<option>Select role...</option>
+							<% for (var i in bot.guilds.find(m => m.id === s).roles.array()) { %>
+								<% if (bot.guilds.find(m => m.id === s).configs.roles.mod === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
+									<option selected><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } else { %>
+									<option><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } %>
+							<% } %>
+						  </select>
+						</div>
+					  </div>
+					</div>
+					<br>
+					<b>Admin role</b>
+					<div class="field" style="margin-top: 5px;">
+					  <div class="control">
+						<div class="select">
+						  <select name="selectAdmin">
+							<option>Select role...</option>
+							<% for (var i in bot.guilds.find(m => m.id === s).roles.array()) { %>
+								<% if (bot.guilds.find(m => m.id === s).configs.roles.admin === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
+									<option selected><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } else { %>
+									<option><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } %>
+							<% } %>
+						  </select>
+						</div>
+					  </div>
+					</div>
+					<h1 class="title is-4" style="margin-top: 25px;">Miscellaneous</h1>
+					<h2 class="subtitle">Other Melonian settings you can configure.</h2>
+					<hr />
+					<b>Prefix</b>
+					<input class="input" type="text" name="botPrefix" style="margin-top: 5px;" minlength="1" placeholder="Prefix" value="<%= bot.guilds.find(m => m.id === s).configs.prefix %>">
+					<br><br>
+					<label class="checkbox">
+						<% if (bot.guilds.find(m => m.id === s).configs.public) { %>
+							<input type="checkbox" name="makePublic" checked>
+						<% } else { %>
+							<input type="checkbox" name="makePublic">
+						<% } %>
+						Make this server public
+						<p class="help has-text-grey-light">This will add "<%= bot.guilds.find(m => m.id === s).name %>" to the public Melonian server list.</p>
+					</label>
+					<br><br>
+					<input type="submit" class="button is-melonian" value="Save changes">
+				</form>
+			</div>
+		<% } %>
+    <% include ../partials/includes/footer.ejs %>
+  </body>
+</html>
+

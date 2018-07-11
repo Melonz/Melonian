@@ -1,0 +1,44 @@
+<% if (s && bot.guilds.find(m => m.id === s) && selectMod && selectAdmin && botPrefix) { %>
+	<% if (bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("roles.mod", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) %>
+	<% } %>
+			
+	<% if (bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectAdmin)) { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("roles.admin", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectAdmin)) %>
+	<% } %>
+			
+	<% if (bot.guilds.find(m => m.id === s).configs.prefix != botPrefix && botPrefix != "" && botPrefix != null && !botPrefix.includes(" ")) { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("prefix", botPrefix) %>
+	<% } %>
+			
+	<% if (makePublic && makePublic === "on") { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("public", true) %>
+	<% } else if (!makePublic && makePublic != "on") { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("public", false) %>
+	<% } %>
+	
+	<% if (makeCertified && makeCertified === "on") { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("certified", true) %>
+	<% } else if (!makeCertified && makeCertified != "on") { %>
+		<% bot.guilds.find(m => m.id === s).configs.update("certified", false) %>
+	<% } %>
+	
+	<h1>All done!</h1>
+	<h2>If you're not redirected soon, click <a href="/owner-dashboard/configure/?s=<%= s %>&applied=1">here</a>.</h2>
+	
+	<script>window.location.replace("/owner-dashboard/configure/?s=<%= s %>&applied=1");</script>
+<% } else if (makeCertified && makeCertified === "on" && s) { %>
+	<% bot.guilds.find(m => m.id === s).configs.update("certified", true) %>
+	<script>window.location.replace("/owner-dashboard/");</script>
+	
+	<h1>All done!</h1>
+	<h2>If you're not redirected soon, click <a href="/owner-dashboard/">here</a>.</h2>
+<% } else if (makeCertified && makeCertified === "off" && s) { %>
+	<% bot.guilds.find(m => m.id === s).configs.update("certified", false) %>
+	<script>window.location.replace("/owner-dashboard/");</script>
+	
+	<h1>All done!</h1>
+	<h2>If you're not redirected soon, click <a href="/owner-dashboard/">here</a>.</h2>
+<% } else { %>
+	<h1>hhhh</h1>
+<% } %>

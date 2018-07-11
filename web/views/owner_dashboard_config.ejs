@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %> | <%= bot.user.username %></title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get all "navbar-burger" elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+              // Get the target from the "data-target" attribute
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+              // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    </script>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/css/bulma.css' />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-87DrmpqHRiY8hPLIr7ByqhPIywuSsjuQAfMXAE0sMUpY3BM7nXjf+mLIUSvhDArs" crossorigin="anonymous">
+	<%- include ../partials/includes/header.ejs %>
+  </head>
+  <body>
+    <% include ../partials/includes/navbar.ejs %>
+		<% if (!s || !bot.guilds.find(m => m.id === s)) { %>
+			<div class="container" style="margin: 15px auto;">
+				<h1 class="title">Error loading server config</h1>
+				<h2 class="subtitle">You either didn't specify a server ID or Melonian is not a member of this guild.</h2>
+				<hr />
+				<a class="button is-melonian" href="/owner-dashboard">Back to owner dashboard</a>
+			</div>
+		<% } else { %>
+			<section class="hero is-melonian">
+			  <div class="hero-body">
+				<div class="container">
+					<a href="/dashboard" style="color: #dedede !important;">← Back to owner dashboard</a>
+					<img class="is-pulled-left circle" style="margin-right: 25px; box-shadow: 0px 0px 5px #222;" width="105" src="https://cdn.discordapp.com/icons/<%= bot.guilds.find(m => m.id === s).id %>/<%= bot.guilds.find(m => m.id === s).icon %>.png?size=128" />
+					<h1 class="title" style="margin-bottom: 2.25rem;">Configuring server "<%= bot.guilds.find(m => m.id === s).name %>"</h1>
+					<h2 class="subtitle" style="color: #dedede !important;">
+						<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+							<span class="tag is-small is-discord" style="vertical-align: middle; font-weight: normal; margin-right: 5px;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
+						<% } %>
+						
+						<% if (bot.guilds.find(m => m.id === s).ownerID === authUser.id) { %>
+							<span class="tag is-small is-success" style="vertical-align: middle; font-weight: normal; margin-right: 5px;"><i class="fas fa-user-shield" style="margin-right: 5px;"></i> Owner</span>
+						<% } %>
+					</h2>
+				</div>
+			  </div>
+			</section>
+			<div class="container" style="margin: 15px auto;">
+				<% if (applied && applied === "1") { %>
+					<div class="notification is-success">
+						Applied settings successfully.
+					</div>
+				<% } else if (sent && sent === "1") { %>
+					<div class="notification is-success">
+						Sent message successfully.
+					</div>
+				<% } %>
+				<h1 class="title is-4">Normal admin settings</h1>
+				<h2 class="subtitle">All the settings the people with <code>MANAGE_GUILD</code> have.</h2>
+				<hr />
+				<form name="frmConfig" action="/owner-dashboard/applySettings" method="POST">
+					<input type="hidden" name="s" value="<%= s %>">
+					<b>Moderator role</b>
+					<div class="field" style="margin-top: 5px;">
+					  <div class="control">
+						<div class="select">
+						  <select name="selectMod">
+							<option>Select role...</option>
+							<% for (var i in bot.guilds.find(m => m.id === s).roles.array()) { %>
+								<% if (bot.guilds.find(m => m.id === s).configs.roles.mod === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
+									<option selected><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } else { %>
+									<option><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } %>
+							<% } %>
+						  </select>
+						</div>
+					  </div>
+					</div>
+					<b>Admin role</b>
+					<div class="field" style="margin-top: 5px;">
+					  <div class="control">
+						<div class="select">
+						  <select name="selectAdmin">
+							<option>Select role...</option>
+							<% for (var i in bot.guilds.find(m => m.id === s).roles.array()) { %>
+								<% if (bot.guilds.find(m => m.id === s).configs.roles.admin === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
+									<option selected><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } else { %>
+									<option><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
+								<% } %>
+							<% } %>
+						  </select>
+						</div>
+					  </div>
+					</div>
+					<b>Prefix</b>
+					<input class="input" type="text" name="botPrefix" style="margin-top: 5px;" minlength="1" placeholder="Prefix" value="<%= bot.guilds.find(m => m.id === s).configs.prefix %>">
+					<br><br>
+					<label class="checkbox">
+						<% if (bot.guilds.find(m => m.id === s).configs.public) { %>
+							<input type="checkbox" name="makePublic" checked>
+						<% } else { %>
+							<input type="checkbox" name="makePublic">
+						<% } %>
+						Make this server public
+						<p class="help has-text-grey-light">This will add "<%= bot.guilds.find(m => m.id === s).name %>" to the public Melonian server list.</p>
+					</label>
+					<br><br>
+					<h1 class="title is-4" style="margin-top: 25px;">Bot owner settings</h1>
+					<h2 class="subtitle">Other Melonian settings only you can configure.</h2>
+					<hr />
+					<label class="checkbox">
+						<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+							<input type="checkbox" name="makeCertified" checked>
+						<% } else { %>
+							<input type="checkbox" name="makeCertified">
+						<% } %>
+						Make this server certified
+						<p class="help has-text-grey-light">They will be given priority in the server list search, and a cool <span class="tag is-small is-discord" style="vertical-align: top; font-weight: normal; margin: 0px 3px;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span> badge.</p>
+					</label>
+					<div class="modal" id="leaveModal">
+					  <div class="modal-background"></div>
+					  <div class="modal-card">
+						<header class="modal-card-head">
+						  <p class="modal-card-title">Are you sure you want to force Melonian to leave "<%= bot.guilds.find(m => m.id === s).name %>"?</p>
+						</header>
+						<section class="modal-card-body">
+							<p>This server's data will be deleted, meaning they'll lose everything. Also, the admins of the server will have to add the bot back in.<br><br>Continue?</p>
+						</section>
+						<footer class="modal-card-foot">
+						  <a class="button" onclick="window.location.replace('/leave?s=<%= s %>');">Do it anyway</a>
+						  <a class="button is-success" onclick="document.getElementById('leaveModal').classList.remove('is-active');">Cancel</a>
+						</footer>
+					  </div>
+					</div>
+					<br><br>
+					<input type="submit" class="button is-melonian" value="Save changes">
+				</form>
+				<hr />
+				<a class="button is-discord" onclick="document.getElementById('postModal').classList.add('is-active');"><i class="fas fa-paper-plane" style="margin-right: 5px;"></i> Send a message as the bot...</a>
+				<div class="modal" id="postModal">
+					  <div class="modal-background"></div>
+					  <div class="modal-card">
+						<header class="modal-card-head">
+						  <p class="modal-card-title">Send a message to "<%= bot.guilds.find(m => m.id === s).name %>"</p>
+						</header>
+						<section class="modal-card-body">
+							<b>Select a text channel</b>
+							<form name="textPost" method="POST" action="/owner-dashboard/post">
+								<input type="hidden" name="s" value="<%= s %>">
+								<div class="field" style="margin-top: 5px;">
+								  <div class="control">
+									<div class="select">
+									  <select name="selectText">
+										<% for (var i in bot.guilds.find(m => m.id === s).channels.filter(m => m.type === "text").array()) { %>
+											<option>#<%= bot.guilds.find(m => m.id === s).channels.filter(m => m.type === "text").array()[i].name %></option>
+										<% } %>
+									  </select>
+									</div>
+								  </div>
+								</div>
+								<b>Message</b>
+								<div class="field" style="margin-top: 5px;">
+									<p class="control">
+										<textarea name="textMessage" class="textarea" placeholder="What's up?"></textarea>
+									</p>
+								</div>
+						</section>
+						<footer class="modal-card-foot">
+						  <input class="button is-success" type="submit" value="Send">
+						  <a class="button" onclick="document.getElementById('postModal').classList.remove('is-active');">Cancel</a>
+						</footer>
+						</form>
+					  </div>
+				</div>
+			</div>
+		<% } %>
+    <% include ../partials/includes/footer.ejs %>
+  </body>
+</html>
+

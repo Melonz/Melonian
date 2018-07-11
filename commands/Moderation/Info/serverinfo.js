@@ -73,7 +73,7 @@ module.exports = class extends Command {
 				case "eu-west":
 					return "🇪🇺 Western Europe";
 				default:
-					return `❔ Other region (\`${region}\`)`;
+					return `🏳 Other region (\`${region}\`)`;
 			}
 		}
 
@@ -112,6 +112,14 @@ module.exports = class extends Command {
 				}, {
 					name: "🔒 Roles",
 					value: `${getRoles(message.channel.guild)}`,
+					inline: true,
+				}, {
+					name: "☑ Melonian Certified",
+					value: `${message.channel.guild.configs.certified}`,
+					inline: true,
+				}, {
+					name: "🌍 Public",
+					value: `${message.channel.guild.configs.public}`,
 					inline: true,
 				}],
 				footer: {

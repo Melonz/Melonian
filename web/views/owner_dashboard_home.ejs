@@ -35,17 +35,16 @@
 			<div class="container">
 				<i class="fas fa-tachometer-alt is-pulled-left fa-4x" style="padding-right: 15px;"></i>
 				<h1 class="title">
-					<b>Dashboard</b>
+					<b>Owner Dashboard</b>
 				</h1>
 				<h2 class="subtitle" style="color: #dedede !important;">
-					Manage your servers with a nicer GUI rather than using commands.
+					Configure any server Melonian is in.
 				</h2>
 			</div>
 		  </div>
 		</section>
     <div class="container" style="margin: 15px auto;">
 		<h1 class="title">Select a server to configure</h1>
-		<h2 class="subtitle">To see a server in this list, you must have the <code>MANAGE_GUILD</code>/Manage Server permission in that server, and Melonian must be a member.</h2>
 		<hr />
 		<table class="table is-bordered is-striped is-hoverable is-fullwidth">
 		  <thead>
@@ -54,29 +53,44 @@
 			  <th>Owner</th>
 			  <th>Member count</th>
 			  <th>Configure</th>
+			  <th>Quick Actions</th>
 			</tr>
 		  </thead>
 		  <tbody>
-			<% for (var i in authUser.guilds) { %>
-				<% if (!bot.guilds.find(m => m.id === authUser.guilds[i].id) || !bot.guilds.find(m => m.id === authUser.guilds[i].id).members.find(m => m.id === authUser.id).hasPermission("MANAGE_GUILD")) continue; %>
+			<% for (var i in bot.guilds.array()) { %>
 				<tr>
-					<th style="vertical-align: middle;"><%= authUser.guilds[i].name %>
-						<% if (bot.guilds.find(m => m.id === authUser.guilds[i].id).configs.certified) { %>
+					<th style="vertical-align: middle;"><%= bot.guilds.array()[i].name %>
+						<% if (bot.guilds.array()[i].configs.certified) { %>
 							<span class="tag is-small is-melonian" style="margin-left: 5px; font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
 						<% } %>
 					</th>
 					<td style="vertical-align: middle;">
-						<% if (bot.guilds.find(m => m.id === authUser.guilds[i].id).ownerID != authUser.id) { %>
+						<% if (bot.guilds.array()[i].ownerID != authUser.id) { %>
 							No
 						<% } else { %>
 							Yes
 						<% } %>
 					</td>
 					<td style="vertical-align: middle;">
-						<%= bot.guilds.find(m => m.id === authUser.guilds[i].id).members.size %>
+						<%= bot.guilds.array()[i].members.size %>
 					</td>
-					<td  style="vertical-align: middle;">
-						<a class="button is-melonian is-small" href="/dashboard/configure/?s=<%= authUser.guilds[i].id %>">Configure</a>
+					<td style="vertical-align: middle;">
+						<a class="button is-melonian is-small" href="/owner-dashboard/configure/?s=<%= bot.guilds.array()[i].id %>">Configure</a>
+					</td>
+					<td style="vertical-align: middle;">
+						<% if (bot.guilds.array()[i].configs.certified) { %>
+							<form name="frmquick" method="POST" action="/owner-dashboard/applySettings">
+								<input type="hidden" name="s" value="<%= bot.guilds.array()[i].id %>">
+								<input type="hidden" name="makeCertified" value="off">
+								<input type="submit" class="button is-danger is-small" value="Uncertify">
+							</form>
+						<% } else { %>
+							<form name="frmquick" method="POST" action="/owner-dashboard/applySettings">
+								<input type="hidden" name="s" value="<%= bot.guilds.array()[i].id %>">
+								<input type="hidden" name="makeCertified" value="on">
+								<input type="submit" class="button is-success is-small" value="Certify">
+							</form>
+						<% } %>
 					</td>
 				</tr>
 			<% } %>

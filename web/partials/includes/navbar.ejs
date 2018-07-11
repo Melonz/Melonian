@@ -23,7 +23,7 @@
                             <div class="dropdown-trigger">
 								<% if (authUser) { %>
                                 <button onclick="window.location.href = '/dashboard/';" class="button is-dark" aria-haspopup="true" aria-controls="usrdropdown">
-                                    <span class="icon">
+                                    <span class="icon" style="margin-right: 5px;">
                                         <img class="fa circle" src="https://cdn.discordapp.com/avatars/<%= authUser.id %>/<%= authUser.avatar %>.png?size=512" aria-hidden="true"></i>
                                     </span>
                                     <span><%= authUser.username %></span>
@@ -46,6 +46,12 @@
 												<a href="/dashboard" class="dropdown-item">
                                                     Dashboard
                                                 </a>
+												<div class="dropdown-divider"></div>
+												<% if (authUser.id === bot.owner.id) { %>
+												<a href="/owner-dashboard" class="dropdown-item">
+                                                    Owner Dashboard
+                                                </a>
+												<% } %>
                                                 <a href="/logout" class="dropdown-item">
                                                     Log out
                                                 </a>
