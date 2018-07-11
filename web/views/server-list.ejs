@@ -88,9 +88,17 @@
 					  </div>
 					  <footer class="card-footer">
 						<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != null) { %>
-								<a href="https://discord.gg/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv %>" class="card-footer-item">Join server</a>
+								<a href="https://discord.gg/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
 							<% } else { %>
 								<p class="has-text-grey-lighter card-footer-item"><i>The invite link is not set up.</i></p>
+						<% } %>
+						
+						<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != null) { %>
+								<a href="<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
+						<% } %>
+						
+						<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != null) { %>
+								<a href="https://twitter.com/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
 						<% } %>
 					  </footer>
 					</div>

@@ -131,6 +131,17 @@
 					<b>Server description</b>
 					<p class="help has-text-grey-light">This will only appear on the website if you check the "Make this server public" box. The maximum amount of characters is 150.</p><br>
 					<textarea name="serverDesc" class="textarea" maxlength="150"><%= bot.guilds.find(m => m.id === s).configs.serverDesc %></textarea>
+					<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+					<h1 class="title is-4" style="margin-top: 25px;">Certified server configuration</h1>
+					<h2 class="subtitle">Certified-only Melonian settings.</h2>
+					<hr />
+					<b>Website</b>
+					<input class="input" type="text" name="botSite" style="margin-top: 5px;" minlength="1" placeholder="Bot website" value="<%= bot.guilds.find(m => m.id === s).configs.botSite %>">
+					<br>
+					<b>Twitter</b>
+					<p class="help has-text-grey-light">You may type <code>@username</code>, <code>username</code>, or <code>https://twitter.com/username</code>.</p>
+					<input class="input" type="text" name="botTwitter" style="margin-top: 5px;" minlength="1" placeholder="Twitter username" value="<%= bot.guilds.find(m => m.id === s).configs.botTwitter %>">
+					<% } %>
 					<br><br>
 					<h1 class="title is-4" style="margin-top: 25px;">Bot owner settings</h1>
 					<h2 class="subtitle">Other Melonian settings only you can configure.</h2>

@@ -47,6 +47,31 @@
 		<% } %>
 	<% } %>
 	
+	<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+		<% if (botSite && botSite.trim().length > 1) { %>
+			<% function ValidURL(str) { %>
+			  <% var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/; %>
+			  <% if(!regex.test(str)) { %>
+				<% return false; %>
+			  <% } else { %>
+				<% return true; %>
+			  <% } %>
+			<% } %>
+			<% if (!ValidURL(botSite.trim())) { %>
+				<h1>Invalid website</h1>
+				<% return false; %>
+			<% } else { %>
+				<% bot.guilds.find(m => m.id === s).configs.botSite = botSite.trim(); %>
+			<% } %>
+		<% } %>
+		
+		<% if (botTwitter && botTwitter.trim().length > 1) { %>
+			<% let newTwitter = botTwitter.replace("https://twitter.com/", ""); %>
+			<% newTwitter = newTwitter.replace("@", ""); %>
+			<% bot.guilds.find(m => m.id === s).configs.botTwitter = botTwitter.trim(); %>
+		<% } %>
+	<% } %>
+	
 	<h1>All done!</h1>
 	<h2>If you're not redirected soon, click <a href="/owner-dashboard/configure/?s=<%= s %>&applied=1">here</a>.</h2>
 	

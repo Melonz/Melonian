@@ -99,7 +99,7 @@ module.exports = function billy(bot, config) {
 	});
 	
 	app.post("/dashboard/applySettings", checkAuth, (req, res) => {
-		res.render("dashboard_make_changes.ejs", { title: "Applying settings... | Dashboard", bot: bot, config: config, authUser: req.user, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic });
+		res.render("dashboard_make_changes.ejs", { title: "Applying settings... | Dashboard", bot: bot, config: config, authUser: req.user, botSite: req.body.botSite, botTwitter: req.body.botTwitter, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic });
 	});
 	
 	app.get("/owner-dashboard", checkAuth, (req, res) => {
@@ -135,7 +135,7 @@ module.exports = function billy(bot, config) {
 			res.status(403);
 			res.render("error", { title: "Error!", bot: bot, req: req, authUser: req.user });
 		}
-		res.render("owner_dashboard_make_changes.ejs", { title: "Applying settings... | Owner Dashboard", bot: bot, config: config, authUser: req.user, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic, makeCertified: req.body.makeCertified });
+		res.render("owner_dashboard_make_changes.ejs", { title: "Applying settings... | Owner Dashboard", bot: bot, config: config, authUser: req.user, botSite: req.body.botSite, botTwitter: req.body.botTwitter, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic, makeCertified: req.body.makeCertified });
 	});
 	
 	app.post("/owner-dashboard/post", checkAuth, (req, res) => {

@@ -90,6 +90,23 @@ module.exports = class extends Event {
 				configurable: false,
 			});
 		}
+		
+		// Certified only
+		if (!this.client.gateways.guilds.schema.has("botSite")) {
+			await this.client.gateways.guilds.schema.add("botSite", {
+				type: "string",
+				default: null,
+				configurable: false,
+			});
+		}
+		
+		if (!this.client.gateways.guilds.schema.has("botTwitter")) {
+			await this.client.gateways.guilds.schema.add("botTwitter", {
+				type: "string",
+				default: null,
+				configurable: false,
+			});
+		}
 
 		web(this.client, configuration);
 
