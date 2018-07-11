@@ -30,6 +30,15 @@ Here's a quick glossary of features:
 	- Rule34.xxx
 	- e621
 	- HypnoHub
+- Complete Website
+	- Dashboard
+		- Modify all guild settings (if you have the Manage Server permission)
+	- Public server list
+		- If you're too lazy to add Melonian to one of your own guilds, some people have offerings for you!
+        - Certified servers are servers that are approved by us and are actually decent
+        	- Applications will be out soon
+- ...and more!
+	- Check out the full list at [melonian.xyz/commands](https://melonian.xyz/commands)
 
 There's more on the way!
 
