@@ -49,6 +49,9 @@ module.exports = class extends Command {
 		} else if (memberToWarn.roles.highest.comparePositionTo(message.member.roles.highest) >= 0) {
 			await message.channel.send(`:x: You can't warn a person who has a higher role than you!`);
 			return;
+		} else if (memberToWarn.bot) {
+			await message.channel.send(`:x: You cannot warn a bot!`);
+			return;
 		}
 
 		const configuration = require("../../config.json");
