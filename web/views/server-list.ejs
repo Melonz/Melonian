@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %> | <%= bot.user.username %></title>
+	<% if (!q) { %>
+		<title><%= title %> | <%= bot.user.username %></title>
+	<% } else { %>
+		<title>Server search result | <%= bot.user.username %></title>
+	<% } %>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         // Get all "navbar-burger" elements
@@ -30,83 +34,166 @@
   </head>
   <body>
     <%- include ../partials/includes/navbar.ejs %>
-    <section class="hero is-melonian">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            <b>Server list</b>
-          </h1>
-          <h2 class="subtitle" style="color: #dedede !important;">
-			A list of all public Melonian servers. Want to opt in? Go to the <a href="/dashboard" style="color: #fff !important;">dashboard</a>!
-          </h2>
-        </div>
-      </div>
-    </section>
-    <br>
-    <div class="container">
-		<h1 class="title is-4">Search servers</h1>
-		<form name="jeffXDSassy" method="POST" action="/servers/">
-			<input class="input" type="text" name="q" style="margin-top: 5px;" minlength="1" placeholder="Search..." disabled>
-			<br><br>
-			<input class="button is-melonian" type="submit" value="Search" disabled>
-		</form>
+	<% if (!q) { %>
+		<section class="hero is-melonian">
+		  <div class="hero-body">
+			<div class="container">
+			  <h1 class="title">
+				<b>Server list</b>
+			  </h1>
+			  <h2 class="subtitle" style="color: #dedede !important;">
+				A list of all public Melonian servers. Want to opt in? Go to the <a href="/dashboard" style="color: #fff !important;">dashboard</a>!
+			  </h2>
+			</div>
+		  </div>
+		</section>
 		<br>
-		<p>Coming soon</p>
-		<hr />
-		<div class="columns is-multiline is-centered">
-		<% for (var i in bot.guilds.filter(m => m.configs.public === true).array()) { %>
-				<div class="column is-one-third">
-					<div class="card">
-					  <div class="card-content">
-						<div class="media">
-						  <div class="media-left">
-							<figure class="image is-64x64">
-							  <img style="border-radius: .5rem;" src="<%= bot.guilds.filter(m => m.configs.public === true).array()[i].iconURL() %>">
-							</figure>
-						  </div>
-						  <div class="media-content">
-							<p class="title is-4" style="margin-bottom: .9rem;"><%= bot.guilds.filter(m => m.configs.public === true).array()[i].name %></p>
-							<div class="tags" style="margin-left: 0px;">
-								<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.certified) { %>
-									<span class="tag is-small is-melonian" style="font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
-								<% } %>
-								
-								<% if (authUser && bot.guilds.filter(m => m.configs.public === true).array()[i].ownerID === authUser.id) { %>
-									<span class="tag is-small is-success" style="font-weight: normal;"><i class="fas fa-user-shield" style="margin-right: 5px;"></i> Owner</span>
+		<div class="container">
+			<h1 class="title is-4">Search for servers (by name)</h1>
+			<form name="jeffXDSassy" action="/servers">
+				<input class="input" type="text" name="q" style="margin-top: 5px;" minlength="1" placeholder="Search...">
+				<br><br>
+				<input class="button is-melonian" type="submit" value="Search">
+			</form>
+			<hr />
+			<div class="columns is-multiline is-centered">
+			<% for (var i in bot.guilds.filter(m => m.configs.public === true).array()) { %>
+					<div class="column is-one-third">
+						<div class="card">
+						  <div class="card-content">
+							<div class="media">
+							  <div class="media-left">
+								<figure class="image is-64x64">
+								  <img style="border-radius: .5rem;" src="<%= bot.guilds.filter(m => m.configs.public === true).array()[i].iconURL() %>">
+								</figure>
+							  </div>
+							  <div class="media-content">
+								<p class="title is-4" style="margin-bottom: .9rem;"><%= bot.guilds.filter(m => m.configs.public === true).array()[i].name %></p>
+								<div class="tags" style="margin-left: 0px;">
+									<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.certified) { %>
+										<span class="tag is-small is-melonian" style="font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
+									<% } %>
+									
+									<% if (authUser && bot.guilds.filter(m => m.configs.public === true).array()[i].ownerID === authUser.id) { %>
+										<span class="tag is-small is-success" style="font-weight: normal;"><i class="fas fa-user-shield" style="margin-right: 5px;"></i> Owner</span>
+									<% } %>
+								</div>
+							  </div>
+							</div>
+
+							<div class="content">
+								<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc != " ") { %>
+									<p><%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc %></p>
+								<% } else { %>
+									<p><i>This server has no description.</i></p>
 								<% } %>
 							</div>
 						  </div>
-						</div>
-
-						<div class="content">
-							<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc != " ") { %>
-								<p><%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc %></p>
-							<% } else { %>
-								<p><i>This server has no description.</i></p>
+						  <footer class="card-footer">
+							<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != null) { %>
+									<a href="https://discord.gg/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
+								<% } else { %>
+									<p class="has-text-grey-lighter card-footer-item"><i>The invite link is not set up.</i></p>
 							<% } %>
+							
+							<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != null) { %>
+									<a href="<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
+							<% } %>
+							
+							<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != null) { %>
+									<a href="https://twitter.com/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
+							<% } %>
+						  </footer>
 						</div>
-					  </div>
-					  <footer class="card-footer">
-						<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != null) { %>
-								<a href="https://discord.gg/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
-							<% } else { %>
-								<p class="has-text-grey-lighter card-footer-item"><i>The invite link is not set up.</i></p>
-						<% } %>
-						
-						<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != null) { %>
-								<a href="<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
-						<% } %>
-						
-						<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != null) { %>
-								<a href="https://twitter.com/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
-						<% } %>
-					  </footer>
 					</div>
-				</div>
-		<% } %>
+			<% } %>
+			</div>
+			<br>
 		</div>
-        <br>
-    </div>
-    <% include ../partials/includes/footer.ejs %>
+		<% include ../partials/includes/footer.ejs %>
+	<% } else { %>
+		<section class="hero is-melonian">
+		  <div class="hero-body">
+			<div class="container">
+			  <h1 class="title">
+				<b>Search result for "<%= q %>"</b>
+			  </h1>
+			  <h2 class="subtitle" style="color: #dedede !important;">
+				<% let thefilter = bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())); %>
+				<% if (thefilter.size === 1) { %>
+					<%= thefilter.size %> result
+				<% } else if (thefilter.size === 0) { %>
+					No results
+				<% } else { %>
+					<%= thefilter.size %> results
+				<% } %>
+			  </h2>
+			</div>
+		  </div>
+		</section>
+		<br>
+		<div class="container">
+			<h1 class="title is-4">Search for servers (by name)</h1>
+			<form name="jeffXDSassy" action="/servers">
+				<input class="input" type="text" name="q" style="margin-top: 5px;" minlength="1" placeholder="Search...">
+				<br><br>
+				<input class="button is-melonian" type="submit" value="Search">
+			</form>
+			<hr />
+			<div class="columns is-multiline is-centered">
+			<% for (var i in bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()) { %>
+					<div class="column is-one-third">
+						<div class="card">
+						  <div class="card-content">
+							<div class="media">
+							  <div class="media-left">
+								<figure class="image is-64x64">
+								  <img style="border-radius: .5rem;" src="<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].iconURL() %>">
+								</figure>
+							  </div>
+							  <div class="media-content">
+								<p class="title is-4" style="margin-bottom: .9rem;"><%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].name %></p>
+								<div class="tags" style="margin-left: 0px;">
+									<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.certified) { %>
+										<span class="tag is-small is-melonian" style="font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
+									<% } %>
+									
+									<% if (authUser && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].ownerID === authUser.id) { %>
+										<span class="tag is-small is-success" style="font-weight: normal;"><i class="fas fa-user-shield" style="margin-right: 5px;"></i> Owner</span>
+									<% } %>
+								</div>
+							  </div>
+							</div>
+
+							<div class="content">
+								<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverDesc != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverDesc != " ") { %>
+									<p><%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverDesc %></p>
+								<% } else { %>
+									<p><i>This server has no description.</i></p>
+								<% } %>
+							</div>
+						  </div>
+						  <footer class="card-footer">
+							<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverInv != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverInv != null) { %>
+									<a href="https://discord.gg/<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverInv %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
+								<% } else { %>
+									<p class="has-text-grey-lighter card-footer-item"><i>The invite link is not set up.</i></p>
+							<% } %>
+							
+							<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botSite != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botSite != null) { %>
+									<a href="<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botSite %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
+							<% } %>
+							
+							<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botTwitter != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botTwitter != null) { %>
+									<a href="https://twitter.com/<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botTwitter %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
+							<% } %>
+						  </footer>
+						</div>
+					</div>
+			<% } %>
+			</div>
+			<br>
+		</div>
+	<% } %>
   </body>
 </html>

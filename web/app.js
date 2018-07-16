@@ -81,7 +81,7 @@ module.exports = function billy(bot, config) {
 	});
 	
 	app.get("/servers", (req, res, next) => {
-		res.render("server-list.ejs", { title: "Servers", bot: bot, config: config, authUser: req.user });
+		res.render("server-list.ejs", { title: "Servers", bot: bot, config: config, authUser: req.user, q: req.query.q });
 	});
 
 	app.get("/login/fail", (req, res, next) => {

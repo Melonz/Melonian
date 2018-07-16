@@ -55,14 +55,14 @@
 				<h1>Invalid website</h1>
 				<% return false; %>
 			<% } else { %>
-				<% bot.guilds.find(m => m.id === s).configs.botSite = botSite.trim(); %>
+				<% bot.guilds.find(m => m.id === s).configs.update("botSite", botSite.trim()); %>
 			<% } %>
 		<% } %>
 		
 		<% if (botTwitter && botTwitter.trim().length > 1) { %>
 			<% let newTwitter = botTwitter.replace("https://twitter.com/", ""); %>
 			<% newTwitter = newTwitter.replace("@", ""); %>
-			<% bot.guilds.find(m => m.id === s).configs.botTwitter = botTwitter.trim(); %>
+			<% bot.guilds.find(m => m.id === s).configs.update("botTwitter", botTwitter.trim()); %>
 		<% } %>
 	<% } %>
 	
