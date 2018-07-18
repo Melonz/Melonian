@@ -45,10 +45,10 @@ module.exports = class extends Command {
 				},
 			});
 		} else if (timeUntilCollection <= 0) {
-			await message.author.configs.update("nextVoteCollection", Date.now() + 86400000);
 			dbl.hasVoted(message.author.id).then(voted => {
 				if (voted) {
 					message.author.configs.update("won", message.author.configs.won + 100);
+					await message.author.configs.update("nextVoteCollection", Date.now() + 86400000);
 					message.channel.send(`:ballot_box_with_check: Thanks for voting on discordbots.org! Here's 100₩! (You can vote every 24 hours [you can only claim this reward 24 hours after you last claimed one], so there's something)\n\n*Not ${message.author.tag}? Want to vote? Go here: https://discordbots.org/bot/236987731232686081/vote`);
 				} else {
 					message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
