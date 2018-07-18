@@ -19,7 +19,7 @@ module.exports = class extends Command {
 			permissionLevel: 0,
 			description: "Searches Rule34(.xxx) for some... well... NSFW stuff.",
 			extendedHelp: "Searches Rule34(.xxx) for some... well... NSFW stuff. This command can only be used in NSFW-marked channels.",
-			usage: "<Tags:str>",
+			usage: "[Tags:str]",
 			usageDelim: undefined,
 			quotedStringSupport: false,
 			subcommands: false,
@@ -28,6 +28,9 @@ module.exports = class extends Command {
 
 	async run(message, [Tags]) {
 		const booru = require("booru");
+		if (!Tags) {
+			Tags = "";
+		}
 
 		if (Tags.includes("lolita") || Tags.includes("shota")) {
 			message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `lolita` or `shota`.");
