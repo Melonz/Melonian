@@ -32,22 +32,19 @@ module.exports = class extends Command {
     }
 
     async run(message, [...params]) {
-        var http = require('http');
-
-        var options = {
-            host: 'discordbots.org',
-            path: '/api/weekend'
-        }
-        var request = http.request(options, function(res) {
-            var data = '';
-            res.on('data', function(chunk) {
-                data += chunk;
-            });
-            res.on('end', function() {
-                console.log("so it rann butttt");
-                if (JSON.stringify(data).is_weekend) {
-                    const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
-                    if (timeUntilCollection > 0) {
+		const https = require("https");
+		const url = "https://discordbots.org/api/weekend";
+		https.get(url, res => {
+		  res.setEncoding("utf8");
+		  let body = "";
+		  res.on("data", data => {
+			body += data;
+		  });
+		  res.on("end", () => {
+			body = JSON.parse(body);
+			if (body.is_weekend) {
+                const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
+                if (timeUntilCollection > 0) {
                         message.channel.send({
                             embed: {
                                 color: 0xf44242,
@@ -100,13 +97,8 @@ module.exports = class extends Command {
                         });
                     }
                 }
-            });
-        });
-        request.on('error', function(e) {
-            message.channel.send(":x: Error: " + e.message);
-        });
-
-        request.end();
+		  });
+		});
     }
 
     async init() {
