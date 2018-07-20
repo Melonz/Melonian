@@ -29,32 +29,81 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [...params]) {
-		const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
-		if (timeUntilCollection > 0) {
-			await message.channel.send({
-				embed: {
-					color: 0xf44242,
-					author: {
-						name: `Error collecting vote reward`,
-						icon_url: `${message.author.avatarURL()}`,
-					},
-					description: `You need to wait another \`${new Timestamp("HH [hours], mm [minutes] [and] ss [seconds]").displayUTC(timeUntilCollection)}\` before collecting your vote reward.`,
-					footer: {
-						text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
-					},
-				},
-			});
-		} else if (timeUntilCollection <= 0) {
-			dbl.hasVoted(message.author.id).then(voted => {
-				if (voted) {
-					message.author.configs.update("won", message.author.configs.won + 100);
-					await message.author.configs.update("nextVoteCollection", Date.now() + 86400000);
-					message.channel.send(`:ballot_box_with_check: Thanks for voting on discordbots.org! Here's 100₩! (You can vote every 24 hours [you can only claim this reward 24 hours after you last claimed one], so there's something)\n\n*Not ${message.author.tag}? Want to vote? Go here: https://discordbots.org/bot/236987731232686081/vote`);
+		var http = require('http');
+
+		var options = {
+			host: 'discordbots.org',
+			path: '/api/weekend'
+		}
+		var request = http.request(options, function (res) {
+			var data = '';
+			res.on('data', function (chunk) {
+				let actualJSON = JSON.stringify(chunk);
+				if (actualJSON.is_weekend) {
+					const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
+					if (timeUntilCollection > 0) {
+						await message.channel.send({
+							embed: {
+								color: 0xf44242,
+								author: {
+									name: `Error collecting vote reward`,
+									icon_url: `${message.author.avatarURL()}`,
+								},
+								description: `You need to wait another \`${new Timestamp("HH [hours], mm [minutes] [and] ss [seconds]").displayUTC(timeUntilCollection)}\` before collecting your vote reward. (P.S It's the weekend! Votes during the weekend give you 200 won instead of 100!)`,
+								footer: {
+									text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
+								},
+							},
+						});
+					} else if (timeUntilCollection <= 0) {
+						dbl.hasVoted(message.author.id).then(voted => {
+							if (voted) {
+								message.author.configs.update("won", message.author.configs.won + 200);
+								await message.author.configs.update("nextVoteCollection", Date.now() + 43200000);
+								message.channel.send(`:ballot_box_with_check: Thanks for voting on discordbots.org! Here's 200₩! (You can vote every 12 hours [you can only claim this reward 12 hours after you last claimed one])\n\n*Not ${message.author.tag}? Want to vote? After all, it is the weekend! You get 200 won instead of 100! Go here: https://discordbots.org/bot/236987731232686081/vote`);
+							} else {
+								message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
+							}
+						});
+					}
 				} else {
-					message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
+					const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
+					if (timeUntilCollection > 0) {
+						await message.channel.send({
+							embed: {
+								color: 0xf44242,
+								author: {
+									name: `Error collecting vote reward`,
+									icon_url: `${message.author.avatarURL()}`,
+								},
+								description: `You need to wait another \`${new Timestamp("HH [hours], mm [minutes] [and] ss [seconds]").displayUTC(timeUntilCollection)}\` before collecting your vote reward.`,
+								footer: {
+									text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
+								},
+							},
+						});
+					} else if (timeUntilCollection <= 0) {
+						dbl.hasVoted(message.author.id).then(voted => {
+							if (voted) {
+								message.author.configs.update("won", message.author.configs.won + 100);
+								await message.author.configs.update("nextVoteCollection", Date.now() + 43200000);
+								message.channel.send(`:ballot_box_with_check: Thanks for voting on discordbots.org! Here's 100₩! (You can vote every 12 hours [you can only claim this reward 12 hours after you last claimed one])\n\n*Not ${message.author.tag}? Want to vote? Go here: https://discordbots.org/bot/236987731232686081/vote`);
+							} else {
+								message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
+							}
+						});
+					}
 				}
 			});
-		}
+			res.on('end', function () {
+				console.log(data);
+			});
+		});
+		request.on('error', function (e) {
+			await message.channel.send(":x: Error: " + e.message);
+		});
+		
+		request.end();
 	}
 
 	async init() {
