@@ -28,34 +28,24 @@ module.exports = class extends Command {
 		});
 	}
 
-	async run(message, [...params]) {
-		var http = require('http');
-
-		var options = {
-			host: 'discordbots.org',
-			path: '/api/weekend'
-		}
-		var request = http.request(options, function (res) {
-			var data = '';
-			res.on('data', function (chunk) {
-				let actualJSON = JSON.stringify(chunk);
-				if (actualJSON.is_weekend) {
-					const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
-					if (timeUntilCollection > 0) {
-						message.channel.send({
-							embed: {
-								color: 0xf44242,
-								author: {
-									name: `Error collecting vote reward`,
-									icon_url: `${message.author.avatarURL()}`,
-								},
-								description: `You need to wait another \`${new Timestamp("HH [hours], mm [minutes] [and] ss [seconds]").displayUTC(timeUntilCollection)}\` before collecting your vote reward. (P.S It's the weekend! Votes during the weekend give you 200 won instead of 100!)`,
-								footer: {
-									text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
-								},
-							},
-						});
-					} else if (timeUntilCollection <= 0) {
+	async voteReward(isWeekend, message) {
+		if (isWeekend) {
+			const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
+			if (timeUntilCollection > 0) {
+				await message.channel.send({
+					embed: {
+						color: 0xf44242,
+						author: {
+							name: `Error collecting vote reward`,
+							icon_url: `${message.author.avatarURL()}`,
+						},
+						description: `You need to wait another \`${new Timestamp("HH [hours], mm [minutes] [and] ss [seconds]").displayUTC(timeUntilCollection)}\` before collecting your vote reward. (P.S It's the weekend! Votes during the weekend give you 200 won instead of 100!)`,
+						footer: {
+							text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
+						},
+					},
+				});
+			} else if (timeUntilCollection <= 0) {
 						dbl.hasVoted(message.author.id).then(voted => {
 							if (voted) {
 								message.author.configs.update("won", message.author.configs.won + 200);
@@ -65,8 +55,8 @@ module.exports = class extends Command {
 								message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
 							}
 						});
-					}
-				} else {
+			}
+		} else {
 					const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
 					if (timeUntilCollection > 0) {
 						 message.channel.send({
@@ -94,6 +84,20 @@ module.exports = class extends Command {
 						});
 					}
 				}
+	}
+	
+	async run(message, [...params]) {
+		var http = require('http');
+
+		var options = {
+			host: 'discordbots.org',
+			path: '/api/weekend'
+		}
+		var request = http.request(options, function (res) {
+			var data = '';
+			res.on('data', function (chunk) {
+				let actualJSON = JSON.stringify(chunk);
+				voteReward(actualJSON.is_weekend, message);
 			});
 			res.on('end', function () {
 				console.log(data);
