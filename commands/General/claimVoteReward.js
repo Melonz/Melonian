@@ -31,10 +31,6 @@ module.exports = class extends Command {
         });
     }
 
-    voteReward(isWeekend, message) {
-
-    }
-
     async run(message, [...params]) {
         var http = require('http');
 
@@ -51,7 +47,6 @@ module.exports = class extends Command {
                 console.log("so it rann butttt");
                 if (JSON.stringify(data).is_weekend) {
                     const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
-                    console.log("It's a weekend, and the time is " + timeUntilCollection + "ms until collection.");
                     if (timeUntilCollection > 0) {
                         message.channel.send({
                             embed: {
@@ -78,7 +73,6 @@ module.exports = class extends Command {
                         });
                     }
                 } else {
-                    console.log("It's NOI a weekend, but the time is " + timeUntilCollection + "ms until collection.");
                     const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
                     if (timeUntilCollection > 0) {
                         message.channel.send({
