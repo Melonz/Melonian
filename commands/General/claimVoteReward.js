@@ -28,7 +28,7 @@ module.exports = class extends Command {
 		});
 	}
 
-	async voteReward(isWeekend, message) {
+	function voteReward(isWeekend, message) {
 		console.log("so it rann butttt");
 		if (isWeekend) {
 			const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
