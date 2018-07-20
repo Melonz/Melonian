@@ -99,7 +99,7 @@ module.exports = class extends Command {
 				data += chunk;
 			});
 			res.on('end', function () {
-				await voteReward(JSON.stringify(data).is_weekend, message);
+				voteReward(JSON.stringify(data).is_weekend, message);
 			});
 		});
 		request.on('error', function (e) {
