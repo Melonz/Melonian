@@ -34,7 +34,7 @@ module.exports = class extends Command {
 			const timeUntilCollection = message.author.configs.nextVoteCollection - Date.now();
 			console.log("It's a weekend, and the time is " + timeUntilCollection + "ms until collection.");
 			if (timeUntilCollection > 0) {
-				await message.channel.send({
+				message.channel.send({
 					embed: {
 						color: 0xf44242,
 						author: {
@@ -79,7 +79,7 @@ module.exports = class extends Command {
 						dbl.hasVoted(message.author.id).then(voted => {
 							if (voted) {
 								message.author.configs.update("won", message.author.configs.won + 100);
-								 message.author.configs.update("nextVoteCollection", Date.now() + 43200000);
+								message.author.configs.update("nextVoteCollection", Date.now() + 43200000);
 								message.channel.send(`:ballot_box_with_check: Thanks for voting on discordbots.org! Here's 100₩! (You can vote every 12 hours [you can only claim this reward 12 hours after you last claimed one])\n\n*Not ${message.author.tag}? Want to vote? Go here: https://discordbots.org/bot/236987731232686081/vote`);
 							} else {
 								message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
