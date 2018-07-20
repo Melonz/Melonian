@@ -87,7 +87,7 @@ module.exports = class extends Command {
 	}
 	
 	async run(message, [...params]) {
-		var http = require('http');
+		var http = require('https');
 
 		var options = {
 			host: 'discordbots.org',
