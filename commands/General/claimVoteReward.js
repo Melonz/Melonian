@@ -96,11 +96,10 @@ module.exports = class extends Command {
 		var request = http.request(options, function (res) {
 			var data = '';
 			res.on('data', function (chunk) {
-				let actualJSON = JSON.stringify(chunk);
-				voteReward(actualJSON.is_weekend, message);
+				data += chunk;
 			});
 			res.on('end', function () {
-				console.log(data);
+				await voteReward(JSON.stringify(data).is_weekend, message);
 			});
 		});
 		request.on('error', function (e) {
