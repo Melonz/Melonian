@@ -4,7 +4,7 @@ const reload = require("require-reload")(require);
 const { Client } = require("klasa");
 const config = require("./config.json");
 
-const client = new Client({
+new Client({
 	clientOptions: {
 		fetchAllMembers: false,
 	},
