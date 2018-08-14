@@ -79,6 +79,18 @@ module.exports = class extends Command {
 					},
 				});
 				break;
+			case "477410967093772289":
+				await message.channel.send({
+					embed: {
+						color: 0x076fe0,
+						title: `Is ${User.tag} gai?`,
+						description: `Definitely, he's ${Math.floor(new Date() / 1000)}% gai 🏳️‍🌈`,
+						footer: {
+							text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
+						},
+					},
+				});
+				break;
 			default:
 				if (percentage > 50) {
 					await message.channel.send({
