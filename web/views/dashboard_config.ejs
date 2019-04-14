@@ -45,7 +45,7 @@
 					<img class="is-pulled-left circle" style="margin-right: 25px; box-shadow: 0px 0px 5px #222;" width="105" src="https://cdn.discordapp.com/icons/<%= bot.guilds.find(m => m.id === s).id %>/<%= bot.guilds.find(m => m.id === s).icon %>.png?size=128" />
 					<h1 class="title" style="margin-bottom: 2.25rem;">Configuring server "<%= bot.guilds.find(m => m.id === s).name %>"</h1>
 					<h2 class="subtitle" style="color: #dedede !important;">
-						<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+						<% if (bot.guilds.find(m => m.id === s).settings.get("certified")) { %>
 							<span class="tag is-small is-discord" style="vertical-align: middle; font-weight: normal; margin-right: 5px;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
 						<% } %>
 						
@@ -74,7 +74,7 @@
 						  <select name="selectMod">
 							<option>Select role...</option>
 							<% for (var i in bot.guilds.find(m => m.id === s).roles.array()) { %>
-								<% if (bot.guilds.find(m => m.id === s).configs.roles.mod === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
+								<% if (bot.guilds.find(m => m.id === s).settings.get("mod") === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
 									<option selected><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
 								<% } else { %>
 									<option><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
@@ -92,7 +92,7 @@
 						  <select name="selectAdmin">
 							<option>Select role...</option>
 							<% for (var i in bot.guilds.find(m => m.id === s).roles.array()) { %>
-								<% if (bot.guilds.find(m => m.id === s).configs.roles.admin === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
+								<% if (bot.guilds.find(m => m.id === s).settings.get("admin") === bot.guilds.find(m => m.id === s).roles.array()[i].id) { %>
 									<option selected><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
 								<% } else { %>
 									<option><%= bot.guilds.find(m => m.id === s).roles.array()[i].name %></option>
@@ -102,26 +102,26 @@
 						</div>
 					  </div>
 					</div>
-					<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+					<% if (bot.guilds.find(m => m.id === s).settings.get("certified")) { %>
 					<h1 class="title is-4" style="margin-top: 25px;">Certified server configuration</h1>
 					<h2 class="subtitle">Certified-only Melonian settings.</h2>
 					<hr />
 					<b>Website</b>
-					<input class="input" type="text" name="botSite" style="margin-top: 5px;" minlength="1" placeholder="Bot website" value="<%= bot.guilds.find(m => m.id === s).configs.botSite %>">
+					<input class="input" type="text" name="botSite" style="margin-top: 5px;" minlength="1" placeholder="Bot website" value="<%= bot.guilds.find(m => m.id === s).settings.get('botSite') %>">
 					<br>
 					<b>Twitter</b>
 					<p class="help has-text-grey-light">You may type <code>@username</code>, <code>username</code>, or <code>https://twitter.com/username</code>.</p>
-					<input class="input" type="text" name="botTwitter" style="margin-top: 5px;" minlength="1" placeholder="Twitter username" value="<%= bot.guilds.find(m => m.id === s).configs.botTwitter %>">
+					<input class="input" type="text" name="botTwitter" style="margin-top: 5px;" minlength="1" placeholder="Twitter username" value="<%= bot.guilds.find(m => m.id === s).settings.get('botTwitter') %>">
 					<% } %>
 					<br><br>
 					<h1 class="title is-4" style="margin-top: 25px;">Miscellaneous</h1>
 					<h2 class="subtitle">Other Melonian settings you can configure.</h2>
 					<hr />
 					<b>Prefix</b>
-					<input class="input" type="text" name="botPrefix" style="margin-top: 5px;" minlength="1" placeholder="Prefix" value="<%= bot.guilds.find(m => m.id === s).configs.prefix %>">
+					<input class="input" type="text" name="botPrefix" style="margin-top: 5px;" minlength="1" placeholder="Prefix" value="<%= bot.guilds.find(m => m.id === s).settings.get('prefix') %>">
 					<br><br>
 					<label class="checkbox">
-						<% if (bot.guilds.find(m => m.id === s).configs.public) { %>
+						<% if (bot.guilds.find(m => m.id === s).settings.get('public')) { %>
 							<input type="checkbox" name="makePublic" checked>
 						<% } else { %>
 							<input type="checkbox" name="makePublic">
@@ -133,7 +133,7 @@
 					<b>Server invite</b>
 					<% if (bot.guilds.find(m => m.id === s).me.hasPermission("MANAGE_GUILD")) { %>
 					<p class="help has-text-grey-light">Invite must be valid, never expire, and for this server. May use <code>https://discord.gg/invite</code> or <code>invite</code>.</p><br>
-					<input class="input" type="text" name="serverInv" style="margin-top: 5px;" minlength="1" placeholder="Server invite" value="<%= bot.guilds.find(m => m.id === s).configs.serverInv %>">
+					<input class="input" type="text" name="serverInv" style="margin-top: 5px;" minlength="1" placeholder="Server invite" value="<%= bot.guilds.find(m => m.id === s).settings.get('serverInv') %>">
 					<% } else { %>
 					<br><br>
 					<div class="notification is-danger">
@@ -142,7 +142,7 @@
 					<% } %>
 					<b>Server description</b>
 					<p class="help has-text-grey-light">This will only appear on the website if you check the "Make this server public" box.</p>
-					<textarea name="serverDesc" class="textarea" maxlength="150"><%= bot.guilds.find(m => m.id === s).configs.serverDesc %></textarea>
+					<textarea name="serverDesc" class="textarea" maxlength="150"><%= bot.guilds.find(m => m.id === s).settings.get('serverDesc') %></textarea>
 					<br><br>
 					<input type="submit" class="button is-melonian" value="Save changes">
 				</form>

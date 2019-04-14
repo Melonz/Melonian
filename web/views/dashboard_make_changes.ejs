@@ -1,24 +1,24 @@
 <% if (s && bot.guilds.find(m => m.id === s) && bot.guilds.find(m => m.id === s).members.find(m => m.id === authUser.id).hasPermission("MANAGE_GUILD") && selectMod && selectAdmin && botPrefix) { %>
 	<% if (bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) { %>
-		<% bot.guilds.find(m => m.id === s).configs.update("roles.mod", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) %>
+		<% bot.guilds.find(m => m.id === s).settings.update("mod", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) %>
 	<% } %>
 			
 	<% if (bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectAdmin)) { %>
-		<% bot.guilds.find(m => m.id === s).configs.update("roles.admin", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectAdmin)) %>
+		<% bot.guilds.find(m => m.id === s).settings.update("admin", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectAdmin)) %>
 	<% } %>
 			
-	<% if (bot.guilds.find(m => m.id === s).configs.prefix != botPrefix && botPrefix != "" && botPrefix != null && !botPrefix.includes(" ")) { %>
-		<% bot.guilds.find(m => m.id === s).configs.update("prefix", botPrefix.trim()) %>
+	<% if (bot.guilds.find(m => m.id === s).settings.get("prefix") != botPrefix && botPrefix != "" && botPrefix != null && !botPrefix.includes(" ")) { %>
+		<% bot.guilds.find(m => m.id === s).settings.update("prefix", botPrefix.trim()) %>
 	<% } %>
 			
 	<% if (makePublic && makePublic === "on") { %>
-		<% bot.guilds.find(m => m.id === s).configs.update("public", true) %>
+		<% bot.guilds.find(m => m.id === s).settings.update("public", true) %>
 	<% } else if (!makePublic && makePublic != "on") { %>
-		<% bot.guilds.find(m => m.id === s).configs.update("public", false) %>
+		<% bot.guilds.find(m => m.id === s).settings.update("public", false) %>
 	<% } %>
 	
 	<% if (serverDesc && serverDesc.length <= 150) { %>
-		<% bot.guilds.find(m => m.id === s).configs.update("serverDesc", serverDesc.trim()) %>
+		<% bot.guilds.find(m => m.id === s).settings.update("serverDesc", serverDesc.trim()) %>
 	<% } else if (serverDesc && serverDesc.length > 150) { %>
 		<h1>Warning: Your server description is over 150 characters. Didn't apply it</h1>
 	<% } %>
@@ -29,7 +29,7 @@
 			<% bot.guilds.find(m => m.id === s).fetchInvites().then(function(invites) { %>
 				<% for (var i in invites.filter(m => m.temporary === false).array()) { %>
 					<% if (invites.filter(m => m.temporary === false).array()[i].code === newInv.trim()) { %>
-						<% bot.guilds.find(m => m.id === s).configs.update("serverInv", invites.filter(m => m.temporary === false).array()[i].code) %>
+						<% bot.guilds.find(m => m.id === s).settings.update("serverInv", invites.filter(m => m.temporary === false).array()[i].code) %>
 						<% break; %>
 					<% } else { %>
 						<% continue; %>
@@ -41,7 +41,7 @@
 		<% } %>
 	<% } %>
 	
-	<% if (bot.guilds.find(m => m.id === s).configs.certified) { %>
+	<% if (bot.guilds.find(m => m.id === s).settings.get('certified')) { %>
 		<% if (botSite && botSite.trim().length > 1) { %>
 			<% function ValidURL(str) { %>
 			  <% var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/; %>
@@ -55,14 +55,14 @@
 				<h1>Invalid website</h1>
 				<% return false; %>
 			<% } else { %>
-				<% bot.guilds.find(m => m.id === s).configs.update("botSite", botSite.trim()); %>
+				<% bot.guilds.find(m => m.id === s).settings.update("botSite", botSite.trim()); %>
 			<% } %>
 		<% } %>
 		
 		<% if (botTwitter && botTwitter.trim().length > 1) { %>
 			<% let newTwitter = botTwitter.replace("https://twitter.com/", ""); %>
 			<% newTwitter = newTwitter.replace("@", ""); %>
-			<% bot.guilds.find(m => m.id === s).configs.update("botTwitter", botTwitter.trim()); %>
+			<% bot.guilds.find(m => m.id === s).settings.update("botTwitter", botTwitter.trim()); %>
 		<% } %>
 	<% } %>
 	

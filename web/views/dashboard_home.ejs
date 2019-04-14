@@ -61,7 +61,7 @@
 				<% if (!bot.guilds.find(m => m.id === authUser.guilds[i].id) || !bot.guilds.find(m => m.id === authUser.guilds[i].id).members.find(m => m.id === authUser.id).hasPermission("MANAGE_GUILD")) continue; %>
 				<tr>
 					<th style="vertical-align: middle;"><%= authUser.guilds[i].name %>
-						<% if (bot.guilds.find(m => m.id === authUser.guilds[i].id).configs.certified) { %>
+						<% if (bot.guilds.find(m => m.id === authUser.guilds[i].id).settings.get("certified")) { %>
 							<span class="tag is-small is-melonian" style="margin-left: 5px; font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
 						<% } %>
 					</th>
