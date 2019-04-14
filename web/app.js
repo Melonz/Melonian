@@ -41,12 +41,10 @@ module.exports = function billy(bot, config) {
 	passport.use(new Strategy({
 		clientID: config.inviteLink.client_id,
 		clientSecret: config.inviteLink.client_secret,
-		callbackURL: "https://melonian.xyz/login/callback",
+		callbackURL: "https://melonian.melonz.app/login/callback",
 		scope: scopes,
 	}, (accessToken, refreshToken, profile, done) => {
-		process.nextTick(() => {
-			return done(null, profile);
-		});
+		process.nextTick(() => done(null, profile));
 	}));
 
 	app.use(session({
@@ -79,7 +77,7 @@ module.exports = function billy(bot, config) {
 	app.get("/commands", (req, res, next) => {
 		res.render("commands.ejs", { title: "Commands", bot: bot, config: config, authUser: req.user });
 	});
-	
+
 	app.get("/servers", (req, res, next) => {
 		res.render("server-list.ejs", { title: "Servers", bot: bot, config: config, authUser: req.user, q: req.query.q });
 	});
@@ -92,16 +90,16 @@ module.exports = function billy(bot, config) {
 		// console.log(req.user)
 		res.render("dashboard_home.ejs", { title: "Dashboard", bot: bot, config: config, authUser: req.user });
 	});
-	
+
 	app.get("/dashboard/configure", checkAuth, (req, res) => {
 		// console.log(req.user)
 		res.render("dashboard_config.ejs", { title: "Configuration | Dashboard", bot: bot, config: config, authUser: req.user, s: req.query.s, applied: req.query.applied });
 	});
-	
+
 	app.post("/dashboard/applySettings", checkAuth, (req, res) => {
 		res.render("dashboard_make_changes.ejs", { title: "Applying settings... | Dashboard", bot: bot, config: config, authUser: req.user, botSite: req.body.botSite, botTwitter: req.body.botTwitter, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic });
 	});
-	
+
 	app.get("/owner-dashboard", checkAuth, (req, res) => {
 		if (req.user.id != bot.owner.id) {
 			res.locals.message = "You are not permitted to access this.";
@@ -113,7 +111,7 @@ module.exports = function billy(bot, config) {
 		}
 		res.render("owner_dashboard_home.ejs", { title: "Owner Dashboard", bot: bot, config: config, authUser: req.user });
 	});
-	
+
 	app.get("/owner-dashboard/configure", checkAuth, (req, res) => {
 		if (req.user.id != bot.owner.id) {
 			res.locals.message = "You are not permitted to access this.";
@@ -125,7 +123,7 @@ module.exports = function billy(bot, config) {
 		}
 		res.render("owner_dashboard_config.ejs", { title: "Configuration | Owner Dashboard", bot: bot, config: config, authUser: req.user, s: req.query.s, applied: req.query.applied, sent: req.query.sent });
 	});
-	
+
 	app.post("/owner-dashboard/applySettings", checkAuth, (req, res) => {
 		if (req.user.id != bot.owner.id) {
 			res.locals.message = "You are not permitted to access this.";
@@ -137,7 +135,7 @@ module.exports = function billy(bot, config) {
 		}
 		res.render("owner_dashboard_make_changes.ejs", { title: "Applying settings... | Owner Dashboard", bot: bot, config: config, authUser: req.user, botSite: req.body.botSite, botTwitter: req.body.botTwitter, serverInv: req.body.serverInv, serverDesc: req.body.serverDesc, s: req.body.s, selectMod: req.body.selectMod, selectAdmin: req.body.selectAdmin, botPrefix: req.body.botPrefix, makePublic: req.body.makePublic, makeCertified: req.body.makeCertified });
 	});
-	
+
 	app.post("/owner-dashboard/post", checkAuth, (req, res) => {
 		if (req.user.id != bot.owner.id) {
 			res.locals.message = "You are not permitted to access this.";
