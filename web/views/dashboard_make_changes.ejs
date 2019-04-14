@@ -1,4 +1,5 @@
 <% if (s && bot.guilds.find(m => m.id === s) && bot.guilds.find(m => m.id === s).members.find(m => m.id === authUser.id).hasPermission("MANAGE_GUILD") && selectMod && selectAdmin && botPrefix) { %>
+	<% console.log(selectMod); console.log(selectAdmin); %>
 	<% if (bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) { %>
 		<% bot.guilds.find(m => m.id === s).settings.update("mod", bot.guilds.find(m => m.id === s).roles.find(m => m.name === selectMod)) %>
 	<% } %>
