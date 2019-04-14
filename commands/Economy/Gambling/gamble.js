@@ -35,11 +35,11 @@ module.exports = class extends Command {
 			return;
 		}
 
-		if (message.author.configs.won < moneyToGamble * 2) {
+		if (message.author.settings.get("won") < moneyToGamble * 2) {
 			await message.channel.send(`:x: You don't have enough money to gamble this. (You need double your bet, in case you lose and have to pay more.)`);
 			return;
 		}
-		await message.author.configs.update("won", message.author.configs.won - moneyToGamble);
+		await message.author.settings.update("won", message.author.settings.get("won") - moneyToGamble);
 
 		function getRandomInt(max) {
 			return Math.floor(Math.random() * Math.floor(max));
@@ -52,7 +52,7 @@ module.exports = class extends Command {
 
 		if (playerRNG === botRNG) {
 			moneyWon = moneyToGamble * 4;
-			await message.author.configs.update("won", message.author.configs.won + moneyWon);
+			await message.author.settings.update("won", message.author.settings.get("won") + moneyWon);
 			await message.channel.send({
 				embed: {
 					color: 0x00FF00,
@@ -60,7 +60,7 @@ module.exports = class extends Command {
 						name: `Gambling result`,
 						icon_url: `${message.author.avatarURL()}`,
 					},
-					description: `You tied with me, so you get quadruple your bet, which is ${moneyWon}₩! (You now have ${message.author.configs.won})`,
+					description: `You tied with me, so you get quadruple your bet, which is ${moneyWon}₩! (You now have ${message.author.settings.get("won")})`,
 					fields: [{
 						name: `You (${message.author.tag})`,
 						value: `:ballot_box_with_check: Rolled a ${playerRNG}`,
@@ -77,7 +77,7 @@ module.exports = class extends Command {
 			});
 		} else if (playerRNG > botRNG) {
 			moneyWon = moneyToGamble * 2;
-			await message.author.configs.update("won", message.author.configs.won + moneyWon);
+			await message.author.settings.update("won", message.author.settings.get("won") + moneyWon);
 			await message.channel.send({
 				embed: {
 					color: 0x00FF00,
@@ -85,7 +85,7 @@ module.exports = class extends Command {
 						name: `Gambling result`,
 						icon_url: `${message.author.avatarURL()}`,
 					},
-					description: `You got a higher number than me, so you win ${moneyWon}₩! (You now have ${message.author.configs.won})`,
+					description: `You got a higher number than me, so you win ${moneyWon}₩! (You now have ${message.author.settings.get("won")})`,
 					fields: [{
 						name: `You (${message.author.tag})`,
 						value: `:ballot_box_with_check: Rolled a ${playerRNG}`,
@@ -101,7 +101,7 @@ module.exports = class extends Command {
 				},
 			});
 		} else if (playerRNG < botRNG) {
-			await message.author.configs.update("won", message.author.configs.won - moneyToGamble);
+			await message.author.settings.update("won", message.author.settings.get("won") - moneyToGamble);
 			await message.channel.send({
 				embed: {
 					color: 0xf44242,
@@ -109,7 +109,7 @@ module.exports = class extends Command {
 						name: `Gambling result`,
 						icon_url: `${message.author.avatarURL()}`,
 					},
-					description: `I have a higher number than you, so you lose ${moneyToGamble}₩! (You now have ${message.author.configs.won})`,
+					description: `I have a higher number than you, so you lose ${moneyToGamble}₩! (You now have ${message.author.settings.get("won")})`,
 					fields: [{
 						name: `You (${message.author.tag})`,
 						value: `:x: Rolled a ${playerRNG}`,
@@ -126,8 +126,8 @@ module.exports = class extends Command {
 			});
 		}
 
-		if (message.author.configs.won < 0) {
-			message.author.configs.update("won", 0);
+		if (message.author.settings.get("won") < 0) {
+			message.author.settings.update("won", 0);
 		}
 	}
 };

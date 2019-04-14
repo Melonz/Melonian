@@ -1,3 +1,4 @@
+/* Commented out until I figure this out.
 const { Command } = require("klasa");
 
 module.exports = class extends Command {
@@ -35,4 +36,4 @@ module.exports = class extends Command {
 			await message.channel.send(`:x: Can't find warning ID ${idofstrike}!`);
 		}
 	}
-};
+}; */

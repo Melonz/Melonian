@@ -1,6 +1,8 @@
-const { SQLProvider, Type, Schema, QueryBuilder, util: { mergeDefault, isNumber } } = require("klasa");
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+const { SQLProvider, Type, QueryBuilder, util: { mergeDefault, isNumber } } = require("klasa");
 const { Pool } = require("pg");
 const Configuration = require("../config.json");
+console.log(Configuration);
 
 module.exports = class extends SQLProvider {
 	constructor(...args) {
@@ -23,7 +25,7 @@ module.exports = class extends SQLProvider {
 		const connection = mergeDefault({
 			host: Configuration.database.location,
 			port: 5432,
-			db: Configuration.database.name,
+			database: Configuration.database.name,
 			options: {
 				max: 20,
 				idleTimeoutMillis: 30000,
@@ -35,14 +37,15 @@ module.exports = class extends SQLProvider {
 			port: connection.port,
 			user: Configuration.database.username,
 			password: Configuration.database.password,
-			database: connection.db,
+			database: connection.database,
 		}, connection.options));
 
 		this.db.on("error", err => this.client.emit("error", err));
-		await this.db.connect();
+		this.dbconnection = await this.db.connect();
 	}
 
 	shutdown() {
+		this.dbconnection.release();
 		return this.db.end();
 	}
 
@@ -61,9 +64,9 @@ module.exports = class extends SQLProvider {
 
 		const schemaValues = [...gateway.schema.values(true)];
 		return this.run(`
-			CREATE TABLE ${sanitizeKeyName(table)} (
-				${["id VARCHAR(18) PRIMARY KEY NOT NULL UNIQUE", ...schemaValues.map(this.qb.parse.bind(this.qb))].join(", ")}
-			)`
+                        CREATE TABLE ${sanitizeKeyName(table)} (
+                                ${[`id VARCHAR(${gateway.idLength || 18}) PRIMARY KEY NOT NULL UNIQUE`, ...schemaValues.map(this.qb.parse.bind(this.qb))].join(", ")}
+                        )`
 		);
 	}
 
@@ -124,16 +127,16 @@ module.exports = class extends SQLProvider {
 			values.push(id);
 		}
 		return this.run(`
-			INSERT INTO ${sanitizeKeyName(table)} (${keys.map(sanitizeKeyName).join(", ")})
-			VALUES (${Array.from({ length: keys.length }, (__, i) => `$${i + 1}`).join(", ")});`, values);
+                        INSERT INTO ${sanitizeKeyName(table)} (${keys.map(sanitizeKeyName).join(", ")})
+                        VALUES (${Array.from({ length: keys.length }, (__, i) => `$${i + 1}`).join(", ")});`, values);
 	}
 
 	update(table, id, data) {
 		const [keys, values] = this.parseUpdateInput(data, false);
 		return this.run(`
-			UPDATE ${sanitizeKeyName(table)}
-			SET ${keys.map((key, i) => `${sanitizeKeyName(key)} = $${i + 1}`)}
-			WHERE id = '${id.replace(/'/, "''")}';`, values);
+                        UPDATE ${sanitizeKeyName(table)}
+                        SET ${keys.map((key, i) => `${sanitizeKeyName(key)} = $${i + 1}`)}
+                        WHERE id = '${id.replace(/'/, "''")}';`, values);
 	}
 
 	replace(...args) {
@@ -153,7 +156,6 @@ module.exports = class extends SQLProvider {
 	}
 
 	addColumn(table, piece) {
-		if (!(piece instanceof Schema)) throw new TypeError("Invalid usage of PostgreSQL#addColumn. Expected a SchemaPiece or SchemaFolder instance.");
 		return this.run(piece.type !== "Folder" ?
 			`ALTER TABLE ${sanitizeKeyName(table)} ADD COLUMN ${this.qb.parse(piece)};` :
 			`ALTER TABLE ${sanitizeKeyName(table)} ${[...piece.values(true)].map(subpiece => `ADD COLUMN ${this.qb.parse(subpiece)}`).join(", ")};`);
@@ -170,6 +172,15 @@ module.exports = class extends SQLProvider {
 		return this.run(`ALTER TABLE ${sanitizeKeyName(table)} ALTER COLUMN ${column} TYPE ${datatype}${piece.default ?
 			`, ALTER COLUMN ${column} SET NOT NULL, ALTER COLUMN ${column} SET DEFAULT ${this.qb.parseValue(piece.default, piece)}` : ""
 		};`);
+	}
+
+	getColumns(table, schema = "public") {
+		return this.runAll(`
+                        SELECT column_name
+                        FROM information_schema.columns
+                        WHERE table_schema = $1
+                                AND table_name = $2;
+                `, [schema, table]).then(result => result.map(row => row.column_name));
 	}
 
 	run(...sql) {

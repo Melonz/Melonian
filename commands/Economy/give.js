@@ -27,14 +27,14 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [moneytogive, user]) {
-		if (message.author.configs.won < 0) {
-			message.author.configs.update("won", 0);
+		if (message.author.settings.get("won") < 0) {
+			message.author.settings.update("won", 0);
 		}
 
 		const configuration = require("../../config.json");
-		if (moneytogive <= message.author.configs.won) {
-			await message.author.configs.update("won", message.author.configs.won - moneytogive);
-			await user.configs.update("won", user.configs.won + moneytogive);
+		if (moneytogive <= message.author.settings.get("won")) {
+			await message.author.settings.update("won", message.author.settings.get("won") - moneytogive);
+			await user.settings.update("won", user.settings.get("won") + moneytogive);
 			await message.channel.send({
 				embed: {
 					color: 0x00FF00,
@@ -42,7 +42,7 @@ module.exports = class extends Command {
 						name: `Sent money successfully`,
 						icon_url: `${message.author.avatarURL()}`,
 					},
-					description: `You sent \`${moneytogive}\`₩ to <@${user.id}>! (you now have ${message.author.configs.won})`,
+					description: `You sent \`${moneytogive}\`₩ to <@${user.id}>! (you now have ${message.author.settings.get("won")})`,
 					footer: {
 						text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
 					},

@@ -40,19 +40,19 @@ module.exports = class extends Command {
 					url: "https://melonian.xyz",
 					fields: [{
 						name: "mod_role",
-						value: `${message.channel.guild.configs.roles.mod}`,
+						value: `${message.channel.guild.settings.get("mod")}`,
 						inline: true,
 					}, {
 						name: "admin_role",
-						value: `${message.channel.guild.configs.roles.admin}`,
+						value: `${message.channel.guild.settings.get("admin")}`,
 						inline: true,
 					}, {
 						name: "prefix",
-						value: `${message.channel.guild.configs.prefix}`,
+						value: `${message.channel.guild.settings.get("prefix")}`,
 						inline: true,
 					}, {
 						name: "public",
-						value: `since i'm lazy you'll have to configure this on the website (melonian.xyz)`,
+						value: `Since I'm lazy, you'll have to configure this on the website (melonian.melonz.app).`,
 						inline: true,
 					}],
 					footer: {
@@ -64,14 +64,14 @@ module.exports = class extends Command {
 			if (key != "mod_role" && key != "admin_role" && key != "prefix") {
 				await message.channel.send(":x: You did not define a valid setting name to use.");
 			} else if (key === "mod_role") {
-				await message.channel.guild.configs.update("roles.mod", valueRole);
+				await message.channel.guild.settings.update("mod", valueRole);
 				await message.channel.send(":ballot_box_with_check: Made that role the moderator role successfully.");
 			} else if (key === "admin_role") {
-				await message.channel.guild.configs.update("roles.admin", valueRole);
+				await message.channel.guild.settings.update("admin", valueRole);
 				await message.channel.send(":ballot_box_with_check: Made that role the admin role successfully.");
 			} else if (key === "prefix") {
-				await message.channel.guild.configs.update("prefix", valueStr);
-				await message.channel.send(`:ballot_box_with_check: The prefix in this server is now ${message.channel.guild.configs.prefix}.`);
+				await message.channel.guild.settings.update("prefix", valueStr);
+				await message.channel.send(`:ballot_box_with_check: The prefix in this server is now ${message.channel.guild.settings.get("prefix")}.`);
 			}
 		}
 	}

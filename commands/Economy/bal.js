@@ -41,7 +41,7 @@ module.exports = class extends Command {
 						icon_url: `${message.author.avatarURL()}`,
 					},
 					url: "https://melonian.xyz",
-					description: `You currently have ${message.author.configs.won}₩.`,
+					description: `You currently have ${message.author.settings.get("won")}₩.`,
 					footer: {
 						text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
 					},
@@ -56,7 +56,7 @@ module.exports = class extends Command {
 						icon_url: `${User.avatarURL()}`,
 					},
 					url: "https://melonian.xyz",
-					description: `<@${User.id}> currently has ${User.configs.won}₩.`,
+					description: `<@${User.id}> currently has ${User.settings.get("won")}₩.`,
 					footer: {
 						text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
 					},
@@ -64,8 +64,8 @@ module.exports = class extends Command {
 			});
 		}
 
-		if (message.author.configs.won < 0) {
-			message.author.configs.update("won", 0);
+		if (message.author.settings.get("won") < 0) {
+			message.author.settings.update("won", 0);
 		}
 	}
 

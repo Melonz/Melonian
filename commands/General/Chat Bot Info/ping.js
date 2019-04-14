@@ -33,7 +33,7 @@ module.exports = class extends Command {
 			embed: {
 				color: 0x00FF00,
 				title: "Pong!",
-				description: `Last heartbeat: ${Math.floor(this.client.ping)}ms`,
+				description: `Last heartbeat: ${(m.editedTimestamp || m.createdTimestamp) - (message.editedTimestamp || message.createdTimestamp)}ms`,
 				footer: {
 					text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
 				},

@@ -1,5 +1,9 @@
-const { Command, util } = require("klasa");
+const { Command, RichDisplay, util, util: { isFunction }, ReactionHandler } = require("klasa");
+const { MessageEmbed, Permissions } = require("discord.js");
 const Configuration = require("../../../config.json");
+
+const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
+const time = 1000 * 60 * 3;
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -25,71 +29,65 @@ module.exports = class extends Command {
 			quotedStringSupport: false,
 			subcommands: false,
 		});
+
+		this.createCustomResolver("command", (arg, possible, message) => {
+			if (!arg || arg === "") return undefined;
+			return this.client.arguments.get("command").run(arg, possible, message);
+		});
+
+		// Cache the handlers
+		this.handlers = new Map();
 	}
 
 	async run(message, [command]) {
 		if (command) {
-			await message.channel.send({
-				embed: {
-					color: 0x17a2b8,
-					title: `:information_source: Help for command ${Configuration.prefix}${command.name}`,
-					fields: [{
-						name: "Basic description",
-						value: util.isFunction(command.description) ? command.description(message) : command.description,
-						inline: true,
-					}, {
-						name: "Full description (extended help)",
-						value: util.isFunction(command.extendedHelp) ? command.extendedHelp(message) : command.extendedHelp,
-						inline: true,
-					}, {
-						name: "Usage",
-						value: command.usage.fullUsage(message),
-						inline: true,
-					}],
-					footer: {
-						text: `${this.client.user.username} v${Configuration.version} powered by Melonian`,
-					},
-				},
-			});
+			const { prefix } = message.guildSettings;
+			const embed = new MessageEmbed()
+				.setColor(0x17a2b8)
+				.setTitle(`:information_source: Help for command ${prefix}${command.name}`)
+				.addField("Basic description", isFunction(command.description) ? command.description(message.language) : command.description, true)
+				.addField("Extended help", isFunction(command.extendedHelp) ? command.description(message.language) : command.extendedHelp, true)
+				.addField("Usage", command.usage.fullUsage(message), true)
+				.setFooter("Melonian v0.8.0");
+			return message.send(embed);
 		}
 
-		// Because all this stuff is pretty complex, I'm leaving this until I get better at Klasa.
-		const help = await this.buildHelp(message);
-		const categories = Object.keys(help);
 		const method = this.client.user.bot ? "author" : "channel";
-		const helpMessage = [];
-		for (let cat = 0; cat < categories.length; cat++) {
-			helpMessage.push(`**${categories[cat]} Commands**:`, "```asciidoc");
-			const subCategories = Object.keys(help[categories[cat]]);
-			for (let subCat = 0; subCat < subCategories.length; subCat++) helpMessage.push(`= ${subCategories[subCat]} =`, `${help[categories[cat]][subCategories[subCat]].join("\n")}\n`);
-			helpMessage.push("```", "\u200b");
-		}
-
-		return message[method].send(helpMessage, { split: { char: "\u200b" } })
-			.then(() => { if (message.channel.type !== "dm" && this.client.user.bot) message.send(`:ballot_box_with_check: Sent help to your DMs.`); })
-			.catch(() => { if (message.channel.type !== "dm" && this.client.user.bot) message.send(`:x: Couldn't send help to your DMs! Try enabling "Allow direct messages from server members" in Privacy Settings on this server.`); });
+		return message[method].send(await this.buildHelp(message), { split: { char: "\n" } })
+			.then(() => { if (message.channel.type !== "dm" && this.client.user.bot) message.sendMessage(":mailbox_with_mail: Check your DMs for help."); })
+			.catch(() => { if (message.channel.type !== "dm" && this.client.user.bot) message.sendMessage(":x: I can't DM you! Unblock me or allow DMs from me to get help."); });
 	}
 
-	// Taken from Klasa help ofc
 	async buildHelp(message) {
-		const help = {};
+		const commands = await this._fetchCommands(message);
+		const { prefix } = message.guildSettings;
 
-		const commandNames = [...this.client.commands.keys()];
-		const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+		const helpMessage = [];
+		for (const [category, list] of commands) {
+			helpMessage.push(`**__${category} Commands__**:\n`, list.map(this.formatCommand.bind(this, message, prefix, false)).join("\n"), "");
+		}
 
-		await Promise.all(this.client.commands.map(command =>
-			this.client.inhibitors.run(message, command, true)
-				.then(() => {
-					if (!help.hasOwnProperty(command.category)) help[command.category] = {};
-					if (!help[command.category].hasOwnProperty(command.subCategory)) help[command.category][command.subCategory] = [];
-					const description = typeof command.description === "function" ? command.description(message) : command.description;
-					help[command.category][command.subCategory].push(`${message.guildConfigs.prefix}${command.name.padEnd(longest)} :: ${description}`);
-				})
-				.catch(() => {
-					// noop
-				})
+		return helpMessage.join("\n");
+	}
+
+	formatCommand(message, prefix, richDisplay, command) {
+		const description = isFunction(command.description) ? command.description(message.language) : command.description;
+		return richDisplay ? `- ${prefix}${command.name} → ${description}` : `- **${prefix}${command.name}** → ${description}`;
+	}
+
+	async _fetchCommands(message) {
+		const run = this.client.inhibitors.run.bind(this.client.inhibitors, message);
+		const commands = new Map();
+		await Promise.all(this.client.commands.map(command => run(command, true)
+			.then(() => {
+				const category = commands.get(command.category);
+				if (category) category.push(command);
+				else commands.set(command.category, [command]);
+			}).catch(() => {
+				// Noop
+			})
 		));
 
-		return help;
+		return commands;
 	}
 };

@@ -36,15 +36,14 @@ module.exports = class extends Command {
 			message.channel.send("Sorry, but Discord's guidelines don't allow us to show you posts with the tags `lolita` or `shota`.");
 			return;
 		}
-		
+
 		let tagarray = Tags.split(" ");
 		tagarray.push("-lolita", "-shota");
-		
+
 		booru.search("rule34.xxx", tagarray, { limit: 1, random: true })
 			.then(booru.commonfy)
 			.then(images => {
 				for (let image of images) {
-
 					let imgRating = "";
 					if (image.rating === "s") {
 						imgRating = "Safe";

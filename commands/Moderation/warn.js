@@ -1,3 +1,4 @@
+/* Commented out until I figure this out.
 const { Command } = require("klasa");
 
 module.exports = class extends Command {
@@ -65,4 +66,4 @@ module.exports = class extends Command {
 			await message.channel.send(`:x: You don't have permission to run this command. Believe this is an error? Get a person with the Manage Server permission to run ${configuration.prefix}config to check the roles.`);
 		}
 	}
-};
+}; */

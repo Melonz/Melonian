@@ -28,7 +28,7 @@ module.exports = class extends Command {
 
 	async run(message, [usertogive]) {
 		const configuration = require("../../config.json");
-		const timeUntilCollection = message.author.configs.nextDailyCollection - Date.now();
+		const timeUntilCollection = message.author.settings.get("nextDailyCollection") - Date.now();
 		if (usertogive === null || usertogive === undefined) {
 			if (timeUntilCollection > 0) {
 				await message.channel.send({
@@ -45,11 +45,11 @@ module.exports = class extends Command {
 					},
 				});
 			} else if (timeUntilCollection <= 0 && timeUntilCollection >= -86400000) {
-				await message.author.configs.update("dailyStreak", message.author.configs.dailyStreak + 1);
-				let determineStreakWon = 25 * message.author.configs.dailyStreak;
+				await message.author.settings.update("dailyStreak", message.author.settings.get("dailyStreak") + 1);
+				let determineStreakWon = 25 * message.author.settings.get("dailyStreak");
 				determineStreakWon += 100;
-				await message.author.configs.update("won", message.author.configs.won + determineStreakWon);
-				await message.author.configs.update("nextDailyCollection", Date.now() + 86400000);
+				await message.author.settings.update("won", message.author.settings.get("won") + determineStreakWon);
+				await message.author.settings.update("nextDailyCollection", Date.now() + 86400000);
 				await message.channel.send({
 					embed: {
 						color: 0x00FF00,
@@ -57,16 +57,16 @@ module.exports = class extends Command {
 							name: `Your daily`,
 							icon_url: `${message.author.avatarURL()}`,
 						},
-						description: `☑ Successfully collected your daily won (you got \`+ ${determineStreakWon}₩\` because of your streak of ${message.author.configs.dailyStreak})!`,
+						description: `☑ Successfully collected your daily won (you got \`+ ${determineStreakWon}₩\` because of your streak of ${message.author.settings.get("dailyStreak")})!`,
 						footer: {
 							text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
 						},
 					},
 				});
 			} else if (timeUntilCollection < -86400000) {
-				await message.author.configs.update("dailyStreak", 0);
-				await message.author.configs.update("won", message.author.configs.won + 100);
-				await message.author.configs.update("nextDailyCollection", Date.now() + 86400000);
+				await message.author.settings.update("dailyStreak", 0);
+				await message.author.settings.update("won", message.author.settings.get("won") + 100);
+				await message.author.settings.update("nextDailyCollection", Date.now() + 86400000);
 				await message.channel.send({
 					embed: {
 						color: 0x00FF00,
@@ -97,11 +97,11 @@ module.exports = class extends Command {
 					},
 				});
 			} else if (timeUntilCollection <= 0 && timeUntilCollection >= -86400000) {
-				await message.author.configs.update("dailyStreak", message.author.configs.dailyStreak + 1);
-				let determineStreakWon = 25 * message.author.configs.dailyStreak;
+				await message.author.settings.update("dailyStreak", message.author.settings.get("dailyStreak") + 1);
+				let determineStreakWon = 25 * message.author.settings.get("dailyStreak");
 				determineStreakWon += 100;
-				await usertogive.configs.update("won", message.author.configs.won + determineStreakWon);
-				await message.author.configs.update("nextDailyCollection", Date.now() + 86400000);
+				await usertogive.settings.update("won", usertogive.settings.get("won") + determineStreakWon);
+				await message.author.settings.update("nextDailyCollection", Date.now() + 86400000);
 				await message.channel.send({
 					embed: {
 						color: 0x00FF00,
@@ -109,16 +109,16 @@ module.exports = class extends Command {
 							name: `Gifting daily`,
 							icon_url: `${message.author.avatarURL()}`,
 						},
-						description: `☑ Successfully gave your daily won to <@${usertogive.id}> (you gave ${usertogive.username} \`+ ${determineStreakWon}₩\` because of your streak of ${message.author.configs.dailyStreak})!`,
+						description: `☑ Successfully gave your daily won to <@${usertogive.id}> (you gave ${usertogive.username} \`+ ${determineStreakWon}₩\` because of your streak of ${message.author.settings.get("dailyStreak")})!`,
 						footer: {
 							text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
 						},
 					},
 				});
 			} else if (timeUntilCollection < -86400000) {
-				await message.author.configs.update("dailyStreak", message.author.configs.dailyStreak + 1);
-				await usertogive.configs.update("won", message.author.configs.won + 100);
-				await message.author.configs.update("nextDailyCollection", Date.now() + 86400000);
+				await message.author.settings.update("dailyStreak", message.author.settings.get("dailyStreak") + 1);
+				await usertogive.settings.update("won", usertogive.settings.get("won") + 100);
+				await message.author.settings.update("nextDailyCollection", Date.now() + 86400000);
 				await message.channel.send({
 					embed: {
 						color: 0x00FF00,
@@ -135,8 +135,8 @@ module.exports = class extends Command {
 			}
 		}
 
-		if (message.author.configs.won < 0) {
-			message.author.configs.update("won", 0);
+		if (message.author.settings.get("won") < 0) {
+			message.author.settings.update("won", 0);
 		}
 	}
 };

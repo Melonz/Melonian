@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+/* const { Command } = require("klasa");
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -68,4 +68,4 @@ module.exports = class extends Command {
 			},
 		});
 	}
-};
+}; */

@@ -115,11 +115,11 @@ module.exports = class extends Command {
 					inline: true,
 				}, {
 					name: "☑ Melonian Certified",
-					value: `${message.channel.guild.configs.certified}`,
+					value: `${message.channel.guild.settings.get("certified")}`,
 					inline: true,
 				}, {
 					name: "🌍 Public",
-					value: `${message.channel.guild.configs.public}`,
+					value: `${message.channel.guild.settings.get("public")}`,
 					inline: true,
 				}],
 				footer: {

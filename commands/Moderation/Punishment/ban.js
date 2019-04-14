@@ -1,3 +1,5 @@
+/* Commented out until I figure this out.
+
 const { Command } = require("klasa");
 
 module.exports = class extends Command {
@@ -39,7 +41,7 @@ module.exports = class extends Command {
 				// Doesn't work for some reason — message.channel.guild.configs.update("strikes", { id: randomid, user: memberToBan, reason: reason || "No reason", type: "kick", striker: message.member });
 				memberToBan.ban({ days: deleteDays || 0, reason: reason }).then(() => {
 					message.channel.send(`:ballot_box_with_check: Banned user ${memberToBan.user.tag} successfully.`);
-				}, (error) => {
+				}, error => {
 					if (error.name === "DiscordAPIError" && error.message === "Privilege is too low...") {
 						message.channel.send(`:x: Failed to ban user ${memberToBan.user.tag} (I don't have permission!)`);
 					} else {
@@ -64,12 +66,10 @@ module.exports = class extends Command {
 			await message.channel.send(`None of your roles are set up. Please type ${configuration.prefix} to configure them.`);
 		} else if (message.channel.guild.configs.roles.admin != null && message.member.roles.find(m => m.id === message.channel.guild.configs.roles.admin).name != undefined) {
 			doThing();
-			return;
 		} else if (message.channel.guild.configs.roles.mod != null && message.member.roles.find(m => m.id === message.channel.guild.configs.roles.mod).name != undefined) {
 			doThing();
-			return;
 		} else {
 			await message.channel.send(`:x: You don't have permission to run this command. Believe this is an error? Get a person with the Manage Server permission to run ${configuration.prefix}config to check the roles.`);
 		}
 	}
-};
+}; */
