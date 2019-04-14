@@ -57,24 +57,24 @@
 			</form>
 			<hr />
 			<div class="columns is-multiline is-centered">
-			<% for (var i in bot.guilds.filter(m => m.configs.public === true).array()) { %>
+			<% for (var i in bot.guilds.filter(m => m.settings.get('public') === true).array()) { %>
 					<div class="column is-one-third">
 						<div class="card">
 						  <div class="card-content">
 							<div class="media">
 							  <div class="media-left">
 								<figure class="image is-64x64">
-								  <img style="border-radius: .5rem;" src="<%= bot.guilds.filter(m => m.configs.public === true).array()[i].iconURL() %>">
+								  <img style="border-radius: .5rem;" src="<%= bot.guilds.filter(m => m.settings.get('public') === true).array()[i].iconURL() %>">
 								</figure>
 							  </div>
 							  <div class="media-content">
-								<p class="title is-4" style="margin-bottom: .9rem;"><%= bot.guilds.filter(m => m.configs.public === true).array()[i].name %></p>
+								<p class="title is-4" style="margin-bottom: .9rem;"><%= bot.guilds.filter(m => m.settings.get('public') === true).array()[i].name %></p>
 								<div class="tags" style="margin-left: 0px;">
-									<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.certified) { %>
+									<% if (bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('certified')) { %>
 										<span class="tag is-small is-melonian" style="font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
 									<% } %>
 									
-									<% if (authUser && bot.guilds.filter(m => m.configs.public === true).array()[i].ownerID === authUser.id) { %>
+									<% if (authUser && bot.guilds.filter(m => m.settings.get('public') === true).array()[i].ownerID === authUser.id) { %>
 										<span class="tag is-small is-success" style="font-weight: normal;"><i class="fas fa-user-shield" style="margin-right: 5px;"></i> Owner</span>
 									<% } %>
 								</div>
@@ -82,26 +82,26 @@
 							</div>
 
 							<div class="content">
-								<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc != " ") { %>
-									<p><%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverDesc %></p>
+								<% if (bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('serverDesc') != "" && bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('serverDesc') != " ") { %>
+									<p><%= bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('serverDesc') %></p>
 								<% } else { %>
 									<p><i>This server has no description.</i></p>
 								<% } %>
 							</div>
 						  </div>
 						  <footer class="card-footer">
-							<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv != null) { %>
-									<a href="https://discord.gg/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.serverInv %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
+							<% if (bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('serverInv') != "" && bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('serverInv') != null) { %>
+									<a href="https://discord.gg/<%= bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('serverInv') %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
 								<% } else { %>
 									<p class="has-text-grey-lighter card-footer-item"><i>The invite link is not set up.</i></p>
 							<% } %>
 							
-							<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite != null) { %>
-									<a href="<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botSite %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
+							<% if (bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('botSite') != "" && bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('botSite') != null) { %>
+									<a href="<%= bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('botSite') %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
 							<% } %>
 							
-							<% if (bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != "" && bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter != null) { %>
-									<a href="https://twitter.com/<%= bot.guilds.filter(m => m.configs.public === true).array()[i].configs.botTwitter %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
+							<% if (bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('botTwitter') != "" && bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('botTwitter') != null) { %>
+									<a href="https://twitter.com/<%= bot.guilds.filter(m => m.settings.get('public') === true).array()[i].settings.get('botTwitter') %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
 							<% } %>
 						  </footer>
 						</div>
@@ -119,7 +119,7 @@
 				<b>Search result for "<%= q %>"</b>
 			  </h1>
 			  <h2 class="subtitle" style="color: #dedede !important;">
-				<% let thefilter = bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())); %>
+				<% let thefilter = bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())); %>
 				<% if (thefilter.size === 1) { %>
 					<%= thefilter.size %> result
 				<% } else if (thefilter.size === 0) { %>
@@ -141,24 +141,24 @@
 			</form>
 			<hr />
 			<div class="columns is-multiline is-centered">
-			<% for (var i in bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()) { %>
+			<% for (var i in bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()) { %>
 					<div class="column is-one-third">
 						<div class="card">
 						  <div class="card-content">
 							<div class="media">
 							  <div class="media-left">
 								<figure class="image is-64x64">
-								  <img style="border-radius: .5rem;" src="<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].iconURL() %>">
+								  <img style="border-radius: .5rem;" src="<%= bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].iconURL() %>">
 								</figure>
 							  </div>
 							  <div class="media-content">
-								<p class="title is-4" style="margin-bottom: .9rem;"><%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].name %></p>
+								<p class="title is-4" style="margin-bottom: .9rem;"><%= bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].name %></p>
 								<div class="tags" style="margin-left: 0px;">
-									<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.certified) { %>
+									<% if (bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('certified')) { %>
 										<span class="tag is-small is-melonian" style="font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
 									<% } %>
 									
-									<% if (authUser && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].ownerID === authUser.id) { %>
+									<% if (authUser && bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].ownerID === authUser.id) { %>
 										<span class="tag is-small is-success" style="font-weight: normal;"><i class="fas fa-user-shield" style="margin-right: 5px;"></i> Owner</span>
 									<% } %>
 								</div>
@@ -166,26 +166,26 @@
 							</div>
 
 							<div class="content">
-								<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverDesc != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverDesc != " ") { %>
-									<p><%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverDesc %></p>
+								<% if (bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('serverDesc') != "" && bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('serverDesc') != " ") { %>
+									<p><%= bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('serverDesc') %></p>
 								<% } else { %>
 									<p><i>This server has no description.</i></p>
 								<% } %>
 							</div>
 						  </div>
 						  <footer class="card-footer">
-							<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverInv != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverInv != null) { %>
-									<a href="https://discord.gg/<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.serverInv %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
+							<% if (bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('serverInv') != "" && bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('serverInv') != null) { %>
+									<a href="https://discord.gg/<%= bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('serverInv') %>" class="card-footer-item"><i class="fab fa-discord" style="margin-right: 5px;"></i> Join server</a>
 								<% } else { %>
 									<p class="has-text-grey-lighter card-footer-item"><i>The invite link is not set up.</i></p>
 							<% } %>
 							
-							<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botSite != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botSite != null) { %>
-									<a href="<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botSite %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
+							<% if (bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('botSite') != "" && bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('botSite') != null) { %>
+									<a href="<%= bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('botSite') %>" class="card-footer-item"><i class="fas fa-globe" style="margin-right: 5px;"></i> Website</a>
 							<% } %>
 							
-							<% if (bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botTwitter != "" && bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botTwitter != null) { %>
-									<a href="https://twitter.com/<%= bot.guilds.filter(m => m.configs.public === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].configs.botTwitter %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
+							<% if (bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('botTwitter') != "" && bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('botTwitter') != null) { %>
+									<a href="https://twitter.com/<%= bot.guilds.filter(m => m.settings.get('public') === true && m.name.toLowerCase().includes(q.toLowerCase())).array()[i].settings.get('botTwitter') %>" class="card-footer-item"><i class="fab fa-twitter" style="margin-right: 5px;"></i> Twitter</a>
 							<% } %>
 						  </footer>
 						</div>

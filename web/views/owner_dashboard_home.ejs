@@ -60,7 +60,7 @@
 			<% for (var i in bot.guilds.array()) { %>
 				<tr>
 					<th style="vertical-align: middle;"><%= bot.guilds.array()[i].name %>
-						<% if (bot.guilds.array()[i].configs.certified) { %>
+						<% if (bot.guilds.array()[i].settings.get('certified')) { %>
 							<span class="tag is-small is-melonian" style="margin-left: 5px; font-weight: normal;"><i class="fas fa-shield-check" style="margin-right: 5px;"></i> Certified</span>
 						<% } %>
 					</th>
@@ -78,7 +78,7 @@
 						<a class="button is-melonian is-small" href="/owner-dashboard/configure/?s=<%= bot.guilds.array()[i].id %>">Configure</a>
 					</td>
 					<td style="vertical-align: middle;">
-						<% if (bot.guilds.array()[i].configs.certified) { %>
+						<% if (bot.guilds.array()[i].settings.get('certified')) { %>
 							<form name="frmquick" method="POST" action="/owner-dashboard/applySettings">
 								<input type="hidden" name="s" value="<%= bot.guilds.array()[i].id %>">
 								<input type="hidden" name="makeCertified" value="off">
