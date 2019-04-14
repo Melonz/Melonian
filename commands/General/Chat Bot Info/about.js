@@ -32,7 +32,7 @@ module.exports = class extends Command {
 			embed: {
 				color: 0x00FF00,
 				title: "About Melonian",
-				description: `Melonian is a lightweight-ish Discord.js bot, designed to be packed with features, versatile, and easily self-hostable. The bot you're using, ${this.client.user.username}, is powered by Melonian.\n\nCheck it out at [melonian.xyz](https://melonian.xyz).\n\nFor updates and other status info on Melonian, [follow @melonianbot on Twitter](https://twitter.com/melonianbot).\n\nMelonian also has a listing on Discord Bot List (discordbots.org) right [here](https://discordbots.org/bot/236987731232686081)! Whoever votes will get \`100₩\`!`,
+				description: `Melonian is a lightweight-ish Discord.js bot, designed to be packed with features, versatile, and easily self-hostable. The bot you're using, ${this.client.user.username}, is powered by Melonian.\n\nCheck it out at [**melonian.melonz.app**](https://melonian.melonz.app).\n\nFor updates and other status info on Melonian, [follow @melonianbot on Twitter](https://twitter.com/melonianbot).\n\nMelonian also has a listing on Discord Bot List (discordbots.org) right [here](https://discordbots.org/bot/236987731232686081)! Whoever votes will get \`100₩\`!`,
 				footer: {
 					text: `${this.client.user.username} v${configuration.version} powered by Melonian`,
 				},
