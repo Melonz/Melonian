@@ -14,6 +14,6 @@ module.exports = class extends Event {
 
 		web(this.client, configuration);
 
-		await this.client.user.setActivity(`with ${this.client.users.size} people on ${this.client.guilds.size} servers! Learn more at melonian.xyz.`, { type: "PLAYING" });
+		await this.client.user.setActivity(`with ${this.client.users.cache.size} people on ${this.client.guilds.cache.size} servers! Learn more at (nowhere).`, { type: "PLAYING" });
 	}
 };

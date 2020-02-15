@@ -26,6 +26,7 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [msgToSay]) {
+		await message.delete();
 		await message.channel.send(msgToSay);
 	}
 };

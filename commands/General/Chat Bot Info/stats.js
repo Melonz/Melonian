@@ -49,15 +49,15 @@ module.exports = class extends Command {
 					inline: true,
 				}, {
 					name: "Users",
-					value: `${this.client.users.size}`,
+					value: `${this.client.users.cache.size}`,
 					inline: true,
 				}, {
 					name: "Servers",
-					value: `${this.client.guilds.size}`,
+					value: `${this.client.guilds.cache.size}`,
 					inline: true,
 				}, {
 					name: "Text channels",
-					value: `${this.client.channels.filter(c => c.type === "text").size}`,
+					value: `${this.client.channels.cache.filter(c => c.type === "text").size}`,
 					inline: true,
 				}, {
 					name: "Node.js version",

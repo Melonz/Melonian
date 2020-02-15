@@ -34,11 +34,11 @@ module.exports = class extends Command {
 		let rolestring = "";
 
 		function getRoles(memberobj) {
-			for (let r in memberobj.roles.array()) {
-				if (Number(r) === memberobj.roles.array().length - 1) {
-					rolestring += `and ${memberobj.roles.array()[r].name}`;
+			for (let r in memberobj.roles.cache.array()) {
+				if (Number(r) === memberobj.roles.cache.array().length - 1) {
+					rolestring += `and ${memberobj.roles.cache.array()[r].name}`;
 				} else {
-					rolestring += `${memberobj.roles.array()[r].name}, `;
+					rolestring += `${memberobj.roles.cache.array()[r].name}, `;
 				}
 			}
 			return rolestring;
@@ -74,6 +74,10 @@ module.exports = class extends Command {
 						value: `${User.bot}`,
 						inline: true,
 					}, {
+						name: "👑 Owner?",
+						value: `${message.guild.ownerID === User.id}`,
+						inline: true,
+					}, {
 						name: "📆 Date created",
 						value: `${new Date(User.createdAt).toString()}`,
 						inline: true,
@@ -92,7 +96,7 @@ module.exports = class extends Command {
 				},
 			});
 		} else {
-			const User = this.client.users.find(m => m.id === Member.id);
+			const User = this.client.users.cache.find(m => m.id === Member.id);
 
 			await message.channel.send({
 				embed: {
@@ -109,6 +113,10 @@ module.exports = class extends Command {
 					}, {
 						name: "🤖 Bot?",
 						value: `${User.bot}`,
+						inline: true,
+					}, {
+						name: "👑 Owner?",
+						value: `${message.guild.ownerID === User.id}`,
 						inline: true,
 					}, {
 						name: "📆 Date created",

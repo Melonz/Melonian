@@ -63,9 +63,9 @@ module.exports = class extends Command {
 							if (voted) {
 								message.author.settings.update("won", message.author.settings.get("won") + 200);
 								message.author.settings.update("nextVoteCollection", Date.now() + 43200000);
-								message.channel.send(`:ballot_box_with_check: Thanks for voting on discordbots.org! Here's 200₩! (You can vote every 12 hours [you can only claim this reward 12 hours after you last claimed one])\n\n*Not ${message.author.tag}? Want to vote? After all, it is the weekend! You get 200 won instead of 100! Go here: https://discordbots.org/bot/236987731232686081/vote`);
+								message.channel.send(`:ballot_box_with_check: Thanks for voting on top.gg! Here's 200₩! (You can vote every 12 hours [you can only claim this reward 12 hours after you last claimed one])\n\n*Not ${message.author.tag}? Want to vote? After all, it is the weekend! You get 200 won instead of 100! Go here: https://top.gg/bot/236987731232686081/vote`);
 							} else {
-								message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
+								message.channel.send(`:x: You didn't vote! Go to https://top.gg/bot/236987731232686081/vote and do so.`);
 							}
 						});
 					}
@@ -90,9 +90,9 @@ module.exports = class extends Command {
 							if (voted) {
 								message.author.settings.update("won", message.author.settings.get("won") + 100);
 								message.author.settings.update("nextVoteCollection", Date.now() + 43200000);
-								message.channel.send(`:ballot_box_with_check: Thanks for voting on discordbots.org! Here's 100₩! (You can vote every 12 hours [you can only claim this reward 12 hours after you last claimed one])\n\n*Not ${message.author.tag}? Want to vote? Go here: https://discordbots.org/bot/236987731232686081/vote`);
+								message.channel.send(`:ballot_box_with_check: Thanks for voting on top.gg! Here's 100₩! (You can vote every 12 hours [you can only claim this reward 12 hours after you last claimed one])\n\n*Not ${message.author.tag}? Want to vote? Go here: https://top.gg/bot/236987731232686081/vote`);
 							} else {
-								message.channel.send(`:x: You didn't vote! Go to https://discordbots.org/bot/236987731232686081/vote and do so.`);
+								message.channel.send(`:x: You didn't vote! Go to https://top.gg/bot/236987731232686081/vote and do so.`);
 							}
 						});
 					}

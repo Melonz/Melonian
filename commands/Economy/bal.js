@@ -11,7 +11,7 @@ module.exports = class extends Command {
 			runIn: ["text", "dm"],
 			requiredPermissions: [],
 			requiredSettings: [],
-			aliases: ["balance", "money"],
+			aliases: ["balance", "money", "won"],
 			autoAliases: true,
 			bucket: 1,
 			cooldown: 0,

@@ -36,11 +36,11 @@ module.exports = class extends Command {
 
 		let rolestring = "";
 		function getRoles(memberobj) {
-			for (let r in memberobj.roles.array()) {
-				if (Number(r) === memberobj.roles.array().length - 1) {
-					rolestring += `and ${memberobj.roles.array()[r].name}`;
+			for (let r in memberobj.roles.cache.array()) {
+				if (Number(r) === memberobj.roles.cache.array().length - 1) {
+					rolestring += `and ${memberobj.roles.cache.array()[r].name}`;
 				} else {
-					rolestring += `${memberobj.roles.array()[r].name}, `;
+					rolestring += `${memberobj.roles.cache.array()[r].name}, `;
 				}
 			}
 			return rolestring;
@@ -91,7 +91,7 @@ module.exports = class extends Command {
 					inline: true,
 				}, {
 					name: "👥 Members",
-					value: `${message.channel.guild.members.size} (${message.channel.guild.members.filter(m => m.user.bot === false).size} humans, ${message.channel.guild.members.filter(m => m.user.bot === true).size} bots)`,
+					value: `${message.channel.guild.members.cache.size} (${message.channel.guild.members.cache.filter(m => m.user.bot === false).size} humans, ${message.channel.guild.members.cache.filter(m => m.user.bot === true).size} bots)`,
 					inline: true,
 				}, {
 					name: "📆 Date created",
@@ -107,7 +107,7 @@ module.exports = class extends Command {
 					inline: true,
 				}, {
 					name: "💬 Channels",
-					value: `${message.channel.guild.channels.size} channels (${message.channel.guild.channels.filter(m => m.type === "text").size} text and ${message.channel.guild.channels.filter(m => m.type === "voice").size} voice, in ${message.channel.guild.channels.filter(m => m.type === "category").size} categories)`,
+					value: `${message.channel.guild.channels.cache.size} channels (${message.channel.guild.channels.cache.filter(m => m.type === "text").size} text and ${message.channel.guild.channels.cache.filter(m => m.type === "voice").size} voice, in ${message.channel.guild.channels.cache.filter(m => m.type === "category").size} categories)`,
 					inline: true,
 				}, {
 					name: "🔒 Roles",
