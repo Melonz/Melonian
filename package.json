@@ -23,7 +23,7 @@
     "dblapi.js": "^2.1.0",
     "discord.js": "github:hydrabolt/discord.js#master",
     "ejs": "^2.6.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
     "klasa": "github:dirigeants/klasa#master",
     "morgan": "^1.9.1",
